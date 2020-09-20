@@ -14,7 +14,6 @@ code {
 
 .login {
   background: whitesmoke;
-  text-align: center;
   padding: 1em;
   margin: 15% auto;
   width: 350px;
@@ -23,7 +22,6 @@ code {
 
 .register {
   background: whitesmoke;
-  text-align: center;
   padding: 1em 2em 2em 2em;
   margin: 15% auto;
   width: 600px;

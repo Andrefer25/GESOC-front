@@ -1,90 +1,131 @@
 import React, { Component } from "react";
-import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-import { Container, TextField, Button } from "@material-ui/core";
+
+import Container from 'react-bootstrap/Container';
+import Button from 'react-bootstrap/Button';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Form from 'react-bootstrap/Form';
 
 import "./../../assets/css/index.css";
 
-const useStyles = (theme) => ({
-    root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(2),
-        width: 250,
-      },
-    },
-    button: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: 150
-        }
-    }
-});
+// const paises = [
+//     {
+//       value: 'Argentina',
+//       label: 'Argentina',
+//     },
+//     {
+//       value: 'Brasil',
+//       label: 'Brasil',
+//     },
+//     {
+//       value: 'Chile',
+//       label: 'Chile',
+//     },
+//     {
+//       value: 'Colombia',
+//       label: 'Colombia',
+//     },
+// ];
 
-const paises = [
-    {
-      value: 'Argentina',
-      label: 'Argentina',
-    },
-    {
-      value: 'Brasil',
-      label: 'Brasil',
-    },
-    {
-      value: 'Chile',
-      label: 'Chile',
-    },
-    {
-      value: 'Colombia',
-      label: 'Colombia',
-    },
-];
+// const provincias = [
+//     {
+//         value: 'Buenos Aires',
+//         label: 'Buenos Aires',
+//     },
+//     {
+//         value: 'Cordoba',
+//         label: 'Cordoba',
+//     },
+//     {
+//         value: 'Misiones',
+//         label: 'Misiones',
+//     }
+// ];
 
-const provincias = [
-    {
-        value: 'Buenos Aires',
-        label: 'Buenos Aires',
-    },
-    {
-        value: 'Cordoba',
-        label: 'Cordoba',
-    },
-    {
-        value: 'Misiones',
-        label: 'Misiones',
-    }
-];
+// const localidades = [
+//     {
+//         value: 'Martinez',
+//         label: 'Martinez',
+//     },
+//     {
+//         value: 'San Isidro',
+//         label: 'San Isidro',
+//     },
+//     {
+//         value: 'Vicente Lopez',
+//         label: 'Vicente Lopez',
+//     }
+// ];
 
-const localidades = [
-    {
-        value: 'Martinez',
-        label: 'Martinez',
-    },
-    {
-        value: 'San Isidro',
-        label: 'San Isidro',
-    },
-    {
-        value: 'Vicente Lopez',
-        label: 'Vicente Lopez',
-    }
-];
+// const getItems = (ar) => (
+//     ar.map((option) => (
+//         <option key={option.value} value={option.value}>
+//           {option.label}
+//         </option>
+//     ))
+// )
 
-const getItems = (ar) => (
-    ar.map((option) => (
-        <option key={option.value} value={option.value}>
-          {option.label}
-        </option>
-    ))
-)
+function onClickLogin() {
+    localStorage.setItem('user', 'Admin');
+    window.location.href='/';
+}
 
 class Register extends Component {
     render () {
-        const { classes } = this.props;
         return (
           <Container maxWidth="sm">
             <div className="register">
                 <h2>Crear cuenta</h2>
-                <form className={classes.root} noValidate autoComplete="off">
+                <Form.Group controlId="formBasicEmail">
+                    <Row md={2} xs={1}>
+                        <Col>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control type="text" placeholder="Nombre" />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control type="text" placeholder="Nombre" />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control type="text" placeholder="Nombre" />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control type="text" placeholder="Nombre" />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control type="text" placeholder="Nombre" />
+                            </Form.Group>
+                        </Col>
+                        <Col>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Label>Nombre</Form.Label>
+                                <Form.Control type="text" placeholder="Nombre" />
+                            </Form.Group>
+                        </Col>
+                    </Row>
+                    <div>
+                        <Button variant="primary" onClick = {onClickLogin}>
+                            Registrarse
+                        </Button>
+                        <Button variant="secondary">
+                            <Link to="/login" style={{ textDecoration: "none", color: "white" }}>Cancelar</Link>
+                        </Button>
+                    </div>
+                </Form.Group>
+                {/* <form noValidate autoComplete="off">
                     <TextField
                         label="Nombre"
                         variant="outlined"
@@ -168,19 +209,19 @@ class Register extends Component {
                     />
                     <br/>
                     <br/>
-                    <div className={classes.button}>
-                        <Button variant="contained" color="primary" >
+                    <div>
+                        <Button variant="primary">
                             Registrarse
                         </Button>
-                        <Button variant="contained" color="secondary">
+                        <Button variant="secondary">
                             <Link to="/login" style={{ textDecoration: "none", color: "white" }}>Cancelar</Link>
                         </Button>
                     </div>
-                </form>
+                </form> */}
             </div>
           </Container>
         );
     }
 }
 
-export default withStyles(useStyles)(Register);
+export default Register;
