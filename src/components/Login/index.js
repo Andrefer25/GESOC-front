@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Container from "react-bootstrap/Container";
 
 import "../../assets/css/index.css";
+import UserImage from "../../assets/img/user-image.png";
 
 function onClickLogin() {
     localStorage.setItem('user', 'Admin');
@@ -15,26 +16,23 @@ class Login extends Component {
     return (
       <Container maxWith="sm">
         <div className="login">
-          <h3>Iniciar Sesion</h3>
+        <img className="imageCenterLogin" src={UserImage}></img>
+          <h3 className="loginTitle">Iniciar Sesion</h3>
           <Form>
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
+              <Form.Label>Nombre de usuario</Form.Label>
+              <Form.Control type="text" placeholder="Ingrese nombre de usuario" />
             </Form.Group>
-
             <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control type="password" placeholder="Ingrese su contraseña" />
             </Form.Group>
             <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
+              <Form.Check type="checkbox" label="Recuerdame" />
             </Form.Group>
-            <Button variant="primary" onClick={onClickLogin}>Primary</Button>
+            <Button className="buttonLogin" variant="primary" onClick={onClickLogin}>Loguearse</Button>
           </Form>
-          <div>
+          <div className="linkRegister">
               <p className="pregunta">No tenes cuenta?</p>
               <p className="registerLink"><Link to="/register">Registrate aca</Link></p>
           </div>

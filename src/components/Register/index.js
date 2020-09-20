@@ -76,51 +76,39 @@ class Register extends Component {
         return (
           <Container maxWidth="sm">
             <div className="register">
-                <h2>Crear cuenta</h2>
+                <h2 className="loginTitle">Crear cuenta</h2>
                 <Form.Group controlId="formBasicEmail">
-                    <Row md={2} xs={1}>
+                    <Row md={1}>
                         <Col>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" />
+                                <Form.Label>Nombre de usuario</Form.Label>
+                                <Form.Control className="inputRegister" type="text" placeholder="Ingrese nombre de usuario" />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" />
+                                <Form.Label>Email</Form.Label>
+                                <Form.Control className="inputRegister" type="email" placeholder="Ingrese e-mail" />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" />
+                                <Form.Label>Contraseña</Form.Label>
+                                <Form.Control className="inputRegister" type="text" placeholder="Ingrese una contraseña" />
                             </Form.Group>
                         </Col>
                         <Col>
                             <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" />
-                            </Form.Group>
-                        </Col>
-                        <Col>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Nombre</Form.Label>
-                                <Form.Control type="text" placeholder="Nombre" />
+                                <Form.Label>Repita la contraseña</Form.Label>
+                                <Form.Control className="inputRegister" type="text" placeholder="Ingrese nuevamente la contraseña" />
                             </Form.Group>
                         </Col>
                     </Row>
                     <div>
-                        <Button variant="primary" onClick = {onClickLogin}>
+                        <Button className="buttonRegister" variant="primary" onClick = {onClickLogin}>
                             Registrarse
                         </Button>
-                        <Button variant="secondary">
+                        <Button className="buttonRegisterCancel" variant="secondary">
                             <Link to="/login" style={{ textDecoration: "none", color: "white" }}>Cancelar</Link>
                         </Button>
                     </div>
