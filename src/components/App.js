@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login';
 import Register from './Register';
-import Home from './Site';
+import Site from './Site';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { history } from '../helpers/history';
 import { PrivateRoute } from './../_components/privateRoute';
@@ -14,8 +14,8 @@ function App() {
       <Switch>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
-        <PrivateRoute path="/" component={Home}/>
-        <Redirect from="*" to="/" />
+        <PrivateRoute path="/site" component={Site}/>
+        <Redirect from="*" to="/site" />
       </Switch>
     </Router>
   );
