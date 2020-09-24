@@ -14,8 +14,8 @@ function App() {
       <Switch>
         <Route path="/login" component={Login}/>
         <Route path="/register" component={Register}/>
-        <PrivateRoute path="/site" component={Site}/>
-        <Redirect from="*" to="/site" />
+        <PrivateRoute path="/" component={Site}/>
+        <Redirect from="*" to="/" />
       </Switch>
     </Router>
   );

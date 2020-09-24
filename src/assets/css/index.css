@@ -33,6 +33,10 @@ code {
   margin-right: 1em;
 }
 
+.gesocNav {
+  background-color: rgb(29,29,29);
+}
+
 .home {
   background-color: whitesmoke;
   padding: 1em;
@@ -59,4 +63,13 @@ code {
 .userButton {
   margin-left: 0.5em;
   background-color: violet;
+}
+
+.menuIcon {
+  color: white;
+  font-size: 1.5em;
+}
+
+.menuExpand {
+  display: inline;
 }

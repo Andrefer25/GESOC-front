@@ -1,51 +1,56 @@
 import React from 'react';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
-import { FaTachometerAlt, FaGem, FaGithub, FaRegLaughWink } from 'react-icons/fa';
+import { FaRegLaughWink } from 'react-icons/fa';
+import { BiCollapse, BiExpand, BiHome } from 'react-icons/bi';
+import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 
-const SideNavbar = ({ visible }) => {
+const SideNavbar = ({ collapsed, handleSidebar }) => {
+    const hideSideNavbar = () => {
+        handleSidebar();
+    }
 
     return (
         <div className="sidebar">
             <ProSidebar
             image={false}
-            collapsed={visible}
+            collapsed={collapsed}
             toggled={true}
             breakPoint="md"
             >
                 <SidebarContent>
                     <Menu iconShape="circle">
                         <MenuItem
-                            icon={<FaTachometerAlt />}
+                            icon={<BiHome />}
                         >
-                            <Link to="/site">Home</Link>
+                            <Link to="/">Home</Link>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
-                        <MenuItem icon={<FaGem />}>
-                            <Link to="/site/ingreso">Ingreso</Link>
+                        <MenuItem icon={<BiCollapse />}>
+                            <Link to="/ingreso">Ingresos</Link>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
-                        <MenuItem icon={<FaGem />}>
-                            <Link to="/site/egreso">Egreso</Link>
+                        <MenuItem icon={<BiExpand />}>
+                            <Link to="/egreso">Egresos</Link>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
-                            title="withSuffix"
+                            title="Submenu 1"
                             icon={<FaRegLaughWink />}
                         >
                             <MenuItem>Submenu 1</MenuItem>
                             <MenuItem>Submenu 2</MenuItem>
                             <MenuItem>Submenu 3</MenuItem>
                         </SubMenu>
+                    </Menu>
+                    <Menu iconShape="circle">
                         <SubMenu
-                            suffix={<span className="badge yellow">3</span>}
-                            title="withSuffix"
+                            title="Submenu 2"
                             icon={<FaRegLaughWink />}
                         >
                             <MenuItem>Submenu 1</MenuItem>
@@ -54,24 +59,11 @@ const SideNavbar = ({ visible }) => {
                         </SubMenu>
                     </Menu>
                 </SidebarContent>
-
-                <SidebarFooter style={{ textAlign: 'center' }}>
-                    <div
-                    className="sidebar-btn-wrapper"
-                    style={{
-                        padding: '20px 24px',
-                    }}
-                    >
-                    <a
-                        href="https://github.com/azouaoui-med/react-pro-sidebar"
-                        target="_blank"
-                        className="sidebar-btn"
-                        rel="noopener noreferrer"
-                    >
-                        <FaGithub />
-                        <span>viewSource</span>
-                    </a>
-                    </div>
+                <SidebarFooter>
+                    <Menu iconShape="circle" >
+                        <MenuItem onClick={hideSideNavbar} icon={collapsed? <FiChevronRight className="menuIcon"/> : <FiChevronLeft className="menuIcon"/>}>
+                        </MenuItem>
+                    </Menu>
                 </SidebarFooter>
             </ProSidebar>
         </div>

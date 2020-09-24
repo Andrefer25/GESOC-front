@@ -17,7 +17,7 @@ class Site extends Component {
 
     showSidebar = show => {
         this.setState({
-            visibleSide: show
+            visibleSide: !this.state.visibleSide
         });
     }
 
@@ -27,13 +27,13 @@ class Site extends Component {
                 <Navigation handleSidebar={this.showSidebar} />
                 <Row className="rowSite">
                     <Col className="colSidebar" md="auto">
-                        <SideNavbar handleSidebar={this.showSidebar} visible={this.state.visibleSide} />
+                        <SideNavbar handleSidebar={this.showSidebar} collapsed={this.state.visibleSide} />
                     </Col>
                     <Col>
                         <Switch>
-                            <Route exact path={this.props.match.path} component={Home}/>
-                            <Route path={`${this.props.match.path}/ingresos`} component={Home2}/>
-                            <Route path={`${this.props.match.path}/egresos`} component={Home2}/>
+                            <Route exact path="/" component={Home}/>
+                            <Route path="/ingresos" component={Home2}/>
+                            <Route path="/egresos" component={Home2}/>
                         </Switch>
                     </Col>
                 </Row>
