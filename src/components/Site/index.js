@@ -3,8 +3,10 @@ import { Row, Col } from "react-bootstrap";
 import Navigation from './Nav';
 import SideNavbar from './Sidebar';
 import Home from './Home';
-import Home2 from './Home2';
-import { Route, Switch } from 'react-router-dom';
+import Ingresos from './Ingresos';
+import Egresos from './Egresos';
+import Inbox from './Inbox';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 class Site extends Component {
     
@@ -32,8 +34,10 @@ class Site extends Component {
                     <Col>
                         <Switch>
                             <Route exact path="/" component={Home}/>
-                            <Route path="/ingresos" component={Home2}/>
-                            <Route path="/egresos" component={Home2}/>
+                            <Route path="/ingresos" component={Ingresos}/>
+                            <Route path="/egresos" component={Egresos}/>
+                            <Route path="/bandejaMensajes" component={Inbox}/>
+                            <Redirect from="*" to="/" />
                         </Switch>
                     </Col>
                 </Row>

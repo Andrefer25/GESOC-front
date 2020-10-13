@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Home = () => {
+const Ingresos = () => {
     return (
         <div className="box">
-            <h1>Este es el home</h1>
+            <h1>Ingresos</h1>
 
         </div>
     )
 }
 
-export default Home;
+export default Ingresos;

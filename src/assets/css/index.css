@@ -37,7 +37,7 @@ code {
   background-color: rgb(29,29,29);
 }
 
-.home {
+.box {
   background-color: whitesmoke;
   padding: 1em;
   height: 93.8vh;
@@ -72,4 +72,13 @@ code {
 
 .menuExpand {
   display: inline;
+}
+
+.inboxButton {
+  text-decoration: none;
+  border: none;
+}
+
+.inboxButton:hover {
+  text-decoration: none;
 }

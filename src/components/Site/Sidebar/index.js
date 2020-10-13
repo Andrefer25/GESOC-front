@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import { FaRegLaughWink } from 'react-icons/fa';
-import { BiCollapse, BiExpand, BiHome } from 'react-icons/bi';
+import { BiCollapse, BiExpand, BiHome, BiDollarCircle } from 'react-icons/bi';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -30,12 +30,17 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
                     </Menu>
                     <Menu iconShape="circle">
                         <MenuItem icon={<BiCollapse />}>
-                            <Link to="/ingreso">Ingresos</Link>
+                            <Link to="/ingresos">Ingresos</Link>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">
                         <MenuItem icon={<BiExpand />}>
-                            <Link to="/egreso">Egresos</Link>
+                            <Link to="/egresos">Egresos</Link>
+                        </MenuItem>
+                    </Menu>
+                    <Menu iconShape="circle">
+                        <MenuItem icon={<BiDollarCircle />}>
+                            <Link to="/egresos">Presupuestos</Link>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle">

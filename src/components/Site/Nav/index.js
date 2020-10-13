@@ -1,14 +1,12 @@
 import React from "react";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { Button } from 'primereact/button';
+import UserDropdown from "./UserDropdown";
+import InboxDropdown from "./InboxDropdown";
+
+import './../../../assets/css/index.css';
 
 const Navigation = () => {
-
-  const logOut = () => {
-    localStorage.removeItem("user");
-    window.location.href='/login';
-  }
 
   return (
     <Navbar collapseOnSelect expand="lg" className="gesocNav" variant="dark">
@@ -18,8 +16,8 @@ const Navigation = () => {
         <Nav className="mr-auto">
         </Nav>
         <Nav>
-          <Button type="button" label="Bandeja" icon="pi pi-envelope" className="p-button-info"/>
-          <Button type="button" label="Usuario" icon="pi pi-user" className="p-button-info userButton" onClick={logOut}/>
+          <InboxDropdown />
+          <UserDropdown/>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
