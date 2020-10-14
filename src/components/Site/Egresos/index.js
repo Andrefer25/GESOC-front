@@ -1,11 +1,10 @@
 import React from 'react';
-import Listado from './../../../_components/gridList';
+import ListaEgresos from './ListaEgresos';
 
 const Egresos = () => {
     return (
         <div className="box">
-            <h1>Egresos</h1>
-            <Listado nameList="Egresos" />
+            <ListaEgresos nameList="Egresos" />
         </div>
     )
 }
