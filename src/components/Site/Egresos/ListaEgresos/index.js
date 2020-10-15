@@ -1,30 +1,30 @@
 import React, { Component } from "react";
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import { InputText } from 'primereact/inputtext';
 import { Dropdown } from 'primereact/dropdown';
 import * as Columna from './Columnas';
 import DetalleEgreso from './DetalleEgreso';
+import NuevoEgreso from './NuevoEgreso';
 import EgresoService from './../../../../services/EgresoService';
 import { Calendar } from 'primereact/calendar';
-//import { MultiSelect } from 'primereact/multiselect';
+import { MdAddCircle } from 'react-icons/md';
 
 import './../../../../assets/css/gridList.css';
-
-const service = new EgresoService();
+import { Button } from "reactstrap";
 
 class ListaEgresos extends Component {
     constructor() {
         super();
 
+        this.service = new EgresoService();
         this.state = {
             data: null,
             loading: true,
             selectedDate: null,
-            globalFilter: null,
             selectedStatus: null,
             showDialog: false,
-            selectedData: null
+            selectedData: null,
+            showNewEgreso: false
         }
 
         this.statuses = [
@@ -35,13 +35,21 @@ class ListaEgresos extends Component {
     componentDidMount() {
 
         this.setState({
-            data: service.getEgresos(),
+            data: this.service.getEgresos(),
             loading: false
         })
     }
 
     handleDialog = () => {
         this.setState({ showDialog: false });
+    }
+
+    hideNuevoEgreso = () => {
+        this.setState({ showNewEgreso: false });
+    }
+
+    showNuevoEgreso = () => {
+        this.setState({ showNewEgreso: true });
     }
 
     onDateChange = (e) => {
@@ -65,8 +73,7 @@ class ListaEgresos extends Component {
                     {this.props.nameList}
                 </h1>
                 <span className="p-input-icon-left">
-                    <i className="pi pi-search" />
-                    <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder={`Buscar ${this.props.nameList}`} />
+                    <Button color="primary" onClick={this.showNuevoEgreso}><MdAddCircle/> Nuevo Egreso</Button>
                 </span>
             </div>
         );
@@ -80,7 +87,7 @@ class ListaEgresos extends Component {
                     <div className="card">
                         <DataTable ref={(el) => this.dt = el} value={this.state.data} paginator rows={10}
                             header={header} className="p-datatable-customers" selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
-                            globalFilter={this.state.globalFilter} emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
+                            emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
                             <Column field="idEgreso" header="ID" body={Columna.idEgresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" />
                             <Column field="numeroInstrumentoPago" header="Numero Instrumento" body={this.numeroInstrumentoTemplate} filter filterPlaceholder="Filtrar por numero" filterMatchMode="contains" />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" />
@@ -92,6 +99,10 @@ class ListaEgresos extends Component {
                 { this.state.selectedData &&
                     <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} />
                 }
+                {   
+                    this.state.showNewEgreso &&
+                    <NuevoEgreso visible={this.state.showNewEgreso} onHide={this.hideNuevoEgreso}/>
+                }  
             </div>
         )
     }

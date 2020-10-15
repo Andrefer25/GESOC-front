@@ -12,6 +12,8 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
         handleSidebar();
     }
 
+    const userRole = localStorage.getItem('role');
+
     return (
         <div className="sidebar">
             <ProSidebar
@@ -43,16 +45,18 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
                             <Link to="/egresos">Presupuestos</Link>
                         </MenuItem>
                     </Menu>
-                    <Menu iconShape="circle">
-                        <SubMenu
-                            title="Submenu 1"
-                            icon={<FaRegLaughWink />}
-                        >
-                            <MenuItem>Submenu 1</MenuItem>
-                            <MenuItem>Submenu 2</MenuItem>
-                            <MenuItem>Submenu 3</MenuItem>
-                        </SubMenu>
-                    </Menu>
+                    { (userRole === 'admin') && 
+                        <Menu iconShape="circle">
+                            <SubMenu
+                                title="Admin menu"
+                                icon={<FaRegLaughWink />}
+                            >
+                                <MenuItem>Submenu 1</MenuItem>
+                                <MenuItem>Submenu 2</MenuItem>
+                                <MenuItem>Submenu 3</MenuItem>
+                            </SubMenu>
+                        </Menu>
+                    }
                     <Menu iconShape="circle">
                         <SubMenu
                             title="Submenu 2"

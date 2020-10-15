@@ -1,42 +1,71 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import LoginService from './../../services/LoginService';
 import Container from "react-bootstrap/Container";
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import "../../assets/css/index.css";
 
-function onClickLogin() {
-    localStorage.setItem('user', 'Admin');
-    window.location.href='/';
-}
 class Login extends Component {
+
+  constructor() {
+    super();
+    this.service = new LoginService();
+    this.state = {
+      errorLogin: false,
+      tipoError: ""
+    }
+  }
+
+  onClickLogin = () => {
+    this.setState({ errorLogin: false });
+    let user = document.getElementById("usuarioLogin").value || "";
+    let pass = document.getElementById("passLogin").value || "";
+    if(user === "" || pass === "") {
+      this.setState({ errorLogin: true, tipoError: "Ingrese los datos por favor" })
+    } else {
+      let result = this.service.logIn({user, pass});
+      if(result.status) {
+        localStorage.setItem('user', result.user);
+        localStorage.setItem('role', result.role);
+        window.location.href = '/';
+      } else {
+        this.setState({ errorLogin: true, tipoError: "Datos incorrectos. Intente nuevamente" })
+      }
+      
+    }
+  }
+
+
   render() {
     return (
       <Container maxWith="sm">
         <div className="login">
           <h3>Iniciar Sesion</h3>
           <Form>
-            <Form.Group controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
-            </Form.Group>
-            <Form.Group controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="Check me out" />
-            </Form.Group>
-            <Button variant="primary" onClick={onClickLogin}>Primary</Button>
+            <FormGroup>
+              {
+                this.state.errorLogin &&
+                <div>
+                  <Label style={{color: "red"}}>{this.state.tipoError}</Label>
+                  <br/>
+                </div>
+              }
+              <Label>Usuario</Label>
+              <Input type="text" id="usuarioLogin" placeholder="Ingresa tu usuario" />
+            </FormGroup>
+            <FormGroup>
+              <Label>Contraseña</Label>
+              <Input type="password" id="passLogin" placeholder="Ingresa tu contraseña" />
+              <FormText color="muted">
+                No compartiremos tu información con nadie
+              </FormText>
+            </FormGroup>
+            <Button color="primary" onClick={this.onClickLogin}>Submit</Button>
           </Form>
           <div>
-              <p className="pregunta">No tenes cuenta?</p>
-              <p className="registerLink"><Link to="/register">Registrate aca</Link></p>
+            <p className="pregunta">No tenes cuenta?</p>
+            <p className="registerLink"><Link to="/register">Registrate aca</Link></p>
           </div>
         </div>
       </Container>
