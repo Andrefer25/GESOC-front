@@ -50,23 +50,30 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
                             <SubMenu
                                 title="Admin menu"
                                 icon={<FaRegLaughWink />}
-                            >
-                                <MenuItem>Submenu 1</MenuItem>
-                                <MenuItem>Submenu 2</MenuItem>
-                                <MenuItem>Submenu 3</MenuItem>
+                            >   
+                                <MenuItem>
+                                    <Link to="/crearCategoria">
+                                        Crear categorías
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Link to="/crearCriterio">
+                                        Crear criterios
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Link to="/crearEntidadBase">
+                                        Crear entidades base
+                                    </Link>
+                                </MenuItem>
+                                <MenuItem>
+                                    <Link to="/recategorizarEntidadJuridica">
+                                        Recategorizar entidades jurídicas
+                                    </Link>
+                                </MenuItem>
                             </SubMenu>
                         </Menu>
                     }
-                    <Menu iconShape="circle">
-                        <SubMenu
-                            title="Submenu 2"
-                            icon={<FaRegLaughWink />}
-                        >
-                            <MenuItem>Submenu 1</MenuItem>
-                            <MenuItem>Submenu 2</MenuItem>
-                            <MenuItem>Submenu 3</MenuItem>
-                        </SubMenu>
-                    </Menu>
                 </SidebarContent>
                 <SidebarFooter>
                     <Menu iconShape="circle" >

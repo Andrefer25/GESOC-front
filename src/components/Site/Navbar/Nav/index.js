@@ -4,8 +4,6 @@ import Navbar from "react-bootstrap/Navbar";
 import UserDropdown from "./UserDropdown";
 import InboxDropdown from "./InboxDropdown";
 
-import './../../../assets/css/index.css';
-
 const Navigation = () => {
 
   return (

@@ -2,9 +2,9 @@ import React from 'react';
 import Login from './Login';
 import Register from './Register';
 import Site from './Site';
-import { Router, Route, Switch, Redirect } from 'react-router-dom';
+import { Router, Switch, Redirect } from 'react-router-dom';
 import { history } from '../helpers/history';
-import { PrivateRoute } from './../_components/privateRoute';
+import { PrivateRoute, LoggedRoute } from './../_components';
 
 import './../assets/css/App.css';
 
@@ -12,8 +12,8 @@ function App() {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/login" component={Login}/>
-        <Route path="/register" component={Register}/>
+        <LoggedRoute path="/login" component={Login}/>
+        <LoggedRoute path="/register" component={Register}/>
         <PrivateRoute path="/" component={Site}/>
         <Redirect from="*" to="/" />
       </Switch>

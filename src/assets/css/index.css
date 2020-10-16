@@ -5,7 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #1976d2;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 code {
@@ -40,15 +40,15 @@ code {
 .box {
   background-color: whitesmoke;
   padding: 1em;
-  height: 93.8vh;
-  max-height: 93.8vh;
+  height: 92.5vh;
+  max-height: 92.5vh;
   overflow-y: scroll;
 }
 
 .sidebar {
   position: sticky;
-  height: 93.8vh;
-  max-height: 93.8vh;
+  height: 92.5vh;
+  max-height: 92.5vh;
 }
 
 .colSidebar {
@@ -81,4 +81,22 @@ code {
 
 .inboxButton:hover {
   text-decoration: none;
+}
+
+.creadorCriterios {
+  margin: .05em .05em;
+  padding: 1.5em;
+  background-color: #FFF;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  min-height: 99.5%;
+}
+
+.ant-select-selector {
+  border-radius: 3px !important;
+  height: calc(1.5em + .75rem + 2px) !important;
+  padding: 0.1em .8em !important;
+  border: 1px solid #ced4da !important;
+  font-size: 1.15em;
 }
