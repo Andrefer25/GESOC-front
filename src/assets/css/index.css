@@ -5,6 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
+  background-color: #1976d2;
   background-image: url("../img/background-image.jpg");
 }
 
@@ -88,18 +89,30 @@ code {
   background-color: rgb(29,29,29);
 }
 
-.home {
+.box {
   background-color: whitesmoke;
   padding: 1em;
-  height: 93.8vh;
-  max-height: 93.8vh;
+  height: 92.5vh;
+  max-height: 92.5vh;
   overflow-y: scroll;
 }
 
 .sidebar {
   position: sticky;
-  height: 93.8vh;
-  max-height: 93.8vh;
+  height: 92.5vh;
+  max-height: 92.5vh;
+}
+
+@media only screen and (min-width: 1200px) {
+  .box {
+    height: 94vh;
+    max-height: 94vh;
+  }
+
+  .sidebar {
+    height: 94vh;
+    max-height: 94vh;
+  }
 }
 
 .colSidebar {
@@ -129,4 +142,59 @@ code {
   border-radius: 5px;
   background-color: #329fc7;
   border-color: #329fc7;
+}
+.inboxButton {
+  text-decoration: none;
+  border: none;
+}
+
+.inboxButton:hover {
+  text-decoration: none;
+}
+
+.creadorCriterios {
+  margin: .05em .05em;
+  padding: 1.5em;
+  background-color: #FFF;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+  min-height: 99.5%;
+}
+
+.ant-select-selector {
+  border-radius: 3px !important;
+  height: calc(1.5em + .75rem + 2px) !important;
+  padding: 0.1em .8em !important;
+  border: 1px solid #ced4da !important;
+  font-size: 1.15em;
+}
+
+.boxHome {
+  padding: 1.5em 2.5em;
+  background-color: greenyellow;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.principal {
+  height: 50%;
+  margin: 1em 3em 2em; 
+}
+
+.validaciones {
+  height: 43%;
+}
+
+.secundario {
+  height: 100%;
+}
+
+.egresos {
+  margin-left: 3em;
+}
+
+.operaciones {
+  margin-right: 3em;
 }
