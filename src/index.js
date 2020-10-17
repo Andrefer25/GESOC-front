@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { store } from './store';
 import 'antd/dist/antd.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-pro-sidebar/dist/css/styles.css';
@@ -15,9 +13,7 @@ import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+      <App />,
   document.getElementById('root')
 );
 

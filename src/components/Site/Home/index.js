@@ -14,24 +14,21 @@ const Home = () => {
                             <FormGroup row>
                                 <Label sm={2}><h5>CUIT</h5></Label>
                                 <Col sm={10}>
-                                <Input plaintext id="ejCuit" value="20 - 24214242 - 0" />
+                                <Input plaintext id="ejCuit" defaultValue="20 - 24214242 - 0" />
                                 </Col>
                             </FormGroup>
-                            <br/>
                             <FormGroup row>
                                 <Label sm={2}><h5>Direccion</h5></Label>
                                 <Col sm={10}>
                                 <Input type="text" id="ejDireccion" placeholder="password placeholder" />
                                 </Col>
                             </FormGroup>
-                            <br/>
                             <FormGroup row>
                                 <Label sm={2}><h5>Información</h5></Label>
                                 <Col sm={10}>
                                 <Input type="text" id="ejInfo" placeholder="password placeholder" />
                                 </Col>
                             </FormGroup>
-                            <br/>
                             <Button color="primary" style={{margin: "0 auto"}}>Guardar</Button>
                         </Form>
                     </Col>
