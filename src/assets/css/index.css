@@ -51,6 +51,18 @@ code {
   max-height: 92.5vh;
 }
 
+@media only screen and (min-width: 1200px) {
+  .box {
+    height: 94vh;
+    max-height: 94vh;
+  }
+
+  .sidebar {
+    height: 94vh;
+    max-height: 94vh;
+  }
+}
+
 .colSidebar {
   margin-right: -1.8em;
 }
@@ -99,4 +111,33 @@ code {
   padding: 0.1em .8em !important;
   border: 1px solid #ced4da !important;
   font-size: 1.15em;
+}
+
+.boxHome {
+  padding: 1.5em 2.5em;
+  background-color: greenyellow;
+  background-clip: border-box;
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .25rem;
+}
+
+.principal {
+  height: 50%;
+  margin: 1em 3em 2em; 
+}
+
+.validaciones {
+  height: 43%;
+}
+
+.secundario {
+  height: 100%;
+}
+
+.egresos {
+  margin-left: 3em;
+}
+
+.operaciones {
+  margin-right: 3em;
 }
