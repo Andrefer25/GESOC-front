@@ -16,7 +16,7 @@ code {
 .login {
   background: rgb(255, 255, 255,0.7);
   padding: 1em;
-  margin: 15% auto;
+  margin: 50px auto;
   width: 350px;
   border-radius: 5px;
 }
@@ -24,7 +24,7 @@ code {
 .register {
   background: rgb(255, 255, 255,0.7);
   padding: 1em 2em 2em 2em;
-  margin: 15% auto;
+  margin: 50px auto;
   width: 600px;
   border-radius: 5px;
 }
@@ -35,6 +35,12 @@ code {
 
 .buttonLogin {
   width: 315px;
+  background-color: #329fc7;
+  border-color: #329fc7;
+}
+
+.buttonLogin:hover{
+  background-color: #2b6fa6;
 }
 
 .linkRegister {
@@ -59,6 +65,12 @@ code {
   width: 150px;
   margin-right: 20px;
   margin-left: 100px;
+  background-color: #329fc7;
+  border-color: #329fc7;
+}
+
+.buttonRegister:hover{
+  background-color: #2b6fa6;
 }
 
 .buttonRegisterCancel {
@@ -69,6 +81,52 @@ code {
   border-radius: 5px;
   border: none;
   border-bottom: groove;
-  border-bottom-color: cornflowerblue;
+  border-bottom-color: #329fc7;
   opacity: 0.7;
+}
+.gesocNav {
+  background-color: rgb(29,29,29);
+}
+
+.home {
+  background-color: whitesmoke;
+  padding: 1em;
+  height: 93.8vh;
+  max-height: 93.8vh;
+  overflow-y: scroll;
+}
+
+.sidebar {
+  position: sticky;
+  height: 93.8vh;
+  max-height: 93.8vh;
+}
+
+.colSidebar {
+  margin-right: -1.8em;
+}
+
+.rowSite {
+  padding: 0;
+  margin-right: -1em;
+}
+
+.userButton {
+  margin-left: 0.5em;
+  background-color: violet;
+}
+
+.menuIcon {
+  color: white;
+  font-size: 1.5em;
+}
+
+.menuExpand {
+  display: inline;
+}
+
+.buttonNav {
+  border-radius: 5px;
+  background-color: #329fc7;
+  border-color: #329fc7;
 }
