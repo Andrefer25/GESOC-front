@@ -172,7 +172,7 @@ code {
 
 .boxHome {
   padding: 1.5em 2.5em;
-  background-color: greenyellow;
+  background-color: #faf0b6;
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
@@ -197,4 +197,34 @@ code {
 
 .operaciones {
   margin-right: 3em;
+}
+
+.marginButtons { 
+  margin-right: 5%;
+}
+
+.marginSideBar {
+  margin-bottom: -5%;
+}
+
+.principalHome {
+  height: 21.5em;
+}
+
+.widthSideBar { 
+  width: 80%;
+}
+
+.colorButton { 
+  color:#b39f2d !important; 
+  background-color: transparent !important;
+  border-color: #b39f2d !important;
+}
+
+.p-button.p-button-info:enabled:focus{
+  box-shadow:0 0 0 0.2rem burlywood !important;
+}
+
+.colorBadge {
+  background-color: brown;
 }

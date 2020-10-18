@@ -1,7 +1,8 @@
 import React from 'react';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
 import { FaRegLaughWink } from 'react-icons/fa';
-import { BiCollapse, BiExpand, BiHome, BiDollarCircle } from 'react-icons/bi';
+import { BiExpand, BiHome, BiDollarCircle } from 'react-icons/bi';
+import { AiFillDollarCircle } from 'react-icons/ai';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
@@ -23,24 +24,22 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
             breakPoint="md"
             >
                 <SidebarContent>
-                    <Menu iconShape="circle">
-                        <MenuItem
-                            icon={<BiHome />}
-                        >
+                    <Menu iconShape="circle" className="marginSideBar">
+                        <MenuItem icon={<BiHome />}>
                             <Link to="/">Home</Link>
                         </MenuItem>
                     </Menu>
-                    <Menu iconShape="circle">
-                        <MenuItem icon={<BiCollapse />}>
+                    <Menu iconShape="circle" className="marginSideBar">
+                        <MenuItem icon={<AiFillDollarCircle />}>
                             <Link to="/ingresos">Ingresos</Link>
                         </MenuItem>
                     </Menu>
-                    <Menu iconShape="circle">
+                    <Menu iconShape="circle" className="marginSideBar">
                         <MenuItem icon={<BiExpand />}>
                             <Link to="/egresos">Egresos</Link>
                         </MenuItem>
                     </Menu>
-                    <Menu iconShape="circle">
+                    <Menu iconShape="circle" className="marginSideBar">
                         <MenuItem icon={<BiDollarCircle />}>
                             <Link to="/egresos">Presupuestos</Link>
                         </MenuItem>
