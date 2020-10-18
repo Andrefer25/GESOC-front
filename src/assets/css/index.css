@@ -90,7 +90,7 @@ code {
 }
 
 .box {
-  background-color: whitesmoke;
+  background-color: #faf0b6;
   padding: 1em;
   height: 92.5vh;
   max-height: 92.5vh;
@@ -172,7 +172,7 @@ code {
 
 .boxHome {
   padding: 1.5em 2.5em;
-  background-color: #faf0b6;
+  background-color: whitesmoke;
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
