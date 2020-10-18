@@ -1,10 +1,11 @@
 import React from 'react';
 import { ProSidebar, Menu, MenuItem, SubMenu, SidebarFooter, SidebarContent } from 'react-pro-sidebar';
-import { FaRegLaughWink } from 'react-icons/fa';
-import { BiExpand, BiHome, BiDollarCircle } from 'react-icons/bi';
-import { AiFillDollarCircle } from 'react-icons/ai';
+import { RiMenuUnfoldLine } from 'react-icons/ri';
+import { BiHome, BiDollarCircle } from 'react-icons/bi';
+import { IoMdCash } from 'react-icons/io';
 import { FiChevronRight, FiChevronLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import { GiTakeMyMoney } from 'react-icons/gi'
 
 import 'react-pro-sidebar/dist/css/styles.css';
 
@@ -30,12 +31,12 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle" className="marginSideBar">
-                        <MenuItem icon={<AiFillDollarCircle />}>
+                        <MenuItem icon={<IoMdCash />}>
                             <Link to="/ingresos">Ingresos</Link>
                         </MenuItem>
                     </Menu>
                     <Menu iconShape="circle" className="marginSideBar">
-                        <MenuItem icon={<BiExpand />}>
+                        <MenuItem icon={<GiTakeMyMoney />}>
                             <Link to="/egresos">Egresos</Link>
                         </MenuItem>
                     </Menu>
@@ -48,7 +49,7 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
                         <Menu iconShape="circle">
                             <SubMenu
                                 title="Admin menu"
-                                icon={<FaRegLaughWink />}
+                                icon={<RiMenuUnfoldLine />}
                             >   
                                 <MenuItem>
                                     <Link to="/crearCategoria">

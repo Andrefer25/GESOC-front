@@ -28,7 +28,7 @@ const Home = () => {
                                 <Input type="text" id="ejInfo" placeholder="password placeholder" />
                                 </Col>
                             </FormGroup>
-                            <Button color="primary" className="colorButton" style={{margin: "0 auto"}}>Guardar</Button>
+                            <Button color="primary" className="colorBadge" style={{margin: "0 auto"}}>Guardar</Button>
                         </Form>
                     </Col>
                     <Col md="5">
