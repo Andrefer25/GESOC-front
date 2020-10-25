@@ -72,9 +72,7 @@ class ListaEgresos extends Component {
                 <h1>
                     {this.props.nameList}
                 </h1>
-                <span className="p-input-icon-left">
-                    <Button color="primary" onClick={this.showNuevoEgreso}><MdAddCircle/> Nuevo Egreso</Button>
-                </span>
+                <Button className="colorButton" onClick={this.showNuevoEgreso}>NuevoEgreso</Button>
             </div>
         );
         
