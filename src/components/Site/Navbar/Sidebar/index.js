@@ -21,6 +21,7 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
             collapsed={collapsed}
             toggled={true}
             breakPoint="md"
+            width={"240px"}
             >
                 <SidebarContent>
                     <Menu iconShape="circle">
