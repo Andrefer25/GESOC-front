@@ -1,12 +1,11 @@
 import Axios from 'axios';
-import { egresosUrl } from './../constants/routes';
-import { parsearEgreso, parsearValidacion } from './../helpers/parser';
+import { ingresosUrl } from './../constants/routes';
+import { parsearIngreso, parsearValidacion } from './../helpers/parser';
 
+export default class IngresoService {
 
-export default class EgresoService {
-
-    getEgresos = () => {
-        let egresosPrueba = [
+    getIngresos = () => {
+        let ingresosPrueba = [
             {
                 "descripcion": "soy una descripcion",
                 "ingresos": ["a","b","c"],
@@ -51,27 +50,27 @@ export default class EgresoService {
             },
         ]
     
-        return parsearValidacion(egresosPrueba);
+        return parsearValidacion(ingresosPrueba);
     }
 
-    getListaEgresos = async () => {
-        let egresos = await Axios.get(`${egresosUrl}/1`);
-        if (egresos.data.length > 0)
-            return parsearEgreso(egresos.data);
-        else return null;
+    getListaIngreso = async () => {
+        let ingresos = await Axios.get(`${ingresosUrl}/1`);
+        console.log(ingresos.data);
+        if(ingresos.data.length > 0) {
+            return parsearIngreso(ingresos.data);
+        } else return null;
     }
 
-    getEgresoById = async (id) => {
+    getIngresoById = async (id) => {
         let idEntidadJuridica = localStorage.getItem("entidadJuridica");
-        let egreso = await Axios.get(egresosUrl+'/'+idEntidadJuridica+'/'+id);
-
-        return parsearValidacion(egreso);
+        
+        return await Axios.get(ingresosUrl+'/'+idEntidadJuridica+'/'+id);
     }
 
-    updateEgreso = async (id, dataEgreso) => {
+    updateIngreso = async (id, dataIngreso) => {
         let idEntidadJuridica = localStorage.getItem("entidadJuridica");
-        Axios.post(egresosUrl+'/'+idEntidadJuridica+'/'+id, {
-            data: dataEgreso
+        Axios.post(ingresosUrl+'/'+idEntidadJuridica+'/'+id, {
+            data: dataIngreso
         }).then(function (response) {
             console.log(response);
         })

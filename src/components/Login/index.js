@@ -42,7 +42,7 @@ class Login extends Component {
     return (
       <Container maxWith="sm">
         <div className="login">
-        <img className="imageCenterLogin" src={UserImage}></img>
+        <img className="imageCenterLogin" src={UserImage} alt="imagen de usuario"></img>
           <h3 className="loginTitle">Iniciar Sesion</h3>
           <Form>
             <FormGroup>

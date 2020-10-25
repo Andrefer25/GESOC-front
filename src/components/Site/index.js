@@ -8,7 +8,6 @@ import Egresos from './Egresos';
 import CreadorCategorias from './Admin/CreadorCategorias';
 import CreadorCriterios from './Admin/CreadorCriterios';
 import CreadorEntidadesBase from './Admin/CreadorEntidadesBase';
-import RecategorizadorJuridicas from './Admin/RecategorizadorJuridicas';
 import Inbox from './Inbox';
 import { PrivateRoute, AdminRoute } from './../../_components';
 import { Switch, Redirect } from 'react-router-dom';
@@ -45,7 +44,6 @@ class Site extends Component {
                             <AdminRoute path="/crearCategoria" component={CreadorCategorias}/>
                             <AdminRoute path="/crearCriterio" component={CreadorCriterios}/>
                             <AdminRoute path="/crearEntidadBase" component={CreadorEntidadesBase}/>
-                            <AdminRoute path="/recategorizarEntidadJuridica" component={RecategorizadorJuridicas}/>
                             <Redirect from="*" to="/" />
                         </Switch>
                     </Col>

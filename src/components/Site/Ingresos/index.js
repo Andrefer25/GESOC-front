@@ -1,10 +1,12 @@
 import React from 'react';
+import ListaIngresos from './ListaIngresos';
 
 const Ingresos = () => {
     return (
         <div className="box">
-            <h1>Ingresos</h1>
-
+            <div className="boxInfo">
+                <ListaIngresos nameList="Ingresos" />
+            </div>
         </div>
     )
 }

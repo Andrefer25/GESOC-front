@@ -4,7 +4,9 @@ import ListaEgresos from './ListaEgresos';
 const Egresos = () => {
     return (
         <div className="box">
-            <ListaEgresos nameList="Egresos" />
+            <div className="boxInfo">
+                <ListaEgresos nameList="Egresos" />
+            </div>
         </div>
     )
 }
