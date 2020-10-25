@@ -95,14 +95,14 @@ code {
   text-decoration: none;
 }
 
-.creadorCriterios {
+.boxInfo {
   margin: .05em .05em;
   padding: 1.5em;
   background-color: #FFF;
   background-clip: border-box;
   border: 1px solid rgba(0,0,0,.125);
   border-radius: .25rem;
-  min-height: 99.5%;
+  min-height: 97.5%;
 }
 
 .ant-select-selector {
@@ -122,7 +122,7 @@ code {
 }
 
 .principal {
-  height: 50%;
+  min-height: 50%;
   margin: 1em 3em 2em; 
 }
 
@@ -132,6 +132,7 @@ code {
 
 .secundario {
   height: 100%;
+  margin-bottom: 2.8em;
 }
 
 .egresos {
@@ -140,4 +141,43 @@ code {
 
 .operaciones {
   margin-right: 3em;
+}
+
+.categoriaEntidad {
+  border: 1px solid black;
+  border-radius: 10px;
+  background-color: red;
+  text-align: center;
+  padding: .5em;
+  margin: 0 auto 3em;
+  width: 80%;
+}
+
+.categoriaEntidad p {
+  margin: 0 auto;
+}
+
+.categoriaEntidad p:nth-child(1) {
+  font-weight: bold;
+}
+
+.botonSecundario {
+  float: right;
+}
+
+.entidadData {
+  margin-top: 1.3em;
+}
+
+.entidadDataElement {
+  margin-top: .3em;
+}
+
+.entidadDataValue {
+  margin-top: .5em;
+}
+
+.loadingAnimation {
+  text-align: center;
+  margin-top: 7%;
 }

@@ -3,21 +3,20 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
 import * as Columna from './Columnas';
-import DetalleEgreso from './DetalleEgreso';
-import NuevoEgreso from './NuevoEgreso';
-import EgresoService from './../../../../services/EgresoService';
+import DetalleEgreso from './DetalleIngreso';
+import NuevoEgreso from './NuevoIngreso';
+import IngresoService from './../../../../services/IngresoService';
 import { Calendar } from 'primereact/calendar';
 import { MdAddCircle } from 'react-icons/md';
-import { es } from './../../../../helpers/spanishCalendar';
 
 import './../../../../assets/css/gridList.css';
 import { Button } from "reactstrap";
 
-class ListaEgresos extends Component {
+class ListaIngresos extends Component {
     constructor() {
         super();
 
-        this.service = new EgresoService();
+        this.service = new IngresoService();
         this.state = {
             data: null,
             loading: true,
@@ -34,10 +33,9 @@ class ListaEgresos extends Component {
     }
 
     componentDidMount = async () => {
-        let listaEgresos = await this.service.getListaEgresos();
-        console.log(listaEgresos);
+        let ingresos = await this.service.getListaIngreso();
         this.setState({
-            data: listaEgresos,
+            data: ingresos,
             loading: false
         })
     }
@@ -75,13 +73,12 @@ class ListaEgresos extends Component {
                     {this.props.nameList}
                 </h1>
                 <span className="p-input-icon-left">
-                    <Button color="primary" onClick={this.showNuevoEgreso}><MdAddCircle/> Nuevo Egreso</Button>
+                    <Button color="primary" onClick={this.showNuevoEgreso}><MdAddCircle/> Nuevo Ingreso</Button>
                 </span>
             </div>
         );
         
-        //const dateFilter = <Input type="datetime" name="datetime" id="exampleDatetime" dateFormat="dd-mm-yy" onChange={this.onDateChange} className="p-column-filter" placeholder="Filtrar por fecha" />
-        const dateFilter = <Calendar locale={es} value={this.state.selectedDate} onChange={this.onDateChange} dateFormat="dd-mm-yy" className="p-column-filter" placeholder="Filtrar por fecha" />;
+        const dateFilter = <Calendar value={this.state.selectedDate} onChange={this.onDateChange} dateFormat="dd-mm-yy" className="p-column-filter" placeholder="Filtrar por fecha" />;
         const statusFilter = <Dropdown value={this.state.selectedStatus} options={this.statuses} onChange={this.onStatusChange} itemTemplate={Columna.statusItemTemplate} placeholder="Seleccionar estado" className="p-column-filter" showClear />;
 
         return (
@@ -91,10 +88,10 @@ class ListaEgresos extends Component {
                         <DataTable ref={(el) => this.dt = el} value={this.state.data} paginator rows={10}
                             header={header} className="p-datatable-customers" selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                             emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
-                            <Column field="idEgreso" header="ID" body={Columna.idEgresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" />
-                            <Column field="numeroInstrumentoPago" header="Numero Instrumento" body={this.numeroInstrumentoTemplate} filter filterPlaceholder="Filtrar por numero" filterMatchMode="contains" />
+                            <Column field="idIngreso" header="ID" body={Columna.idIngresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} />
+                            <Column field="descripcion" header="Descripcion" body={Columna.descripcionTemplate} />
                             <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} />
                         </DataTable>
                     </div>
@@ -111,4 +108,4 @@ class ListaEgresos extends Component {
     }
 }
 
-export default ListaEgresos;
+export default ListaIngresos;

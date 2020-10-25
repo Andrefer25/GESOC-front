@@ -1,69 +1,62 @@
 import React, { Component } from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import { Select } from 'antd';
-const { Option } = Select;
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { MdAddCircle } from 'react-icons/md';
+import { Button, Col, Row } from "reactstrap";
+import { InputText } from 'primereact/inputtext';
+import NuevoCriterio from './NuevoCriterio';
 
+import './../../../../assets/css/gridList.css';
 
 class CreadorCriterios extends Component {
 
     constructor() {
         super();
         this.state = {
-
+            criterios: null,
+            loading: false,
+            globalFilter: null,
+            showNewCriterio: false
         }
     }
 
-    onChange = (value) => {
-        console.log(`selected ${value}`);
-    }
-      
-    onBlur = () => {
-    console.log('blur');
-    }
-    
-    onFocus = () => {
-    console.log('focus');
-    }
-    
-    onSearch = (val) => {
-    console.log('search:', val);
+    showNuevoCriterio = () => {
+        this.setState({ showNewCriterio: !this.state.showNewCriterio });
     }
 
     render() {
+        const header = (
+            <div className="table-header">
+                <Row>
+                    <Col md={7}>
+                        <h1>Criterios</h1>
+                    </Col>
+                    <Col md={5}>
+                        <span className="p-input-icon-left" style={{marginTop: ".4em", marginRight: "1.5em", marginLeft: "2.5em"}}>
+                            <i className="pi pi-search" />
+                            <InputText type="search" onInput={(e) => this.setState({ globalFilter: e.target.value })} placeholder="Buscar criterios" />
+                        </span>
+                        <Button color="primary" style={{marginTop: "-.4em"}} onClick={this.showNuevoCriterio}><MdAddCircle/> Nuevo Criterio</Button>
+                    </Col>
+                </Row>
+            </div>
+        );
+
         return (
             <div className="box">
-                <div className="creadorCriterios">
-                    <h1>Crear criterio</h1>
-                    <br/>
-                    <Form>
-                        <FormGroup>
-                            <Label>Nombre</Label>
-                            <Input type="text" id="crNombre" placeholder="Ingresa un nombre para el criterio" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="crPadre">Criterio Padre</Label>
-                            <Select
-                                id="crPadre"
-                                showSearch
-                                style={{width:"100%"}}
-                                placeholder="Ingresa el xadre del criterio (si es que no es une bastarde)"
-                                optionFilterProp="children"
-                                onChange={this.onChange}
-                                onFocus={this.onFocus}
-                                onBlur={this.onBlur}
-                                onSearch={this.onSearch}
-                                bordered={true}
-                                filterOption={(input, option) =>
-                                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                                }
-                            >
-                                <Option value="jack">Padre</Option>
-                                <Option value="lucy">Hijo</Option>
-                                <Option value="tom">Espiritu Santo</Option>
-                            </Select>
-                        </FormGroup>
-                        <Button color="primary">Crear</Button>
-                    </Form>
+                <div className="boxInfo">
+                    <div className="card">
+                        <DataTable ref={(el) => this.dt = el} value={this.state.criterios}
+                        header={header} emptyMessage={`No se encontraron criterios.`} loading={this.state.loading}
+                        globalFilter={this.state.globalFilter} paginator rows={10}>
+                            <Column field="nombreCriterio" header="Nombre"></Column>
+                            <Column field="criterioPadre" header="Criterio Padre"></Column>
+                        </DataTable>
+                    </div>
+                {   
+                    this.state.showNewCriterio &&
+                    <NuevoCriterio visible={this.state.showNewCriterio} onHide={this.showNuevoCriterio}/>
+                } 
                 </div>
             </div>
         )
