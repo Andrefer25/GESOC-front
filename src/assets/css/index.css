@@ -104,7 +104,8 @@ code {
 }
 
 .pro-sidebar {
-  min-width: 200px;
+  min-width: 240px;
+  width: 240px;
 }
 
 @media only screen and (min-width: 1200px) {
@@ -277,4 +278,16 @@ code {
 
 .buttonIcon {
   margin-top: -.2em;
+}
+
+.buttonIconCrud {
+  height: 15px;
+  width: 15px;
+  margin-left: -0.5em;
+  margin-top: -1em;
+}
+
+.crudButton {
+  width: 25px;
+  height: 25px;
 }

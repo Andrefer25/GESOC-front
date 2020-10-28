@@ -44,7 +44,7 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
             <Col md="3" className="colButtons">
                 <div className="categoriaEntidad">
                     <p>Categoria</p>
-                    <p>{"Mediana".toUpperCase()}</p>
+                    <strong>{entidadJuridica.categoriaentidad.descripcion.toUpperCase()}</strong>
                 </div>
                 <PrButton type="button" icon="pi pi-cog" className="colorButton p-button-rounded p-button-info userButton" onClick={() => onClickConfig()} />
                 <PrButton type="button" label="Editar" icon="pi pi-sliders-v" className="p-button-info userButton" onClick={() => onClickEditar()} />

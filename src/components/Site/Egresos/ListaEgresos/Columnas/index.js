@@ -16,7 +16,7 @@ export const numeroInstrumentoTemplate = rowData => (
 
 export const descripcionTemplate = rowData => (
     <React.Fragment>
-        <span className="p-column-title">Descripcion</span>
+        <span className="p-column-title">Detalle</span>
         {rowData.descripcion}
     </React.Fragment>
 );
@@ -24,7 +24,7 @@ export const descripcionTemplate = rowData => (
 export const importeTemplate = rowData => (
     <React.Fragment>
         <span className="p-column-title">Importe</span>
-        {`$ ${rowData.importe}`}
+        {`${rowData.importe}`}
     </React.Fragment>
 );
 

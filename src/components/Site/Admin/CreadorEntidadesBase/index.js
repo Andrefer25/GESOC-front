@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { MdAddCircle } from 'react-icons/md';
+import { Toast } from 'primereact/toast';
 import { Button, Col, Row } from "reactstrap";
 import { InputText } from 'primereact/inputtext';
 import NuevaEntidadBase from './NuevaEntidadBase';
@@ -22,12 +23,35 @@ class CreadorEntidadesBase extends Component {
         }
     }
 
-    componentDidMount = async () => {
+    showSuccess() {
+        this.toast.show({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+    }
+
+    showError() {
+        this.toast.show({severity:'error', summary: 'Error Message', detail:'Message Content', life: 3000});
+    }
+
+    getListaEntidades = async() => {
         let entidadesBase = await this.service.getEntidadBase();
         this.setState({
             entidades: entidadesBase,
             loading: false
         })
+    }
+
+    componentDidMount = async () => {
+        await this.getListaEntidades();
+    }
+
+    crearNuevaEntidad = async data => {
+        let resultado = await this.service.createEntidadBase(data);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        this.showNuevaEntidad();
+        await this.getListaEntidades();
     }
 
     showNuevaEntidad = () => {
@@ -56,6 +80,7 @@ class CreadorEntidadesBase extends Component {
             <div className="box">
                 <div className="boxInfo">
                     <div className="card">
+                        <Toast ref={(el) => this.toast = el} />
                         <DataTable ref={(el) => this.dt = el} value={this.state.entidades}
                         header={header} emptyMessage={`No se encontraron entidades base.`} loading={this.state.loading}
                         globalFilter={this.state.globalFilter} paginator rows={10}>
@@ -65,7 +90,8 @@ class CreadorEntidadesBase extends Component {
                     </div>
                 {   
                     this.state.showNewEntidad &&
-                    <NuevaEntidadBase visible={this.state.showNewEntidad} onHide={this.showNuevaEntidad}/>
+                    <NuevaEntidadBase visible={this.state.showNewEntidad} 
+                    onHide={this.showNuevaEntidad} onSubmit={this.crearNuevaEntidad}/>
                 } 
                 </div>
             </div>

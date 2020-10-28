@@ -4,10 +4,11 @@ import { Column } from 'primereact/column';
 import { Dropdown } from 'primereact/dropdown';
 import * as Columna from './Columnas';
 import DetalleEgreso from './DetalleIngreso';
-import NuevoEgreso from './NuevoIngreso';
+import NuevoIngreso from './NuevoIngreso';
 import IngresoService from './../../../../services/IngresoService';
 import { Calendar } from 'primereact/calendar';
 import { MdAddCircle } from 'react-icons/md';
+import { Toast } from 'primereact/toast';
 
 import './../../../../assets/css/gridList.css';
 import { Button } from "reactstrap";
@@ -24,7 +25,7 @@ class ListaIngresos extends Component {
             selectedStatus: null,
             showDialog: false,
             selectedData: null,
-            showNewEgreso: false
+            showNewIngreso: false
         }
 
         this.statuses = [
@@ -32,7 +33,7 @@ class ListaIngresos extends Component {
         ]
     }
 
-    componentDidMount = async () => {
+    getLista = async () => {
         let ingresos = await this.service.getListaIngreso();
         this.setState({
             data: ingresos,
@@ -40,16 +41,62 @@ class ListaIngresos extends Component {
         })
     }
 
+    componentDidMount = async () => {
+        await this.getLista();
+    }
+
+    crearIngreso = async (data) => {
+        let resultado = await this.service.createIngreso(data);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        this.hideNuevoIngreso();
+        await this.getLista();
+    }
+
+    editarIngreso = async(data) => {
+        let resultado = await this.service.updateIngreso(data);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        this.handleDialog();
+        await this.getLista();
+    }
+
+    borrarIngreso = async(id) => {
+        
+        let resultado = await this.service.deleteIngreso(id);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        this.handleDialog();
+        await this.getLista();
+    }
+
+    showSuccess = () => {
+        this.toast.show({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+    }
+
+    showError = () => {
+        this.toast.show({severity:'error', summary: 'Error Message', detail:'Message Content', life: 3000});
+    }
+
     handleDialog = () => {
         this.setState({ showDialog: false });
     }
 
-    hideNuevoEgreso = () => {
-        this.setState({ showNewEgreso: false });
+    hideNuevoIngreso = () => {
+        this.setState({ showNewIngreso: false });
     }
 
-    showNuevoEgreso = () => {
-        this.setState({ showNewEgreso: true });
+    showNuevoIngreso = () => {
+        this.setState({ showNewIngreso: true });
     }
 
     onDateChange = (e) => {
@@ -73,7 +120,7 @@ class ListaIngresos extends Component {
                     {this.props.nameList}
                 </h1>
                 <span className="p-input-icon-left">
-                    <Button color="primary" className="colorBadge" onClick={this.showNuevoEgreso}><MdAddCircle className="buttonIcon" /> Nuevo Ingreso</Button>
+                    <Button color="primary" className="colorBadge" onClick={this.showNuevoIngreso}><MdAddCircle className="buttonIcon" /> Nuevo Ingreso</Button>
                 </span>
             </div>
         );
@@ -91,18 +138,19 @@ class ListaIngresos extends Component {
                             <Column field="idIngreso" header="ID" body={Columna.idIngresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} />
-                            <Column field="descripcion" header="Descripcion" body={Columna.descripcionTemplate} />
+                            <Column field="descripcion" header="Descripcion" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por descripcion" filterMatchMode="contains" />
                             <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} />
                         </DataTable>
                     </div>
+                    <Toast ref={(el) => this.toast = el} />
                 </div>
                 { this.state.selectedData &&
-                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} />
+                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} onSubmit={this.editarIngreso} borrarIngreso={this.borrarIngreso} />
                 }
                 {   
-                    this.state.showNewEgreso &&
-                    <NuevoEgreso visible={this.state.showNewEgreso} onHide={this.hideNuevoEgreso}/>
-                }  
+                    this.state.showNewIngreso &&
+                    <NuevoIngreso visible={this.state.showNewIngreso} onHide={this.hideNuevoIngreso} onSubmit={this.crearIngreso}/>
+                }
             </div>
         )
     }

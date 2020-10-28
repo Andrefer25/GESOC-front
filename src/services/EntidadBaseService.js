@@ -8,5 +8,21 @@ export default class EntidadBaseService {
         return entidad.data;
     }
 
+    createEntidadBase = async(data) => {
+        try {
+            let resp = await Axios.post(`${entidadesBaseUrl}/1`, {
+                descripcion: data.desc,
+                nombreFicticio: data.nombre,
+                entidadjuridica: {idEntidadJuridica: 1}
+            });
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
+    }
+    
 
 }

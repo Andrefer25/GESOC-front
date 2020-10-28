@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import { Chart } from 'primereact/chart';
 import { Button } from "reactstrap";
 import ValidarEgreso from "./ValidarEgreso";
+import ValidadorTransparenciaService from '../../../../services/ValidadorTransparenciaService';
+import { CircularProgress } from '@material-ui/core';
 
 export default class ChartEgreso extends Component {
     constructor() {
         super();
+        this.service = new ValidadorTransparenciaService();
         this.state = {
-            data: null,
-            showConfig: false
+            validados: null,
+            noValidados: null,
+            showConfig: false,
+            loading: true
         }
     }
 
@@ -18,11 +23,27 @@ export default class ChartEgreso extends Component {
         })
     }
 
-    chartData = {
+    getValidacion = async() => {
+        let { egresosNoValidadosTotales, egresosValidados } = await this.service.getEstadoValidacion();
+
+        this.setState({
+            validados: egresosValidados,
+            noValidados: egresosNoValidadosTotales,
+            loading: false
+        })
+    }
+
+    componentDidMount = async() => {
+        await this.getValidacion();
+    }
+
+    chartData = () => {
+        let {validados, noValidados} = this.state;
+        return {
         labels: ['Validados', 'No validados'],
         datasets: [
             {
-                data: [300, 200],
+                data: [parseInt(validados), parseInt(noValidados)],
                 backgroundColor: [
                     "#42A5F5",
                     "#66BB6A"
@@ -33,7 +54,7 @@ export default class ChartEgreso extends Component {
                 ]
             }
         ]
-    };
+    }};
     
     lightOptions = {
         legend: {
@@ -46,12 +67,22 @@ export default class ChartEgreso extends Component {
     render() {
         return (
             <div className="boxHome secundario egresos">
-                Egresos
-                <Chart type="pie" data={this.chartData} options={this.lightOptions} />
-                <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Validar</Button>
                 {
-                    this.state.showConfig &&
-                    <ValidarEgreso onHide={this.onClickConfig} visible={this.state.showConfig} />
+                    this.state.loading?
+                    <div className="loadingAnimation">
+                        <CircularProgress size="6em" />
+                    </div>
+                    :
+                    <div>
+                        Egresos
+                        
+                        <Chart type="pie" data={this.chartData()} options={this.lightOptions} />
+                        <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Validar</Button>
+                        {
+                            this.state.showConfig &&
+                            <ValidarEgreso onHide={this.onClickConfig} visible={this.state.showConfig} />
+                        }
+                    </div>
                 }
             </div>
         )
