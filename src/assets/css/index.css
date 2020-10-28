@@ -237,9 +237,9 @@ code {
 
 /*Cambios de Andre*/
 .categoriaEntidad {
-  border: 1px solid black;
+  border: 1px solid #b39f2d;
   border-radius: 10px;
-  background-color: red;
+  background-color: transparent;
   text-align: center;
   padding: .5em;
   margin: 0 auto 3em;
@@ -264,6 +264,7 @@ code {
 
 .entidadDataElement {
   margin-top: .3em;
+  margin-bottom: -0.4em;
 }
 
 .entidadDataValue {
@@ -277,4 +278,12 @@ code {
 
 .buttonIcon {
   margin-top: -.2em;
+}
+
+.p-steps-number {
+  background-color: #e0da9d !important;
+}
+
+.p-menuitem-link:focus{
+  box-shadow:0 0 0 0.2rem burlywood !important;
 }

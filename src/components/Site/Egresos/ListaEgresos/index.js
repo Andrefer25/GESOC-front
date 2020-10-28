@@ -8,7 +8,7 @@ import NuevoEgreso from './NuevoEgreso';
 import EgresoService from './../../../../services/EgresoService';
 import { Calendar } from 'primereact/calendar';
 import { es } from './../../../../helpers/spanishCalendar';
-
+import { MdAddCircle } from 'react-icons/md';
 import './../../../../assets/css/gridList.css';
 import { Button } from "reactstrap";
 
@@ -73,7 +73,9 @@ class ListaEgresos extends Component {
                 <h1>
                     {this.props.nameList}
                 </h1>
-                <Button className="colorButton" onClick={this.showNuevoEgreso}>NuevoEgreso</Button>
+                <span className="p-input-icon-left">
+                    <Button className="colorButton" onClick={this.showNuevoEgreso}><MdAddCircle className="buttonIcon" /> Nuevo Egreso</Button>
+                </span>
             </div>
         );
         

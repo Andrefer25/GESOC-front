@@ -24,12 +24,12 @@ export default class ChartOperacion extends Component {
             {
                 data: [300, 200],
                 backgroundColor: [
-                    "#42A5F5",
-                    "#66BB6A"
+                    "brown",
+                    "#b39f2d"
                 ],
                 hoverBackgroundColor: [
-                    "#64B5F6",
-                    "#81C784"
+                    "#ad5353",
+                    "burlywood"
                 ]
             }
         ]
@@ -48,7 +48,7 @@ export default class ChartOperacion extends Component {
             <div className="boxHome secundario operaciones">
                 Operacion
                 <Chart type="pie" data={this.chartData} options={this.lightOptions} />
-                <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Vincular</Button>
+                <Button className="botonSecundario" color="secondary" onClick={this.onClickConfig}>Vincular</Button>
                 {
                     this.state.showConfig &&
                     <VincularOperacion onHide={this.onClickConfig} visible={this.state.showConfig} />

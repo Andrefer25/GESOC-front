@@ -6,7 +6,7 @@ const VincularOperacion = ({onHide, visible}) => {
 
     const renderFooter = (
         <div>
-            <Button color="primary" onClick={() => onHide()}>Vincular</Button>
+            <Button color="secondary" onClick={() => onHide()}>Vincular</Button>
         </div>
     );
 

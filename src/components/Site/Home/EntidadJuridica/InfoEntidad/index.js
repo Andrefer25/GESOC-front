@@ -6,7 +6,7 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
 
     return (
         <Row>
-            <Col md="9">
+            <Col md="7">
                 <h1>{entidadJuridica.nombreFicticio}</h1>
                 <Form style={{marginTop:"1.3em"}}>
                     <FormGroup row className="entidadDataElement">
@@ -41,13 +41,15 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
                     </FormGroup>
                 </Form>
             </Col>
+            <Col md="2">
+                <PrButton type="button" icon="pi pi-cog" className="colorButton p-button-rounded p-button-info userButton" onClick={() => onClickConfig()} />
+                <PrButton type="button" icon="pi pi-pencil" className="colorButton p-button-rounded p-button-info userButton" onClick={() => onClickEditar()} />
+            </Col>
             <Col md="3" className="colButtons">
                 <div className="categoriaEntidad">
                     <p>Categoria</p>
                     <p>{"Mediana".toUpperCase()}</p>
                 </div>
-                <PrButton type="button" icon="pi pi-cog" className="colorButton p-button-rounded p-button-info userButton" onClick={() => onClickConfig()} />
-                <PrButton type="button" label="Editar" icon="pi pi-sliders-v" className="p-button-info userButton" onClick={() => onClickEditar()} />
             </Col>
         </Row>
     )

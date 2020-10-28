@@ -73,7 +73,7 @@ class ListaIngresos extends Component {
                     {this.props.nameList}
                 </h1>
                 <span className="p-input-icon-left">
-                    <Button color="primary" className="colorBadge" onClick={this.showNuevoEgreso}><MdAddCircle className="buttonIcon" /> Nuevo Ingreso</Button>
+                    <Button className="colorButton" onClick={this.showNuevoEgreso}><MdAddCircle className="buttonIcon" /> Nuevo Ingreso</Button>
                 </span>
             </div>
         );

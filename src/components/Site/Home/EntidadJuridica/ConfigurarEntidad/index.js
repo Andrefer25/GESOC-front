@@ -11,7 +11,7 @@ const ConfigurarEntidad = ({onHide, visible}) => {
     );
 
     return (
-        <Dialog header="Configuracion de Entidad Juridica" visible={visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => onHide()}>
+        <Dialog header="Configuracion de Entidad Juridica" visible={visible} style={{ width: '35vw' }} footer={renderFooter} onHide={() => onHide()}>
             <Form>
                 <FormGroup>
                     <Label>Nombre</Label>

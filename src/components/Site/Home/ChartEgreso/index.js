@@ -24,12 +24,12 @@ export default class ChartEgreso extends Component {
             {
                 data: [300, 200],
                 backgroundColor: [
-                    "#42A5F5",
-                    "#66BB6A"
+                    "#b39f2d",
+                    "brown"
                 ],
                 hoverBackgroundColor: [
-                    "#64B5F6",
-                    "#81C784"
+                    "burlywood",
+                    "#ad5353"
                 ]
             }
         ]
@@ -48,7 +48,7 @@ export default class ChartEgreso extends Component {
             <div className="boxHome secundario egresos">
                 Egresos
                 <Chart type="pie" data={this.chartData} options={this.lightOptions} />
-                <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Validar</Button>
+                <Button className="botonSecundario" color="secondary" onClick={this.onClickConfig}>Validar</Button>
                 {
                     this.state.showConfig &&
                     <ValidarEgreso onHide={this.onClickConfig} visible={this.state.showConfig} />

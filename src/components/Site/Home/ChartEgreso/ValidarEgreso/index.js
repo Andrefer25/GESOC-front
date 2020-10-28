@@ -6,7 +6,7 @@ const ValidarEgreso = ({onHide, visible}) => {
 
     const renderFooter = (
         <div>
-            <Button color="primary" onClick={() => onHide()}>Validar</Button>
+            <Button color="secondary" onClick={() => onHide()}>Validar</Button>
         </div>
     );
 
