@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { egresosUrl } from './../constants/routes';
+import { egresosUrl, egresoPresupuestosUrl } from './../constants/routes';
 import { parsearEgreso, parsearValidacion } from './../helpers/parser';
 
 
@@ -61,23 +61,28 @@ export default class EgresoService {
         else return null;
     }
 
-    getEgresoById = async (id) => {
-        let idEntidadJuridica = localStorage.getItem("entidadJuridica");
-        let egreso = await Axios.get(egresosUrl+'/'+idEntidadJuridica+'/'+id);
-
-        return parsearValidacion(egreso);
+    createEgreso = async(data) => {
+        try {
+            let resp = await Axios.post(`${egresoPresupuestosUrl}/1`, data);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
     }
 
-    updateEgreso = async (id, dataEgreso) => {
-        let idEntidadJuridica = localStorage.getItem("entidadJuridica");
-        Axios.post(egresosUrl+'/'+idEntidadJuridica+'/'+id, {
-            data: dataEgreso
-        }).then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    updateEgreso = async(data) => {
+        try {
+            let resp = await Axios.put(`${egresosUrl}/1`, data);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
     }
 
 }

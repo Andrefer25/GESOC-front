@@ -55,28 +55,45 @@ export default class IngresoService {
 
     getListaIngreso = async () => {
         let ingresos = await Axios.get(`${ingresosUrl}/1`);
-        console.log(ingresos.data);
         if(ingresos.data.length > 0) {
             return parsearIngreso(ingresos.data);
         } else return null;
     }
 
-    getIngresoById = async (id) => {
-        let idEntidadJuridica = localStorage.getItem("entidadJuridica");
-        
-        return await Axios.get(ingresosUrl+'/'+idEntidadJuridica+'/'+id);
+    createIngreso = async(data) => {
+        try {
+            let resp = await Axios.post(`${ingresosUrl}/1`, data);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
     }
 
-    updateIngreso = async (id, dataIngreso) => {
-        let idEntidadJuridica = localStorage.getItem("entidadJuridica");
-        Axios.post(ingresosUrl+'/'+idEntidadJuridica+'/'+id, {
-            data: dataIngreso
-        }).then(function (response) {
-            console.log(response);
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
+    updateIngreso = async(data) => {
+        try {
+            let resp = await Axios.put(`${ingresosUrl}/1`, data);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
+    }
+
+    deleteIngreso = async(id) => {
+        try {
+            let resp = await Axios.delete(`${ingresosUrl}/1/${id}`);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
     }
 
 }

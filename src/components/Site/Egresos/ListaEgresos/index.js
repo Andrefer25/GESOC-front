@@ -9,6 +9,8 @@ import EgresoService from './../../../../services/EgresoService';
 import { Calendar } from 'primereact/calendar';
 import { es } from './../../../../helpers/spanishCalendar';
 import { MdAddCircle } from 'react-icons/md';
+import { Toast } from 'primereact/toast';
+
 import './../../../../assets/css/gridList.css';
 import { Button } from "reactstrap";
 
@@ -24,7 +26,7 @@ class ListaEgresos extends Component {
             selectedStatus: null,
             showDialog: false,
             selectedData: null,
-            showNewEgreso: false
+            showNewEgreso: false,
         }
 
         this.statuses = [
@@ -32,13 +34,50 @@ class ListaEgresos extends Component {
         ]
     }
 
-    componentDidMount = async () => {
+    showSuccess = () => {
+        this.toast.show({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+    }
+
+    showError = () => {
+        this.toast.show({severity:'error', summary: 'Error Message', detail:'Message Content', life: 3000});
+    }
+
+    getLista = async() => {
         let listaEgresos = await this.service.getListaEgresos();
-        console.log(listaEgresos);
         this.setState({
-            data: listaEgresos,
-            loading: false
+            data: listaEgresos
         })
+    }
+
+    componentDidMount = async () => {
+        await this.getLista();
+        this.setState({ loading: false });
+    }
+
+    crearEgreso = async(data) => {
+        let resultado = await this.service.createEgreso(data);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        this.setState({ loading: true });
+        this.hideNuevoEgreso();
+        await this.getLista();
+        this.setState({ loading: false });
+    }
+
+    editarIngreso = async(data) => {
+        let resultado = await this.service.updateEgreso(data);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        this.setState({ loading: true });
+        this.handleDialog();
+        await this.getLista();
+        this.setState({ loading: false });
     }
 
     handleDialog = () => {
@@ -90,21 +129,22 @@ class ListaEgresos extends Component {
                         <DataTable ref={(el) => this.dt = el} value={this.state.data} paginator rows={10}
                             header={header} className="p-datatable-customers" selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                             emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
-                            <Column field="idEgreso" header="ID" body={Columna.idEgresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" />
                             <Column field="numeroInstrumentoPago" header="Numero Instrumento" body={this.numeroInstrumentoTemplate} filter filterPlaceholder="Filtrar por numero" filterMatchMode="contains" />
+                            <Column field="descripcion" header="Descripcion" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por detalle" filterMatchMode="contains" />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} />
                             <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} />
                         </DataTable>
+                        <Toast ref={(el) => this.toast = el} />
                     </div>
                 </div>
                 { this.state.selectedData &&
-                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} />
+                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} onSubmit={this.editarIngreso} />
                 }
                 {   
                     this.state.showNewEgreso &&
-                    <NuevoEgreso visible={this.state.showNewEgreso} onHide={this.hideNuevoEgreso}/>
-                }  
+                    <NuevoEgreso visible={this.state.showNewEgreso} onHide={this.hideNuevoEgreso} crearEgreso={this.crearEgreso} />
+                }
             </div>
         )
     }

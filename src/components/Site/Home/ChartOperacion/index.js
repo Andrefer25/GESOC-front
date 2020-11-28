@@ -2,13 +2,18 @@ import React, { Component } from "react";
 import { Chart } from 'primereact/chart';
 import { Button } from "reactstrap";
 import VincularOperacion from "./VincularOperacion";
+import VinculadorService from '../../../../services/VinculadorService';
+import { CircularProgress } from '@material-ui/core';
 
 export default class ChartOperacion extends Component {
     constructor() {
         super();
+        this.service = new VinculadorService();
         this.state = {
-            data: null,
-            showConfig: false
+            vinculados: null,
+            noVinculados: null,
+            showConfig: false,
+            loading: true
         }
     }
 
@@ -18,11 +23,27 @@ export default class ChartOperacion extends Component {
         })
     }
 
-    chartData = {
-        labels: ['Vinculadas', 'No vinculadas'],
+    getValidacion = async() => {
+        let { operacionesNoVinculadas, operacionesVinculadas } = await this.service.getEstadoVinculacion();
+
+        this.setState({
+            vinculados: operacionesVinculadas,
+            noVinculados: operacionesNoVinculadas,
+            loading: false
+        })
+    }
+
+    componentDidMount = async() => {
+        await this.getValidacion();
+    }
+
+    chartData = () => {
+        let {vinculados, noVinculados} = this.state;
+        return {
+        labels: ['Vinculados', 'No vinculados'],
         datasets: [
             {
-                data: [300, 200],
+                data: [parseInt(vinculados), parseInt(noVinculados)],
                 backgroundColor: [
                     "brown",
                     "#b39f2d"
@@ -33,7 +54,7 @@ export default class ChartOperacion extends Component {
                 ]
             }
         ]
-    };
+    }};
     
     lightOptions = {
         legend: {
@@ -46,12 +67,21 @@ export default class ChartOperacion extends Component {
     render() {
         return (
             <div className="boxHome secundario operaciones">
-                Operacion
-                <Chart type="pie" data={this.chartData} options={this.lightOptions} />
-                <Button className="botonSecundario" color="secondary" onClick={this.onClickConfig}>Vincular</Button>
                 {
-                    this.state.showConfig &&
-                    <VincularOperacion onHide={this.onClickConfig} visible={this.state.showConfig} />
+                    this.state.loading?
+                    <div className="loadingAnimation">
+                        <CircularProgress size="6em" />
+                    </div>
+                    :
+                    <div>
+                        Operaciones
+                        <Chart type="pie" data={this.chartData()} options={this.lightOptions} />
+                        <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Vincular</Button>
+                        {
+                            this.state.showConfig &&
+                            <VincularOperacion onHide={this.onClickConfig} visible={this.state.showConfig} />
+                        }
+                    </div>
                 }
             </div>
         )

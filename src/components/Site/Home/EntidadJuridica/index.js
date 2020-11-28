@@ -4,6 +4,7 @@ import EditarEntidad from './EditarEntidad';
 import InfoEntidad from './InfoEntidad';
 import { CircularProgress } from '@material-ui/core';
 import EntidadJuridicaService from './../../../../services/EntidadJuridicaService';
+import { Toast } from 'primereact/toast';
 
 class EntidadJuridica extends Component {
 
@@ -17,10 +18,21 @@ class EntidadJuridica extends Component {
         }
     }
 
-    componentDidMount = async () => {
+    showSuccess = () => {
+        this.toast.show({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+    }
+
+    showError = () => {
+        this.toast.show({severity:'error', summary: 'Error Message', detail:'Message Content', life: 3000});
+    }
+
+    getEntidadJuridicaInfo = async () => {
         let data = await this.service.getEntidadJuridica();
-        console.log(data);
         this.setState({dataEntidadJuridica: data});
+    } 
+
+    componentDidMount = async () => {
+        await this.getEntidadJuridicaInfo();
     }
 
     onClickConfig = () => {
@@ -35,10 +47,21 @@ class EntidadJuridica extends Component {
         })
     }
 
+    editarEntidad = async (data) => {
+        let resultado = await this.service.editarEntidadJuridica(data);
+        if(resultado) {
+            this.showSuccess();
+        } else {
+            this.showError();
+        }
+        await this.getEntidadJuridicaInfo();
+    }
+
     render() {
 
         return (
             <div className="boxHome principal">
+                <Toast ref={(el) => this.toast = el} />
                 {
                     this.state.dataEntidadJuridica?
                     <InfoEntidad entidadJuridica={this.state.dataEntidadJuridica} onClickConfig={this.onClickConfig} onClickEditar={this.onClickEditar} />
@@ -54,7 +77,7 @@ class EntidadJuridica extends Component {
                 }
                 {
                     this.state.showEditar &&
-                    <EditarEntidad onHide={this.onClickEditar} visible={this.state.showEditar} />
+                    <EditarEntidad onHide={this.onClickEditar} visible={this.state.showEditar} entidadJuridica={this.state.dataEntidadJuridica} onSubmit={this.editarEntidad} />
                 }
             </div>
         )

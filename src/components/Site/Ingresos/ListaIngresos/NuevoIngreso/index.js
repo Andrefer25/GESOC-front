@@ -1,73 +1,112 @@
 import React, { Component } from 'react';
 import { Dialog } from 'primereact/dialog';
-import { Steps } from 'primereact/steps';
-import { Button } from 'reactstrap';
-import PrimerPaso from './PrimerPaso';
-import SegundoPaso from './SegundoPaso';
-import TercerPaso from './TercerPaso';
+import { Col, Row, Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
+import { validateInputNumber, validateInputText } from './../../../../../helpers/validator';
+import MediosDePagoService from './../../../../../services/MediosDePagoService';
+
 
 export default class NuevoIngreso extends Component {
 
     constructor() {
         super();
+        this.service = new MediosDePagoService();
         this.state = {
-            activeIndex: 0,
-            nuevoEgreso: [],
-            isValid: []
+            invalidID: false,
+            invalidDescripcion: false,
+            invalidImporte: false,
+            monedas: null
         }
     }
 
     renderFooter = () => (
         <div>
-            { this.state.activeIndex > 0 &&
-                <Button color="primary" onClick={() => this.lastItem()}>Anterior</Button>
-            }
-            { this.state.activeIndex < this.items.length-1 &&
-                <Button color="primary" onClick={() => this.nextItem()} disabled={!this.state.isValid[this.state.activeIndex.toString()]}>Siguiente</Button>
-            }
-            <Button color="danger" onClick={() => this.props.onHide()}>Cancelar</Button>
+            <Button color="primary" onClick={this.onSubmit}>Crear</Button>
         </div>
     );
 
-    lastItem = () => {
-        this.setState({ activeIndex: this.state.activeIndex-1 })
+    renderMoneda = (data) => {
+        return data.map(e => (
+            <option value={e.idMoneda} key={e.idMoneda}>{`${e.descripcion} (${e.simbolo})`}</option>
+        ));
     }
 
-    nextItem = () => {
-        this.setState({ activeIndex: this.state.activeIndex+1 })
+    componentDidMount = async () => {
+        await this.getMonedas();
     }
 
-    insertData = (index, data, isValid) => {
-        let dataEgreso = this.state.nuevoEgreso;
-        let valid = this.state.isValid;
-        valid[index] = isValid;
-        dataEgreso[index] = data;
-        console.log(data);
-        this.setState({ nuevoEgreso: dataEgreso, isValid: valid });
+    getMonedas = async () => {
+        let monedas = await this.service.getMonedas();
+
+        this.setState({ monedas });
     }
 
-    renderStepComponent = () => {
-        let index = this.state.activeIndex;
-        switch(index) {
-            case 0:
-                return <PrimerPaso index="0" data={this.state.nuevoEgreso[0]} onChange={this.insertData}/>
-            case 1:
-                return <SegundoPaso index="1" data={this.state.nuevoEgreso[1]} onChange={this.insertData}/>
-            case 2:
-                return <TercerPaso index="2" data={this.state.nuevoEgreso[2]} onChange={this.insertData}/>
-            default:
-                return <PrimerPaso />
+    onSubmit = async () => {
+        let clienteId = document.getElementById("clienteId").value || "";
+        let descripcion = document.getElementById("descripcion").value || "";
+        let importe = document.getElementById("importe").value || "";
+        let moneda = {idMoneda: parseInt(document.getElementById("moneda").value)};
+        this.setState({ invalidInsPago: false, invalidDescripcion: false });
+        if(validateInputNumber(clienteId) && validateInputNumber(importe) && validateInputText(descripcion)) {
+            await this.props.onSubmit({
+                importe: parseInt(importe), descripcion, clienteId: parseInt(clienteId), moneda
+            })
+        } else {
+            if(!validateInputText(descripcion)) {
+                this.setState({ invalidDescripcion: true });
+            }
+            if(!validateInputNumber(clienteId)) {
+                this.setState({ invalidID: true });
+            }
+            if(!validateInputNumber(importe)) {
+                this.setState({ invalidImporte: true });
+            }
         }
     }
 
-    items = [{ label: 'Paso 1' }, { label: 'Paso 2' }, { label: 'Paso 3' }];
-
     render() {
         return (
-            <Dialog header="Nuevo egreso" visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
-                <Steps model={this.items} activeIndex={this.state.activeIndex} onSelect={(e) => this.setState({ activeIndex: e.index })} readOnly={true} />
-                <br/>
-                {this.renderStepComponent()}
+            <Dialog header="Nuevo Ingreso" visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
+                <Form>
+                    <Row form>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label>ID Cliente</Label>
+                                <Input type="number" id="clienteId" placeholder="Ingresa el ID" invalid={this.state.invalidID} />
+                                {
+                                    this.state.invalidID &&
+                                    <FormFeedback>Ingrese un ID válido</FormFeedback>
+                                }
+                            </FormGroup>
+                            {
+                                this.state.monedas &&
+                                <FormGroup>
+                                    <Label>Moneda</Label>
+                                    <Input type="select" name="select" id="moneda">
+                                        {this.renderMoneda(this.state.monedas)}
+                                    </Input>
+                                </FormGroup>
+                            }
+                        </Col>
+                        <Col md={6}>
+                            <FormGroup>
+                                <Label>Descripcion</Label>
+                                <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} />
+                                {
+                                    this.state.invalidDescripcion &&
+                                    <FormFeedback>Ingrese una descripción válida</FormFeedback>
+                                }
+                            </FormGroup>
+                            <FormGroup>
+                                <Label>Importe</Label>
+                                <Input type="number" id="importe" placeholder="Ingresa el importe" invalid={this.state.invalidImporte} />
+                                {
+                                    this.state.invalidImporte &&
+                                    <FormFeedback>Ingrese un importe válido</FormFeedback>
+                                }
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                </Form>
             </Dialog>
         )
     }

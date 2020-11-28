@@ -104,7 +104,8 @@ code {
 }
 
 .pro-sidebar {
-  min-width: 200px;
+  min-width: 240px;
+  width: 240px;
 }
 
 @media only screen and (min-width: 1200px) {
@@ -286,4 +287,16 @@ code {
 
 .p-menuitem-link:focus{
   box-shadow:0 0 0 0.2rem burlywood !important;
+}
+
+.buttonIconCrud {
+  height: 15px;
+  width: 15px;
+  margin-left: -0.5em;
+  margin-top: -1em;
+}
+
+.crudButton {
+  width: 25px;
+  height: 25px;
 }

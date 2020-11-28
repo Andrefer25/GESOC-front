@@ -48,7 +48,7 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
             <Col md="3" className="colButtons">
                 <div className="categoriaEntidad">
                     <p>Categoria</p>
-                    <p>{"Mediana".toUpperCase()}</p>
+                    <strong>{entidadJuridica.categoriaentidad.descripcion.toUpperCase()}</strong>
                 </div>
             </Col>
         </Row>
