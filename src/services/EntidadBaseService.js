@@ -3,17 +3,21 @@ import { entidadesBaseUrl } from '../constants/routes';
 
 export default class EntidadBaseService {
 
+    constructor() {
+        this.entidadId = localStorage.getItem("entJuridica");
+    }
+
     getEntidadBase = async () => {
-        let entidad = await Axios.get(`${entidadesBaseUrl}/1`);
+        let entidad = await Axios.get(`${entidadesBaseUrl}/${this.entidadId}`);
         return entidad.data;
     }
 
     createEntidadBase = async(data) => {
         try {
-            let resp = await Axios.post(`${entidadesBaseUrl}/1`, {
+            let resp = await Axios.post(`${entidadesBaseUrl}/${this.entidadId}`, {
                 descripcion: data.desc,
                 nombreFicticio: data.nombre,
-                entidadjuridica: {idEntidadJuridica: 1}
+                entidadjuridica: {idEntidadJuridica: this.entidadId}
             });
             if(resp.data) {
                 return true;

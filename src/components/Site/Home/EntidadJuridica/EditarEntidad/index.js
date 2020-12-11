@@ -27,7 +27,7 @@ class EditarEntidad extends Component  {
         this.setState({ invalidCantEmpleados: false, invalidPromedio: false });
         if(validateInputNumber(cantEmpleados) && validateInputNumber(promedioVentas)) {
             await this.props.onSubmit({
-                "idEntidadJuridica": 1,
+                "idEntidadJuridica": localStorage.getItem("entJuridica"),
                 "empleados": cantEmpleados,
                 "actividad": getCategoria(actividad),
                 "promedioActividad": promedioVentas

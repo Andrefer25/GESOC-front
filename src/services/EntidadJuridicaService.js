@@ -3,8 +3,12 @@ import { entidadJuridicaUrl, recategorizadorUrl, configEntUrl, validadorUrl, vin
 
 export default class EntidadJuridicaService {
 
+    constructor() {
+        this.entidadId = localStorage.getItem("entJuridica");
+    }
+
     getEntidadJuridica = async () => {
-        let entidad = await Axios.get(`${entidadJuridicaUrl}/1`);
+        let entidad = await Axios.get(`${entidadJuridicaUrl}/${this.entidadId}`);
         return entidad.data;
     }
 
@@ -21,7 +25,7 @@ export default class EntidadJuridicaService {
     }
 
     getConfiguracionEnt = async () => {
-        let config = await Axios.get(`${configEntUrl}/1`);
+        let config = await Axios.get(`${configEntUrl}/${this.entidadId}`);
         return config.data;
     }
 
@@ -39,7 +43,7 @@ export default class EntidadJuridicaService {
 
     getEstadoValidacion = async() => {
         try {
-            let resp = await Axios.get(`${validadorUrl}/1`);
+            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`);
             return resp.data;
         }
         catch(e) {
@@ -50,7 +54,7 @@ export default class EntidadJuridicaService {
 
     getEstadoVinculacion = async() => {
         try {
-            let resp = await Axios.get(`${vinculadorUrl}/1`);
+            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`);
             return resp.data;
         }
         catch(e) {

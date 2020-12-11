@@ -10,6 +10,26 @@ export const getIndexMoneda = (list, mon) => {
     return i;
 }
 
+export const getMoneda = (list, mon) => {
+    let i = '';
+    list.forEach(e => {
+        if(e.idMoneda === mon)
+            i = `${e.descripcion} (${e.simbolo})`;
+            return;
+    });
+    return i;
+}
+
+export const getEgreso = (list, egr) => {
+    let i = '';
+    list.forEach(e => {
+        if(e.idMoneda === egr)
+            i = `${e.idEgreso} - ${e.descripcion}`;
+            return;
+    });
+    return i;
+}
+
 export const getIndexMonedaServ = async mon => {
     let serv = new MediosDePagoService();
     let lista = await serv.getMonedas();
@@ -28,4 +48,14 @@ export const getAttrName = obj => {
         res.push({ name: nameToString(e), prop: e });
     }
     return res;
+}
+
+export const getBuffer = data => {
+    var myBuffer = [];
+    var buffer = new Buffer(data, 'utf16le');
+    for (var i = 0; i < buffer.length; i++) {
+        myBuffer.push(buffer[i]);
+    }
+    console.log(buffer);
+    return myBuffer;
 }

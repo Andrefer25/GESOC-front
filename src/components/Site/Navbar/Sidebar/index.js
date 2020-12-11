@@ -40,6 +40,21 @@ const SideNavbar = ({ collapsed, handleSidebar }) => {
                             <Link to="/egresos">Egresos</Link>
                         </MenuItem>
                     </Menu>
+                    <Menu iconShape="circle" className="marginSideBar">
+                        <MenuItem icon={<GiTakeMyMoney />}>
+                            <Link to="/presupuestos">Presupuestos</Link>
+                        </MenuItem>
+                    </Menu>
+                    <Menu iconShape="circle" className="marginSideBar">
+                        <MenuItem icon={<GiTakeMyMoney />}>
+                            <Link to="/proveedores">Proveedores</Link>
+                        </MenuItem>
+                    </Menu>
+                    <Menu iconShape="circle" className="marginSideBar">
+                        <MenuItem icon={<GiTakeMyMoney />}>
+                            <Link to="/items">Items</Link>
+                        </MenuItem>
+                    </Menu>
                     { (userRole === 'admin') && 
                         <Menu iconShape="circle">
                             <SubMenu

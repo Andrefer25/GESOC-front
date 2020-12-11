@@ -3,18 +3,21 @@ import { Dialog } from 'primereact/dialog';
 import { Col, Row, Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
 import { validateInputNumber, validateInputText } from './../../../../../helpers/validator';
 import MediosDePagoService from './../../../../../services/MediosDePagoService';
+import PresupuestoService from '../../../../../services/PresupuestoService';
 
 export default class DetalleEgreso extends Component {
 
     constructor() {
         super();
         this.service = new MediosDePagoService();
+        this.presupuestoService = new PresupuestoService();
         this.state = {
             invalidNumIns: false,
             invalidDescripcion: false,
             invalidImporte: false,
             mediosPago: null,
-            monedas: null
+            monedas: null,
+            presupuestos: null
         }
     }
 
@@ -37,8 +40,21 @@ export default class DetalleEgreso extends Component {
         ));
     }
 
+    renderPresupuestos = (data) => {
+        return data.map((e, index) => (
+            <option value={index} key={index}>{`${e.detalles}`}</option>
+        ));
+    }
+
+    getPresupuestosElegidos = (presupuestos) => {
+        let lista = this.state.presupuestos.filter(e => presupuestos.indexOf(e.idPresupuesto) !== -1);
+        return lista;
+    }
+
     componentDidMount = async () => {
-        await this.getMediosPago();
+        this.getMediosPago().then(async () => {
+            await this.getPresupuestos()
+        });
     }
 
     getMediosPago = async () => {
@@ -46,6 +62,12 @@ export default class DetalleEgreso extends Component {
         let monedas = await this.service.getMonedas();
 
         this.setState({ mediosPago, monedas });
+    }
+
+    getPresupuestos = async() => {
+        let presupuestos = await this.presupuestoService.getListaPresupuestos();
+
+        this.setState({ presupuestos });
     }
 
     onDelete = async() => {
@@ -75,7 +97,7 @@ export default class DetalleEgreso extends Component {
     }
 
     render() {
-        let { idEgreso, descripcion, numeroInstrumentoPago, importe, moneda, mediodepago } = this.props.data;
+        let { idEgreso, descripcion, numeroInstrumentoPago, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos } = this.props.data;
         return (
             <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
                 <Form>
@@ -118,6 +140,15 @@ export default class DetalleEgreso extends Component {
                                     <Label>Medio de Pago</Label>
                                     <Input type="select" name="select" id="medioPago" defaultValue={mediodepago}>
                                         {this.renderMedioPago(this.state.mediosPago)}
+                                    </Input>
+                                </FormGroup>
+                            }
+                            {
+                                this.state.presupuestos &&
+                                <FormGroup>
+                                    <Label>Presupuesto Elegido</Label>
+                                    <Input type="select" name="select" id="presupuesto" defaultValue={presupuestoSeleccionado} disabled>
+                                        {this.renderPresupuestos(this.getPresupuestosElegidos(presupuestos))}
                                     </Input>
                                 </FormGroup>
                             }

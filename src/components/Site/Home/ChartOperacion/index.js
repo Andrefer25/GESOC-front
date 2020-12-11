@@ -2,18 +2,13 @@ import React, { Component } from "react";
 import { Chart } from 'primereact/chart';
 import { Button } from "reactstrap";
 import VincularOperacion from "./VincularOperacion";
-import VinculadorService from '../../../../services/VinculadorService';
 import { CircularProgress } from '@material-ui/core';
 
 export default class ChartOperacion extends Component {
     constructor() {
         super();
-        this.service = new VinculadorService();
         this.state = {
-            vinculados: null,
-            noVinculados: null,
-            showConfig: false,
-            loading: true
+            showConfig: false
         }
     }
 
@@ -23,27 +18,13 @@ export default class ChartOperacion extends Component {
         })
     }
 
-    getValidacion = async() => {
-        let { operacionesNoVinculadas, operacionesVinculadas } = await this.service.getEstadoVinculacion();
-
-        this.setState({
-            vinculados: operacionesVinculadas,
-            noVinculados: operacionesNoVinculadas,
-            loading: false
-        })
-    }
-
-    componentDidMount = async() => {
-        await this.getValidacion();
-    }
-
     chartData = () => {
-        let {vinculados, noVinculados} = this.state;
+        let {operacionesVinculadas, operacionesNoVinculadas} = this.props.data;
         return {
         labels: ['Vinculados', 'No vinculados'],
         datasets: [
             {
-                data: [parseInt(vinculados), parseInt(noVinculados)],
+                data: [parseInt(operacionesVinculadas), parseInt(operacionesNoVinculadas)],
                 backgroundColor: [
                     "brown",
                     "#b39f2d"
@@ -68,11 +49,7 @@ export default class ChartOperacion extends Component {
         return (
             <div className="boxHome secundario operaciones">
                 {
-                    this.state.loading?
-                    <div className="loadingAnimation">
-                        <CircularProgress size="6em" />
-                    </div>
-                    :
+                    this.props.data?
                     <div>
                         Operaciones
                         <Chart type="pie" data={this.chartData()} options={this.lightOptions} />
@@ -81,6 +58,10 @@ export default class ChartOperacion extends Component {
                             this.state.showConfig &&
                             <VincularOperacion onHide={this.onClickConfig} visible={this.state.showConfig} />
                         }
+                    </div>
+                    :
+                    <div className="loadingAnimation">
+                        <CircularProgress size="6em" />
                     </div>
                 }
             </div>

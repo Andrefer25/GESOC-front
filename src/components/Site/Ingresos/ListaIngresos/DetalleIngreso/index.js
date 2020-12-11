@@ -91,9 +91,14 @@ export default class DetalleIngreso extends Component {
                                 this.state.monedas &&
                                 <FormGroup>
                                     <Label>Moneda</Label>
-                                    <Input type="select" name="select" id="moneda" defaultValue={moneda.idMoneda}>
-                                        {this.renderMoneda(this.state.monedas)}
-                                    </Input>
+                                    {
+                                        this.state.monedas &&
+                                        <Input type="select" name="select" id="moneda" defaultValue={moneda.idMoneda}>
+                                            {
+                                                this.renderMoneda(this.state.monedas)
+                                            }
+                                        </Input>
+                                    }
                                 </FormGroup>
                             }
                         </Col>

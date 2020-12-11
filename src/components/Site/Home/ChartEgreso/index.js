@@ -2,18 +2,13 @@ import React, { Component } from "react";
 import { Chart } from 'primereact/chart';
 import { Button } from "reactstrap";
 import ValidarEgreso from "./ValidarEgreso";
-import ValidadorTransparenciaService from '../../../../services/ValidadorTransparenciaService';
 import { CircularProgress } from '@material-ui/core';
 
 export default class ChartEgreso extends Component {
     constructor() {
         super();
-        this.service = new ValidadorTransparenciaService();
         this.state = {
-            validados: null,
-            noValidados: null,
-            showConfig: false,
-            loading: true
+            showConfig: false
         }
     }
 
@@ -23,27 +18,13 @@ export default class ChartEgreso extends Component {
         })
     }
 
-    getValidacion = async() => {
-        let { egresosNoValidadosTotales, egresosValidados } = await this.service.getEstadoValidacion();
-
-        this.setState({
-            validados: egresosValidados,
-            noValidados: egresosNoValidadosTotales,
-            loading: false
-        })
-    }
-
-    componentDidMount = async() => {
-        await this.getValidacion();
-    }
-
     chartData = () => {
-        let {validados, noValidados} = this.state;
+        let { egresosNoValidadosTotales, egresosValidados } = this.props.data;
         return {
         labels: ['Validados', 'No validados'],
         datasets: [
             {
-                data: [parseInt(validados), parseInt(noValidados)],
+                data: [parseInt(egresosValidados), parseInt(egresosNoValidadosTotales)],
                 backgroundColor: [
                     "#b39f2d",
                     "brown"
@@ -68,20 +49,19 @@ export default class ChartEgreso extends Component {
         return (
             <div className="boxHome secundario egresos">
                 {
-                    this.state.loading?
-                    <div className="loadingAnimation">
-                        <CircularProgress size="6em" />
-                    </div>
-                    :
+                    this.props.data?
                     <div>
                         Egresos
-                        
                         <Chart type="pie" data={this.chartData()} options={this.lightOptions} />
                         <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Validar</Button>
                         {
                             this.state.showConfig &&
                             <ValidarEgreso onHide={this.onClickConfig} visible={this.state.showConfig} />
                         }
+                    </div>
+                    :
+                    <div className="loadingAnimation">
+                        <CircularProgress size="6em" />
                     </div>
                 }
             </div>

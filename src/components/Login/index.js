@@ -18,17 +18,18 @@ class Login extends Component {
     }
   }
 
-  onClickLogin = () => {
+  onClickLogin = async() => {
     this.setState({ errorLogin: false });
     let user = document.getElementById("usuarioLogin").value || "";
     let pass = document.getElementById("passLogin").value || "";
     if(user === "" || pass === "") {
       this.setState({ errorLogin: true, tipoError: "Ingrese los datos por favor" })
     } else {
-      let result = this.service.logIn({user, pass});
+      let result = await this.service.logIn({user, pass});
       if(result.status) {
         localStorage.setItem('user', result.user);
         localStorage.setItem('role', result.role);
+        localStorage.setItem('entJuridica', result.idEntidadJuridica);
         window.location.href = '/';
       } else {
         this.setState({ errorLogin: true, tipoError: "Datos incorrectos. Intente nuevamente" })

@@ -5,12 +5,15 @@ import SideNavbar from './Navbar/Sidebar';
 import Home from './Home';
 import Ingresos from './Ingresos';
 import Egresos from './Egresos';
+import Presupuestos from './Presupuestos';
 import CreadorCategorias from './Admin/CreadorCategorias';
 import CreadorCriterios from './Admin/CreadorCriterios';
 import CreadorEntidadesBase from './Admin/CreadorEntidadesBase';
 import Inbox from './Inbox';
 import { PrivateRoute, AdminRoute } from './../../_components';
 import { Switch, Redirect } from 'react-router-dom';
+import Items from './Items';
+import Proveedores from './Proveedores';
 
 class Site extends Component {
     
@@ -40,7 +43,10 @@ class Site extends Component {
                             <PrivateRoute exact path="/" component={Home}/>
                             <PrivateRoute path="/ingresos" component={Ingresos}/>
                             <PrivateRoute path="/egresos" component={Egresos}/>
+                            <PrivateRoute path="/presupuestos" component={Presupuestos}/>
+                            <PrivateRoute path="/items" component={Items}/>
                             <PrivateRoute path="/bandejaMensajes" component={Inbox}/>
+                            <PrivateRoute path="/proveedores" component={Proveedores}/>
                             <AdminRoute path="/crearCategoria" component={CreadorCategorias}/>
                             <AdminRoute path="/crearCriterio" component={CreadorCriterios}/>
                             <AdminRoute path="/crearEntidadBase" component={CreadorEntidadesBase}/>

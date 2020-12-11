@@ -15,7 +15,7 @@ class PrimerPaso extends Component {
 
     renderPresupuestos = (data) => {
         return data.map((e, index) => (
-            <option value={index} key={index}>{`${e.detalles} | $${e.importe}`}</option>
+            <option value={index} key={index}>{`${e.detalles}`}</option>
         ));
     }
 
@@ -35,7 +35,7 @@ class PrimerPaso extends Component {
         let index = parseInt(document.getElementById("presupuesto").value);
         this.setState({indexElegido: index});
         document.getElementById("importe").value = this.props.lista[index].importe;
-        document.getElementById("moneda").value = this.props.lista[index].moneda.idMoneda;
+        document.getElementById("moneda").value = this.props.lista[index].idMoneda;
     }
 
     onSubmit = () => {
@@ -62,10 +62,11 @@ class PrimerPaso extends Component {
             moneda: { idMoneda: parseInt(document.getElementById("moneda").value) },
             mediodepago: {idmediodepago: document.getElementById("medioPago").value },
             usuario: { idUsuario: 1 },
-            entidadjuridica: { idEntidadJuridica: 1 }
+            entidadjuridica: { idEntidadJuridica: 1 },
+            presupuestoSeleccionado: this.props.lista[this.state.indexElegido].idPresupuesto
         }
 
-        this.props.insertData(egreso, this.state.indexElegido);
+        this.props.insertData(egreso);
     }
 
     render() {
@@ -108,18 +109,18 @@ class PrimerPaso extends Component {
                             </FormGroup>
                             <FormGroup>
                                 <Label>Moneda</Label>
-                                <Input type="select" name="select" id="moneda" value={lista[this.state.indexElegido].moneda.idMoneda} onChange={()=>{}}>
+                                <Input type="select" name="select" id="moneda" defaultValue={lista[this.state.indexElegido].idMoneda} disabled>
                                     {this.renderMoneda(this.props.monedas)}
                                 </Input>
                             </FormGroup>
                             <FormGroup>
                                 <Label>Importe Total</Label>
-                                <Input type="text" id="importe" value={lista[this.state.indexElegido].importe} onChange={()=>{}} />
+                                <Input type="text" id="importe" defaultValue={lista[this.state.indexElegido].importe} disabled />
                             </FormGroup>
                         </Col>
                     </Row>
                 </Form>
-                <Button color="primary" onClick={() => this.onSubmit()}>Enviar</Button>
+                <Button color="primary" onClick={() => this.onSubmit()}>Crear</Button>
             </div>
         );
     }

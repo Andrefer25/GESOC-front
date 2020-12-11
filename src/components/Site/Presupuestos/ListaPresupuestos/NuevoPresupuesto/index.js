@@ -5,21 +5,21 @@ import { Button } from 'reactstrap';
 import PrimerPaso from './PrimerPaso';
 import SegundoPaso from './SegundoPaso';
 import MediosDePagoService from './../../../../../services/MediosDePagoService';
-import PresupuestoService from '../../../../../services/PresupuestoService';
+import ItemService from './../../../../../services/ItemService';
 
-export default class NuevoEgreso extends Component {
+export default class NuevoPresupuesto extends Component {
 
     constructor() {
         super();
         this.dataMP = new MediosDePagoService();
-        this.presupuestoService = new PresupuestoService();
+        this.itemService = new ItemService();
         this.state = {
             activeIndex: 0,
             isValid: [],
-            listaPresupuestos: [],
+            listaItems: [],
             monedas: null,
             mediosPago: null,
-            presupuestos: null
+            items: null
         }
     }
 
@@ -32,15 +32,17 @@ export default class NuevoEgreso extends Component {
         });
     }
 
-    getPresupuestos = async() => {
-        let presupuestos = await this.presupuestoService.getListaPresupuestos();
-
-        this.setState({ presupuestos });
+    getItems = async() => {
+        let items = await this.itemService.getItems();
+        console.log(items)
+        this.setState({
+            items
+        })
     }
 
     componentDidMount = async() => {
         this.getMonedasYMedioPago().then(async() => {
-            await this.getPresupuestos();
+            await this.getItems();
         });
     }
 
@@ -65,45 +67,44 @@ export default class NuevoEgreso extends Component {
     }
 
     insertData = (data) => {
-        let egreso = data;
-        egreso.presupuestos = this.state.listaPresupuestos;
-        this.props.crearEgreso(data);
+        let presupuestoData = {
+            importe: parseFloat(data.importe),
+            detalles: data.detalles,
+            proveedor: data.proveedor,
+            moneda: data.moneda,
+            items: data.items
+        }
+        this.props.crearPresupuesto(presupuestoData);
     }
 
-    updatePresupuestos = (index, presupuestos) => {
+    updateItems = (index, items) => {
         let valid = this.state.isValid;
-        valid[index] = (presupuestos.length > 0);
+        valid[index] = (items.length > 0);
 
-        this.setState({ listaPresupuestos: presupuestos, isValid: valid });
-    }
-
-    getPresupuestosElegidos = (presupuestos) => {
-        let lista = presupuestos.filter(e => this.state.listaPresupuestos.indexOf(e.idPresupuesto) !== -1);
-        console.log(lista);
-        return lista;
+        this.setState({ listaItems: items, isValid: valid });
     }
 
     renderStepComponent = () => {
         let index = this.state.activeIndex;
-        let { monedas, mediosPago } = this.state;
+        let { monedas, mediosPago, items } = this.state;
         switch(index) {
             case 0:
-                return <PrimerPaso index="0" updatePresupuestos={this.updatePresupuestos} lista={this.state.listaPresupuestos} presupuestos={this.state.presupuestos} />
+                return <PrimerPaso index="0" updateItems={this.updateItems} lista={this.state.listaItems} data={items} />
             case 1:
-                return <SegundoPaso index="1" lista={this.getPresupuestosElegidos(this.state.presupuestos)} insertData={this.insertData} monedas={monedas} mediosPago={mediosPago}/>
+                return <SegundoPaso index="1" insertData={this.insertData} items={this.state.listaItems} monedas={monedas} mediosPago={mediosPago}/>
             default:
                 return <PrimerPaso />
         }
     }
 
-    items = [{ label: 'Cargar presupuestos' }, { label: 'Información egreso' }];
+    items = [{ label: 'Cargar Items' }, { label: 'Información Presupuesto' }];
 
     render() {
         return (
-            <Dialog header="Nuevo egreso" visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
+            <Dialog header="Nuevo Presupuesto" visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
                 <Steps model={this.items} activeIndex={this.state.activeIndex} onSelect={(e) => this.setState({ activeIndex: e.index })} readOnly={true} />
                 <br/>
-                { (this.state.monedas && this.state.presupuestos) &&
+                { (this.state.monedas && this.state.items) &&
                 this.renderStepComponent()}
             </Dialog>
         )

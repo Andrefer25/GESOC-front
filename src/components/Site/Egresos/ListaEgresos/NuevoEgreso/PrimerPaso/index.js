@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
-import { Col, Row, Form, FormGroup, Label, Input, Button, Table, FormFeedback } from 'reactstrap';
-import { FiEdit2 } from 'react-icons/fi';
+import { Col, Row, Form, FormGroup, Label, Button, Table } from 'reactstrap';
 import { RiDeleteBin6Line } from 'react-icons/ri';
-import { validateInputText, validateInputNumber } from './../../../../../../helpers/validator';
-import { getIndexMoneda } from './../../../../../../helpers/utils';
+import { Select } from 'antd';
+const { Option } = Select;
 
 class PrimerPaso extends Component {
 
     constructor() {
         super();
         this.state = {
-            selectedIndex: null,
             listaPresupuesto: [],
-            invalidDetalle: false,
-            invalidImporte: false
+            presupuestoSel: null
         }
     }
 
@@ -24,17 +21,29 @@ class PrimerPaso extends Component {
         }
     }
 
+    getPresupuestoByID = (index) => {
+        let { presupuestos } = this.props;
+        if(presupuestos.length > 0) {
+            let presupuesto = null;
+            presupuestos.forEach(e => {
+                if(e.idPresupuesto === index) 
+                    presupuesto = e;
+            })
+            return presupuesto;
+        }
+        return null;
+    }
+
     renderTabla = (data) => {
-        let {monedas} = this.props;
+        console.log(data);
         return data.map((e, index) => {
-            let moneda = getIndexMoneda(monedas, e.moneda.idMoneda);
+            let pres = this.getPresupuestoByID(e);
             return (
                 <tr key={index}>
                     <th scope="row">{index}</th>
-                    <td>{e.detalles}</td>
-                    <td>{monedas[moneda].id}</td>
-                    <td>{`$${e.importe}`}</td>
-                    <td><Button className="crudButton" color="primary" onClick={() => this.editarPresupuesto(index)}><FiEdit2 className="buttonIconCrud"/></Button></td>
+                    <td>{pres.detalles}</td>
+                    <td>{pres.moneda}</td>
+                    <td>{`${pres.importe}`}</td>
                     <td><Button className="crudButton" color="danger" onClick={() => this.borrarPresupuesto(index)}><RiDeleteBin6Line className="buttonIconCrud"/></Button></td>
                 </tr>
             )
@@ -48,54 +57,18 @@ class PrimerPaso extends Component {
     }
 
     onSubmit = () => {
-        let detalles = document.getElementById("detalle").value || "";
-        let importe = parseInt(document.getElementById("importe").value) || "";
-        let moneda = { idMoneda: parseInt(document.getElementById("moneda").value) };
-        this.setState({ invalidDetalle: false, invalidImporte: false });
-        if(validateInputNumber(importe) && validateInputText(detalles)) {
-            if(this.state.selectedIndex === null)
-                this.agregarPresupuesto({ detalles, importe, moneda });
-            else {
-                this.actualizarPresupuesto({ detalles, importe, moneda }, this.state.selectedIndex);
-            }
-        } else {
-            if(!validateInputText(detalles)) {
-                this.setState({ invalidDetalle: true });
-            }
-            if(!validateInputNumber(importe)) {
-                this.setState({ invalidImporte: true });
-            }
-        }
-    }
-
-    agregarPresupuesto = (data) => {
+        let presupuesto = parseInt(this.state.presupuestoSel);
         let lista = this.state.listaPresupuesto;
-        lista.push(data);
-
+        lista.push(presupuesto);
         this.setState({listaPresupuesto: lista});
-        document.getElementById("detalle").value = "";
-        document.getElementById("importe").value = "";
 
         this.props.updatePresupuestos(this.props.index, lista);
     }
 
-    editarPresupuesto = (index) => {
-        let presupuesto = this.state.listaPresupuesto[index];
-        document.getElementById("detalle").value = presupuesto.detalles;
-        document.getElementById("importe").value = parseInt(presupuesto.importe);
-        document.getElementById("moneda").value = presupuesto.moneda.idMoneda;
-        this.setState({ selectedIndex: index});
-    }
-    
-    actualizarPresupuesto = (data) => {
-        let lista = this.state.listaPresupuesto;
-        lista[this.state.selectedIndex] = data;
-        document.getElementById("detalle").value = "";
-        document.getElementById("importe").value = "";
-        document.getElementById("moneda").moneda = 0;
-
-        this.setState({listaPresupuesto: lista, selectedIndex: null});
-        this.props.updatePresupuestos(this.props.index, lista);
+    renderPresupuestos = (data) => {
+        return data.map(e => (
+            <Option value={e.idPresupuesto} key={e.idPresupuesto}>{`${e.detalles} - ${e.moneda} ${e.importe}`}</Option>
+        ));
     }
 
     borrarPresupuesto = (index) => {
@@ -106,38 +79,39 @@ class PrimerPaso extends Component {
         this.props.updatePresupuestos(this.props.index, lista);
     }
 
+    onSelectItem = (presupuestoSel) => {
+        this.setState({ presupuestoSel })
+    }
+
     render() {
         let { listaPresupuesto } = this.state;
         return (
             <div>
                 <Form>
                     <Row form>
-                        <Col md={4}>
+                        <Col md={6}>
                             <FormGroup>
-                                <Label>Detalle</Label>
-                                <Input type="text" id="detalle" placeholder="Ingresa los detalles" invalid={this.state.invalidDetalle} />
-                                {
-                                    this.state.invalidDetalle &&
-                                    <FormFeedback>Ingrese un detalle válido</FormFeedback>
-                                }
-                            </FormGroup>
-                            <FormGroup>
-                                <Label>Moneda</Label>
-                                <Input type="select" name="select" id="moneda">
-                                    {this.renderMoneda(this.props.monedas)}
-                                </Input>
-                            </FormGroup>
-                            <FormGroup>
-                                <Label>Importe</Label>
-                                <Input type="number" id="importe" placeholder="Ingresa el importe" invalid={this.state.invalidImporte} />
-                                {
-                                    this.state.invalidImporte &&
-                                    <FormFeedback>Ingrese un importe válido</FormFeedback>
-                                }
+                                <Label>Item</Label>
+                                <Select
+                                    id="presupuestos"
+                                    showSearch
+                                    style={{width:"100%"}}
+                                    placeholder="Ingrese el detalle del presupuesto"
+                                    optionFilterProp="children"
+                                    onChange={this.onSelectItem}
+                                    bordered={true}                                    
+                                    filterOption={(input, option) =>
+                                    option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                                    }
+                                >
+                                    {this.renderPresupuestos(this.props.presupuestos)}
+                                </Select>
                             </FormGroup>
                         </Col>
-                        <Col md={1}></Col>
-                        <Col md={7}>
+                        <Col md={6}>
+                            <Button style={{margin: "2em 0 0 1em"}} onClick={this.onSubmit} color="primary">Agregar</Button>
+                        </Col>
+                        <Col md={12}>
                             <Table size="sm" responsive>
                                 <thead>
                                     <tr>
@@ -145,7 +119,6 @@ class PrimerPaso extends Component {
                                     <th>Detalles</th>
                                     <th>Moneda</th>
                                     <th>Importe</th>
-                                    <th></th>
                                     <th></th>
                                     </tr>
                                 </thead>
@@ -160,7 +133,6 @@ class PrimerPaso extends Component {
                         </Col>
                     </Row>
                 </Form>
-                <Button onClick={this.onSubmit} color="primary">Agregar</Button>
             </div>
         );
     }

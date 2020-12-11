@@ -4,57 +4,12 @@ import { parsearIngreso, parsearValidacion } from './../helpers/parser';
 
 export default class IngresoService {
 
-    getIngresos = () => {
-        let ingresosPrueba = [
-            {
-                "descripcion": "soy una descripcion",
-                "ingresos": ["a","b","c"],
-                "idEgreso": 0,
-                "listaEgresxItem": [],
-                "listaPresupuestos": [],
-                "validado": true,
-                "revisores": ["juan"],
-                "categoriaPresupuestos": ["Saavedra"],
-                "fechaEgreso": "20-03-2020",
-                "importe": 500,
-                "numeroInstrumentoPago": 0,
-                "resultadoValidacions": "Si esta bien we"
-            },
-            {
-                "descripcion": "soy una descripcion",
-                "ingresos": ["a","b","c"],
-                "idEgreso": 1,
-                "listaEgresxItem": [],
-                "listaPresupuestos": [],
-                "validado": false,
-                "revisores": ["juan"],
-                "categoriaPresupuestos": ["Vicente Lopez"],
-                "fechaEgreso": "21-09-2020",
-                "importe": 520,
-                "numeroInstrumentoPago": 0,
-                "resultadoValidacions": "No esta bien we"
-            },
-            {
-                "descripcion": "soy una descripcion",
-                "ingresos": ["a","b","c"],
-                "idEgreso": 3,
-                "listaEgresxItem": [],
-                "listaPresupuestos": [],
-                "validado": true,
-                "revisores": ["juan"],
-                "categoriaPresupuestos": ["San Isidro"],
-                "fechaEgreso": "19-07-2019",
-                "importe": 800,
-                "numeroInstrumentoPago": 2,
-                "resultadoValidacions": "Si esta bien we"
-            },
-        ]
-    
-        return parsearValidacion(ingresosPrueba);
+    constructor() {
+        this.entidadId = localStorage.getItem("entJuridica");
     }
 
     getListaIngreso = async () => {
-        let ingresos = await Axios.get(`${ingresosUrl}/1`);
+        let ingresos = await Axios.get(`${ingresosUrl}/${this.entidadId}`);
         if(ingresos.data.length > 0) {
             return parsearIngreso(ingresos.data);
         } else return null;
@@ -62,7 +17,7 @@ export default class IngresoService {
 
     createIngreso = async(data) => {
         try {
-            let resp = await Axios.post(`${ingresosUrl}/1`, data);
+            let resp = await Axios.post(`${ingresosUrl}/${this.entidadId}`, data);
             if(resp.data) {
                 return true;
             }
@@ -74,7 +29,7 @@ export default class IngresoService {
 
     updateIngreso = async(data) => {
         try {
-            let resp = await Axios.put(`${ingresosUrl}/1`, data);
+            let resp = await Axios.put(`${ingresosUrl}/${this.entidadId}`, data);
             if(resp.data) {
                 return true;
             }
@@ -86,7 +41,7 @@ export default class IngresoService {
 
     deleteIngreso = async(id) => {
         try {
-            let resp = await Axios.delete(`${ingresosUrl}/1/${id}`);
+            let resp = await Axios.delete(`${ingresosUrl}/${this.entidadId}/${id}`);
             if(resp.data) {
                 return true;
             }

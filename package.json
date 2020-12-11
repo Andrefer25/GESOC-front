@@ -1,6 +1,7 @@
 {
   "name": "gesoc-front",
   "version": "0.1.0",
+  "homepage": "http://gesoc.com",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -11,17 +12,20 @@
     "antd": "^4.7.0",
     "axios": "^0.20.0",
     "bootstrap": "^4.5.2",
+    "bootstrap-select": "^1.13.18",
     "chart.js": "^2.9.3",
+    "crypto-js": "^4.0.0",
     "path-to-regexp": "^6.1.0",
     "primeicons": "^4.0.0",
     "primereact": "^5.0.0-rc.2",
+    "promise": "^8.1.0",
     "react": "^16.13.1",
     "react-bootstrap": "^1.3.0",
     "react-dom": "^16.13.1",
     "react-icons": "^3.11.0",
     "react-pro-sidebar": "^0.4.4",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.3",
+    "react-scripts": "^4.0.1",
     "reactstrap": "^8.6.0"
   },
   "scripts": {

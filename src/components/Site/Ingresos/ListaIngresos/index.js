@@ -46,25 +46,18 @@ class ListaIngresos extends Component {
     }
 
     crearIngreso = async (data) => {
-        let resultado = await this.service.createIngreso(data);
-        if(resultado) {
-            this.showSuccess();
-        } else {
-            this.showError();
-        }
-        this.hideNuevoIngreso();
-        await this.getLista();
+        this.service.createIngreso(data).then(async resultado => {
+            if(resultado) {
+                this.showSuccess();
+            } else {
+                this.showError();
+            }
+            this.hideNuevoIngreso();
+            await this.getLista();
+        })
     }
 
     editarIngreso = async(data) => {
-        // let resultado = await this.service.updateIngreso(data);
-        // if(resultado) {
-        //     this.showSuccess();
-        // } else {
-        //     this.showError();
-        // }
-        // this.handleDialog();
-        // await this.getLista();
 
         this.service.updateIngreso(data).then(async resultado => {
             if(resultado) {
