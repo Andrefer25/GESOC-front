@@ -21,14 +21,18 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
  
-- script: |
+- script: 
     npm install
-    npm run build
-  displayName: 'npm install and build'
+  displayName: 'npm install'
+ 
+- script: 
+    set "REACT_APP_STAGE=$(stage)" && npm run build
+  displayName: 'npm build'
  
 - task: CopyFiles@2
   displayName: 'Copy files'
   inputs:
+    sourceFolder: 'build' 
     Contents: '**/*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
