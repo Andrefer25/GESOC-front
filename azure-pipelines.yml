@@ -11,7 +11,6 @@ pool:
 
 # Set variables
 variables:
-  directory: GESOC-FRONT
   stage: development
   serviceConnection: GESOC connection
   appServiceName: dds-g1-gesoc
@@ -30,7 +29,6 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy files'
   inputs:
-    sourceFolder: '$(directory)/build' 
     Contents: '**/*'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
     cleanTargetFolder: true
