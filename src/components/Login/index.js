@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 import "../../assets/css/index.css";
-import UserImage from "../../assets/img/user-image.png";
+import UserImage from "../../assets/img/logoGesoc.png";
 
 class Login extends Component {
 
@@ -38,13 +38,11 @@ class Login extends Component {
     }
   }
 
-
   render() {
     return (
-      <Container maxWith="sm">
+      <Container>
         <div className="login">
-        <img className="imageCenterLogin" src={UserImage} alt="imagen de usuario"></img>
-          <h3 className="loginTitle">Iniciar Sesion</h3>
+        <img className="imageCenterLogin" src={UserImage} width="180" alt="imagen de usuario"></img>
           <Form>
             <FormGroup>
               {
@@ -54,19 +52,22 @@ class Login extends Component {
                   <br/>
                 </div>
               }
-              <Label>Usuario</Label>
+              <Label style={{fontWeight:"bolder"}}>Usuario</Label>
               <Input type="text" id="usuarioLogin" placeholder="Ingresa tu usuario" />
             </FormGroup>
             <FormGroup>
-              <Label>Contraseña</Label>
+              <Label style={{fontWeight:"bolder"}}>Contraseña</Label>
               <Input type="password" id="passLogin" placeholder="Ingresa tu contraseña" />
               <FormText color="muted">
                 No compartiremos tu información con nadie
               </FormText>
             </FormGroup>
-            <Button color="primary" onClick={this.onClickLogin}>Submit</Button>
+            <div className="centrar">
+              <Button color="primary" onClick={this.onClickLogin}>Iniciar Sesion</Button>
+            </div>
           </Form>
-          <div>
+          <br />
+          <div className="centrar">
             <p className="pregunta">No tenes cuenta?</p>
             <p className="registerLink"><Link to="/register">Registrate aca</Link></p>
           </div>

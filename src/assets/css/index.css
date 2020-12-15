@@ -5,8 +5,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow: hidden;
-  background-color: #1976d2;
-  background-image: url("../img/background-image.jpg");
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
 }
 
 code {
@@ -17,9 +16,13 @@ code {
 .login {
   background: rgb(255, 255, 255,0.7);
   padding: 1em;
-  margin: 50px auto;
+  margin: 10% auto;
   width: 350px;
   border-radius: 5px;
+}
+
+.centrar {
+  text-align: center;
 }
 
 .register {
@@ -58,7 +61,7 @@ code {
 }
 
 .imageCenterLogin {
-  margin-left: 104px;
+  margin-left: 65px;
   margin-bottom: 10px;
 }
 

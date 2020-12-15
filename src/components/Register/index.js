@@ -74,7 +74,7 @@ function onClickLogin() {
 class Register extends Component {
     render () {
         return (
-          <Container maxWidth="sm">
+          <Container>
             <div className="register">
                 <h2 className="loginTitle">Crear cuenta</h2>
                 <Form.Group controlId="formBasicEmail">

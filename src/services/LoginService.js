@@ -30,9 +30,9 @@ import { encrypt } from '../helpers/encryption';
 // }
 
 class LoginService {
-    
     logIn = async ({user, pass}) => {
         let passEnc = encrypt(pass);
+        //console.log("passEnc:", passEnc);
         let credentials = { user: user, pass: passEnc };
         let response = await Axios.post(usuariosUrl, credentials);
         if(response.data) {
@@ -40,6 +40,7 @@ class LoginService {
         }
         return null;
     }
+
 }
 
 export default LoginService;
