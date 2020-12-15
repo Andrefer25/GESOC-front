@@ -34,7 +34,7 @@ class LoginService {
         let passEnc = encrypt(pass);
         //console.log("passEnc:", passEnc);
         let credentials = { user: user, pass: passEnc };
-        let response = await Axios.post(usuariosUrl, credentials);
+        let response = await Axios.post(usuariosUrl, credentials, { crossdomain: true });
         if(response.data) {
             return response.data;
         }
