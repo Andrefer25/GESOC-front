@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { ingresosUrl } from './../constants/routes';
-import { parsearIngreso, parsearValidacion } from './../helpers/parser';
+import { parsearIngreso } from './../helpers/parser';
 
 export default class IngresoService {
 
@@ -9,7 +9,7 @@ export default class IngresoService {
     }
 
     getListaIngreso = async () => {
-        let ingresos = await Axios.get(`${ingresosUrl}/${this.entidadId}`);
+        let ingresos = await Axios.get(`${ingresosUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
         if(ingresos.data.length > 0) {
             return parsearIngreso(ingresos.data);
         } else return null;
@@ -17,7 +17,7 @@ export default class IngresoService {
 
     createIngreso = async(data) => {
         try {
-            let resp = await Axios.post(`${ingresosUrl}/${this.entidadId}`, data);
+            let resp = await Axios.post(`${ingresosUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }
@@ -29,7 +29,7 @@ export default class IngresoService {
 
     updateIngreso = async(data) => {
         try {
-            let resp = await Axios.put(`${ingresosUrl}/${this.entidadId}`, data);
+            let resp = await Axios.put(`${ingresosUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }
@@ -41,7 +41,7 @@ export default class IngresoService {
 
     deleteIngreso = async(id) => {
         try {
-            let resp = await Axios.delete(`${ingresosUrl}/${this.entidadId}/${id}`);
+            let resp = await Axios.delete(`${ingresosUrl}/${this.entidadId}/${id}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }

@@ -1,6 +1,6 @@
 
-export const port1 = "http://localhost:9000";
-export const port = "https://cors-anywhere.herokuapp.com/https://gesoctp.herokuapp.com";
+export const port = "http://localhost:9000";
+export const port1 = "https://cors-anywhere.herokuapp.com/https://gesoctp.herokuapp.com";
 
 export const egresosUrl = port+"/gesoc/egreso";
 export const egresoPresupuestosUrl = port+"/gesoc/egresoPresupuesto";
@@ -22,3 +22,4 @@ export const presupuestoUrl = port+"/gesoc/presupuesto";
 export const itemUrl = port+"/gesoc/item";
 export const proveedorUrl = port+"/gesoc/proveedor";
 export const bandejaMensajesUrl = port+"/gesoc/???";
+export const criterioUrl = port+"/gesoc/criterios";

@@ -7,11 +7,13 @@ import { InputText } from 'primereact/inputtext';
 import NuevoCriterio from './NuevoCriterio';
 
 import './../../../../assets/css/gridList.css';
+import CriterioService from '../../../../services/CriterioService';
 
 class CreadorCriterios extends Component {
 
     constructor() {
         super();
+        this.service = new CriterioService();
         this.state = {
             criterios: null,
             loading: false,
@@ -22,6 +24,13 @@ class CreadorCriterios extends Component {
 
     showNuevoCriterio = () => {
         this.setState({ showNewCriterio: !this.state.showNewCriterio });
+    }
+
+    getCriterios = async () => {
+        let criterios = await this.service.getListaCriterios();
+        this.setState = {
+            criterios
+        }
     }
 
     render() {

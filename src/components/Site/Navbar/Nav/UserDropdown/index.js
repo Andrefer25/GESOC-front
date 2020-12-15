@@ -10,6 +10,7 @@ const UserDropdown = () => {
     const logOut = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("role");
+        localStorage.removeItem("entJuridica");
         window.location.href='/';
     }
 

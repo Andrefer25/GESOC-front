@@ -8,13 +8,13 @@ export default class EntidadJuridicaService {
     }
 
     getEntidadJuridica = async () => {
-        let entidad = await Axios.get(`${entidadJuridicaUrl}/${this.entidadId}`);
+        let entidad = await Axios.get(`${entidadJuridicaUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
         return entidad.data;
     }
 
     editarEntidadJuridica = async(data) => {
         try {
-            let resp = await Axios.post(`${recategorizadorUrl}`, data);
+            let resp = await Axios.post(`${recategorizadorUrl}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }
@@ -25,13 +25,13 @@ export default class EntidadJuridicaService {
     }
 
     getConfiguracionEnt = async () => {
-        let config = await Axios.get(`${configEntUrl}/${this.entidadId}`);
+        let config = await Axios.get(`${configEntUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
         return config.data;
     }
 
     updateConfiguracionEnt = async (data) => {
         try {
-            let resp = await Axios.put(`${configEntUrl}`, data);
+            let resp = await Axios.put(`${configEntUrl}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }
@@ -43,7 +43,7 @@ export default class EntidadJuridicaService {
 
     getEstadoValidacion = async() => {
         try {
-            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`);
+            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             return resp.data;
         }
         catch(e) {
@@ -54,7 +54,7 @@ export default class EntidadJuridicaService {
 
     getEstadoVinculacion = async() => {
         try {
-            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`);
+            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             return resp.data;
         }
         catch(e) {

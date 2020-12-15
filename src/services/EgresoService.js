@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { egresosUrl } from './../constants/routes';
-import { parsearEgreso, parsearValidacion } from './../helpers/parser';
+import { parsearEgreso } from './../helpers/parser';
 
 
 export default class EgresoService {
@@ -9,57 +9,8 @@ export default class EgresoService {
         this.entidadId = localStorage.getItem("entJuridica");
     }
 
-    getEgresos = () => {
-        let egresosPrueba = [
-            {
-                "descripcion": "soy una descripcion",
-                "ingresos": ["a","b","c"],
-                "idEgreso": 0,
-                "listaEgresxItem": [],
-                "listaPresupuestos": [],
-                "validado": true,
-                "revisores": ["juan"],
-                "categoriaPresupuestos": ["Saavedra"],
-                "fechaEgreso": "20-03-2020",
-                "importe": 500,
-                "numeroInstrumentoPago": 0,
-                "resultadoValidacions": "Si esta bien we"
-            },
-            {
-                "descripcion": "soy una descripcion",
-                "ingresos": ["a","b","c"],
-                "idEgreso": 1,
-                "listaEgresxItem": [],
-                "listaPresupuestos": [],
-                "validado": false,
-                "revisores": ["juan"],
-                "categoriaPresupuestos": ["Vicente Lopez"],
-                "fechaEgreso": "21-09-2020",
-                "importe": 520,
-                "numeroInstrumentoPago": 0,
-                "resultadoValidacions": "No esta bien we"
-            },
-            {
-                "descripcion": "soy una descripcion",
-                "ingresos": ["a","b","c"],
-                "idEgreso": 3,
-                "listaEgresxItem": [],
-                "listaPresupuestos": [],
-                "validado": true,
-                "revisores": ["juan"],
-                "categoriaPresupuestos": ["San Isidro"],
-                "fechaEgreso": "19-07-2019",
-                "importe": 800,
-                "numeroInstrumentoPago": 2,
-                "resultadoValidacions": "Si esta bien we"
-            },
-        ]
-    
-        return parsearValidacion(egresosPrueba);
-    }
-
     getListaEgresos = async () => {
-        let egresos = await Axios.get(`${egresosUrl}/${this.entidadId}`);
+        let egresos = await Axios.get(`${egresosUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
         if (egresos.data.length > 0)
             return parsearEgreso(egresos.data);
         else return null;
@@ -67,7 +18,7 @@ export default class EgresoService {
 
     createEgreso = async(data) => {
         try {
-            let resp = await Axios.post(`${egresosUrl}/${this.entidadId}`, data);
+            let resp = await Axios.post(`${egresosUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }
@@ -79,7 +30,7 @@ export default class EgresoService {
 
     updateEgreso = async(data) => {
         try {
-            let resp = await Axios.put(`${egresosUrl}/${this.entidadId}`, data);
+            let resp = await Axios.put(`${egresosUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }

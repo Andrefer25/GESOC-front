@@ -8,7 +8,7 @@ export default class EntidadBaseService {
     }
 
     getEntidadBase = async () => {
-        let entidad = await Axios.get(`${entidadesBaseUrl}/${this.entidadId}`);
+        let entidad = await Axios.get(`${entidadesBaseUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
         return entidad.data;
     }
 
@@ -18,7 +18,7 @@ export default class EntidadBaseService {
                 descripcion: data.desc,
                 nombreFicticio: data.nombre,
                 entidadjuridica: {idEntidadJuridica: this.entidadId}
-            });
+            }, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             if(resp.data) {
                 return true;
             }

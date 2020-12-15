@@ -10,7 +10,7 @@ export default class VinculadorService {
 
     getEstadoVinculacion = async() => {
         try {
-            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`);
+            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
             return resp.data;
         }
         catch(e) {
