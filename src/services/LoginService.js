@@ -34,11 +34,16 @@ class LoginService {
         let passEnc = encrypt(pass);
         //console.log("passEnc:", passEnc);
         let credentials = { user: user, pass: passEnc };
-        let response = await Axios.post(usuariosUrl, credentials, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let response = await Axios.post(usuariosUrl, credentials);
         if(response.data) {
             return response.data;
         }
         return null;
+    }
+
+    test = async () => {
+        let response = await Axios.get("https://cors-anywhere.herokuapp.com/https://gesoctp.herokuapp.com/gesoc/categoriaEntidad/1");
+        return response;
     }
 
 }

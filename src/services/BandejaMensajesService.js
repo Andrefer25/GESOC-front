@@ -9,7 +9,7 @@ export default class BandejaMensajesService {
     }
 
     getMessages = async () => {
-        let messages = await Axios.get(`${bandejaMensajesUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let messages = await Axios.get(`${bandejaMensajesUrl}/${this.entidadId}`);
         if (messages.data.length > 0)
             return messages.data
         else return null;

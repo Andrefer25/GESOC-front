@@ -6,7 +6,7 @@ export default class MediosDePagoService {
 
     getMediosPago = async () => {
         try {
-            let mediosPago = await Axios.get(`${mediosPagoUrl}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let mediosPago = await Axios.get(`${mediosPagoUrl}`);
             if (mediosPago.data.length > 0)
                 return mediosPago.data;
             else return null;
@@ -18,7 +18,7 @@ export default class MediosDePagoService {
 
     getMonedas = async() => {
         try {
-            let monedas = await Axios.get(`${monedasUrl}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let monedas = await Axios.get(`${monedasUrl}`);
             if (monedas.data.length > 0)
                 return monedas.data;
             else return null;

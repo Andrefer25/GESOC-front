@@ -9,7 +9,7 @@ export default class ItemService {
     }
 
     getItems = async () => {
-        let items = await Axios.get(`${itemUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let items = await Axios.get(`${itemUrl}/${this.entidadId}`);
         if (items.data.length > 0)
             return items.data
         else return null;
@@ -17,7 +17,7 @@ export default class ItemService {
 
     createItem = async(data) => {
         try {
-            let resp = await Axios.post(`${itemUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.post(`${itemUrl}/${this.entidadId}`, data);
             if(resp.data) {
                 return true;
             }
@@ -29,7 +29,7 @@ export default class ItemService {
 
     updateItem = async(data) => {
         try {
-            let resp = await Axios.put(`${itemUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.put(`${itemUrl}/${this.entidadId}`, data);
             if(resp.data) {
                 return true;
             }

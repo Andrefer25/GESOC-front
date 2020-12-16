@@ -18,6 +18,10 @@ class Login extends Component {
     }
   }
 
+  componentDidMount = async() => {
+    await this.test();
+  }
+
   onClickLogin = async() => {
     this.setState({ errorLogin: false });
     let user = document.getElementById("usuarioLogin").value || "";
@@ -36,6 +40,11 @@ class Login extends Component {
       }
       
     }
+  }
+
+  test = async () => {
+    let resp = await this.service.test();
+    console.log(resp);
   }
 
   render() {

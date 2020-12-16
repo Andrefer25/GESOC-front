@@ -8,7 +8,7 @@ export default class CriterioService {
     }
 
     getListaCriterios = async () => {
-        let criterios = await Axios.get(`${criterioUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let criterios = await Axios.get(`${criterioUrl}/${this.entidadId}`);
         if (criterios.data.length > 0)
             return criterios;
         else return null;
@@ -16,7 +16,7 @@ export default class CriterioService {
 
     createCriterio = async(data) => {
         try {
-            let resp = await Axios.post(`${criterioUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.post(`${criterioUrl}/${this.entidadId}`, data);
             if(resp.data) {
                 return true;
             }
@@ -28,7 +28,7 @@ export default class CriterioService {
 
     updateCriterio = async(data) => {
         try {
-            let resp = await Axios.put(`${criterioUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.put(`${criterioUrl}/${this.entidadId}`, data);
             if(resp.data) {
                 return true;
             }

@@ -9,32 +9,32 @@ export default class ProveedorService {
     }
 
     getListaProveedores = async () => {
-        let proveedores = await Axios.get(`${proveedorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let proveedores = await Axios.get(`${proveedorUrl}/${this.entidadId}`);
         if (proveedores.data.length > 0)
             return proveedores.data;
         else return null;
     }
 
-    createProveedor = async(data) => {
+    createProveedor = async (data) => {
         try {
-            let resp = await Axios.post(`${proveedorUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
-            if(resp.data) {
+            let resp = await Axios.post(`${proveedorUrl}/${this.entidadId}`, data);
+            if (resp.data) {
                 return true;
             }
         }
-        catch(e) {
+        catch (e) {
             return false;
         }
     }
 
-    updateProveedor = async(data) => {
+    updateProveedor = async (data) => {
         try {
-            let resp = await Axios.put(`${proveedorUrl}/${this.entidadId}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
-            if(resp.data) {
+            let resp = await Axios.put(`${proveedorUrl}/${this.entidadId}`, data);
+            if (resp.data) {
                 return true;
             }
         }
-        catch(e) {
+        catch (e) {
             return false;
         }
     }

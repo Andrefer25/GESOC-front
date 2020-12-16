@@ -8,13 +8,13 @@ export default class EntidadJuridicaService {
     }
 
     getEntidadJuridica = async () => {
-        let entidad = await Axios.get(`${entidadJuridicaUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let entidad = await Axios.get(`${entidadJuridicaUrl}/${this.entidadId}`);
         return entidad.data;
     }
 
     editarEntidadJuridica = async(data) => {
         try {
-            let resp = await Axios.post(`${recategorizadorUrl}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.post(`${recategorizadorUrl}`, data);
             if(resp.data) {
                 return true;
             }
@@ -25,13 +25,13 @@ export default class EntidadJuridicaService {
     }
 
     getConfiguracionEnt = async () => {
-        let config = await Axios.get(`${configEntUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+        let config = await Axios.get(`${configEntUrl}/${this.entidadId}`);
         return config.data;
     }
 
     updateConfiguracionEnt = async (data) => {
         try {
-            let resp = await Axios.put(`${configEntUrl}`, data, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.put(`${configEntUrl}`, data);
             if(resp.data) {
                 return true;
             }
@@ -43,7 +43,7 @@ export default class EntidadJuridicaService {
 
     getEstadoValidacion = async() => {
         try {
-            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`);
             return resp.data;
         }
         catch(e) {
@@ -54,7 +54,7 @@ export default class EntidadJuridicaService {
 
     getEstadoVinculacion = async() => {
         try {
-            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.get(`${vinculadorUrl}/${this.entidadId}`);
             return resp.data;
         }
         catch(e) {

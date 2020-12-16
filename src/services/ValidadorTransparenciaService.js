@@ -10,7 +10,7 @@ export default class ValidadorTransparenciaService {
 
     getEstadoValidacion = async() => {
         try {
-            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`, { headers: {'X-Requested-With': 'XMLHttpRequest'} });
+            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`);
             return resp.data;
         }
         catch(e) {
