@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { vinculadorUrl } from '../constants/routes';
+import { criterioVinculadorUrl, validarUrl, vinculadorUrl } from '../constants/routes';
 
 
 export default class VinculadorService {
@@ -18,5 +18,25 @@ export default class VinculadorService {
         }
     }
 
+    getCriteriosVinculacion = async() => {
+        try {
+            let resp = await Axios.get(`${criterioVinculadorUrl}/${this.entidadId}`);
+            return resp.data;
+        }
+        catch(e) {
+            return null;
+        }
+    }
+
+    vincular = async(list) => {
+        try {
+            let resp = await Axios.post(`${validarUrl}/${this.entidadId}`, list);
+            return resp.data;
+        }
+        catch(e) {
+            console.log(e);
+            return null;
+        }
+    }
 
 }

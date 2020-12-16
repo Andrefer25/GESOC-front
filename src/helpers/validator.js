@@ -12,3 +12,10 @@ export const validateInputNumber = value => {
         return true;
     } else return false;
 }
+
+export const validateOptionalInputNumber = value => {
+    let regex = /^[0-9]/;
+    if(value === "" || (regex.test(value) && value > 0)) {
+        return true;
+    } else return false;
+}

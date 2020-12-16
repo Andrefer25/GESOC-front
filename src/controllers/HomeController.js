@@ -24,7 +24,12 @@ export default class HomeController {
                 }).then(result => {
                     this.entJuridica.getEntidadJuridica().then(entidadJuridica => {
                         result.entidadJuridica = entidadJuridica;
-                        resolve(result);
+                        return result;
+                    }).then(result => {
+                        this.vinculador.getCriteriosVinculacion().then(criterios => {
+                            result.criteriosVinculacion = criterios;
+                            resolve(result);
+                        })
                     })
                 })
             }).catch(e => {

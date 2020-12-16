@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import { bandejaMensajesUrl } from '../constants/routes';
-
+import { parsearFechaMensaje } from './../helpers/parser';
 
 export default class BandejaMensajesService {
 
@@ -9,9 +9,10 @@ export default class BandejaMensajesService {
     }
 
     getMessages = async () => {
-        let messages = await Axios.get(`${bandejaMensajesUrl}/${this.entidadId}`);
-        if (messages.data.length > 0)
-            return messages.data
+        let messages = await Axios.get(`${bandejaMensajesUrl}/1`);
+        if (messages.data)
+            return {cantidadMensajesNuevos: messages.data.cantidadMensajesNuevos,
+            mensajes: parsearFechaMensaje(messages.data.mensajes)} 
         else return null;
     }
 

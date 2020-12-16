@@ -1,37 +1,44 @@
-import React, { useState } from "react";
-import { Dropdown, DropdownMenu, DropdownToggle, DropdownItem } from 'reactstrap';
+import React, { Component } from "react";
 import { Button } from 'primereact/button';
-import { Link } from 'react-router-dom';
+import ExtendedInbox from './ExtendedInbox';
 
-const InboxDropdown = () => {
-    const [dropdownOpen, setDropdownOpen] = useState(false);
+class InboxDropdown extends Component {
 
-    const toggle = () => setDropdownOpen(prevState => !prevState);
+  constructor() {
+    super();
+    this.state = {
+      showBandeja: false,
+      cantMensajes: 0
+    }
+  }
+
+  showBandejaMensaje = () => {
+    this.setState({ showBandeja: !this.state.showBandeja, cantMensajes: 0 })
+  }
+
+  componentDidMount = () => {
+    this.setState({ cantMensajes: this.props.messages.cantidadMensajesNuevos })
+  }
+
+  render() {
+
+    let { mensajes } = this.props.messages;
 
     return (
-        <Dropdown isOpen={dropdownOpen} toggle={toggle} className="marginButtons">
-            <DropdownToggle
-              tag="span"
-              data-toggle="dropdown"
-              aria-expanded={dropdownOpen}
-            >
-              <span className="p-overlay-badge p-mr-5">
-                <Button type="button" badge="1" icon="pi pi-envelope" className="colorButton p-button-rounded p-button-info p-button-outlined" badgeClassName="p-badge-danger"/>
-              <span className="p-badge colorBadge">2</span>
-              </span>
-            </DropdownToggle>
-            <DropdownMenu right>
-              <DropdownItem header>Ultimos mensajes</DropdownItem>
-              <DropdownItem>NUEVO MENSAJEEEEEEE</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem>Another Action</DropdownItem>
-              <DropdownItem divider/>
-              <Link className="inboxButton" to="/bandejaMensajes">
-                <DropdownItem>Ver mas</DropdownItem>
-              </Link>
-            </DropdownMenu>
-        </Dropdown>
+        <span className="p-overlay-badge p-mr-5" style={{ marginRight:"1em" }} onClick={this.showBandejaMensaje}>
+          <Button type="button" badge="1" icon="pi pi-envelope" className="colorButton p-button-rounded p-button-info p-button-outlined" badgeClassName="p-badge-danger"/>
+          {
+            (this.state.cantMensajes > 0) &&
+            <span className="p-badge colorBadge">{this.state.cantMensajes}</span>
+          }
+          {
+            this.state.showBandeja &&
+            <ExtendedInbox visible={this.state.showBandeja} onHide={this.showBandejaMensaje} data={mensajes} />
+          }
+        </span>
     )
+  }
+
 }
 
 export default InboxDropdown;

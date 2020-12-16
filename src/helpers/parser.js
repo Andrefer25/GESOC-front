@@ -13,6 +13,10 @@ const parsearFecha = date => {
     return `${date.day}-${date.month}-${date.year}`;
 }
 
+const parsearFecha2 = date => {
+    return `${date.day}/${date.month}/${date.year}`;
+}
+
 const parsearFechaEgreso = data => {
     return data.map(e => {
         let date = parsearFecha(e.fechaEgreso)
@@ -27,6 +31,16 @@ const parsearFechaIngreso = data => {
         if(e.fechaIngreso) {
             let date = parsearFecha(e.fechaIngreso)
             e.fechaIngreso = date;
+        }
+        return e;
+    })
+}
+
+export const parsearFechaMensaje = data => {
+    return data.map(e => {
+        if(e.fechaCreacion) {
+            let date = parsearFecha2(e.fechaCreacion)
+            e.fechaCreacion = date;
         }
         return e;
     })
@@ -49,4 +63,29 @@ export const parsearPresupuesto = (data, monedas) => {
 
 export const parsearIngreso = data => {
     return parsearValidacion(parsearFechaIngreso(data));
+}
+
+const getCriterio = (index, lista) => {
+    let crPadre = "";
+    lista.forEach(e => {
+        if(e.idcriteriopresupuesto === index)
+            crPadre = e.descripcion;
+            return;
+    })
+    return crPadre;
+}
+
+export const parsearCriterios = data => {
+    return data.map(e => {
+        e.criterioPadre = (e.criterioPadre !== 0)? getCriterio(e.criterioPadre, data) : " ";
+        return e;
+    });
+}
+
+export const parsearCategorias = (data, criterios) => {
+    console.log(data);
+    return data.map(e => {
+        e.criterioDetalle = getCriterio(e.criteriopresupuesto, criterios);
+        return e;
+    })
 }

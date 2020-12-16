@@ -26,7 +26,7 @@ const UserDropdown = () => {
               <Button type="button" icon="pi pi-user" className="colorButton p-button-rounded p-button-info p-button-outlined" />
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>{userData}</DropdownItem>
+              <DropdownItem>{userData.toUpperCase()}</DropdownItem>
               <DropdownItem divider/>
               <DropdownItem>Ver perfil</DropdownItem>
               <DropdownItem>Configuracion</DropdownItem>

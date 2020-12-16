@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Chart } from 'primereact/chart';
 import { Button } from "reactstrap";
-import ValidarEgreso from "./ValidarEgreso";
+//import ValidarEgreso from "./ValidarEgreso";
 import { CircularProgress } from '@material-ui/core';
 
 export default class ChartEgreso extends Component {
@@ -12,10 +12,8 @@ export default class ChartEgreso extends Component {
         }
     }
 
-    onClickConfig = () => {
-        this.setState({
-            showConfig: !this.state.showConfig
-        })
+    onClickValidar = async () => {
+        await this.props.validar();
     }
 
     chartData = () => {
@@ -53,11 +51,11 @@ export default class ChartEgreso extends Component {
                     <div>
                         Egresos
                         <Chart type="pie" data={this.chartData()} options={this.lightOptions} />
-                        <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Validar</Button>
-                        {
+                        <Button className="botonSecundario" color="primary" onClick={this.onClickValidar}>Validar</Button>
+                        {/* {
                             this.state.showConfig &&
                             <ValidarEgreso onHide={this.onClickConfig} visible={this.state.showConfig} />
-                        }
+                        } */}
                     </div>
                     :
                     <div className="loadingAnimation">

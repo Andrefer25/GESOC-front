@@ -6,7 +6,7 @@ import { Component } from 'react';
 import { validateInputText } from './../../../../../helpers/validator';
 const { Option } = Select;
 
-class NuevaCategoria extends Component {
+class EditarCriterio extends Component {
 
     constructor() {
         super();
@@ -24,20 +24,32 @@ class NuevaCategoria extends Component {
         let descripcion = document.getElementById("descripcion").value   || "";
         this.setState({ invalidDetalle: false, invalidImporte: false });
         let crPadre = this.state.selectedCr;
+        let idcriteriopresupuesto = parseInt(this.props.dataInfo.idcriteriopresupuesto)
         if(validateInputText(descripcion)) {
-            this.props.agregarCategoria({ 
-                descripcion,
-                "entidadjuridica": {
-                    "idEntidadJuridica": parseInt(localStorage.getItem("entJuridica"))
-                },
-                "criteriopresupuesto": {"idcriteriopresupuesto": crPadre}
-            });
+            if(crPadre === null){
+                this.props.actualizarItem({ 
+                    idcriteriopresupuesto,
+                    descripcion,
+                    "entidadjuridica": {
+                        "idEntidadJuridica": parseInt(localStorage.getItem("entJuridica"))
+                    }
+                }, idcriteriopresupuesto);
+            } else {
+                this.props.actualizarItem({ 
+                    idcriteriopresupuesto,
+                    descripcion,
+                    "criterioPadre": crPadre,
+                    "entidadjuridica": {
+                        "idEntidadJuridica": parseInt(localStorage.getItem("entJuridica"))
+                    }  
+                }, idcriteriopresupuesto);
+            }
         } else {
             this.setState({ invalidDetalle: true });
         }
     }
 
-    renderCategorias = (data) => {
+    renderCriterios = (data) => {
         return data.map(e => (
             <Option value={e.idcriteriopresupuesto} key={e.idcriteriopresupuesto}>{`${e.descripcion}`}</Option>
         ));
@@ -45,38 +57,42 @@ class NuevaCategoria extends Component {
 
     render() {   
         
+        let { idcriteriopresupuesto, descripcion, criterioPadre } = this.props.dataInfo;
+
         const renderFooter = (
             <div>
-                <Button color="primary" onClick={this.onSubmit}>Crear</Button>
+                <Button color="primary" onClick={this.onSubmit}>Actualizar</Button>
             </div>
         );
 
         return (
-            <Dialog header="Crear Categoria"  visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
+            <Dialog header={`Detalle criterio ${idcriteriopresupuesto}`}  visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
                 <Form>
                     <FormGroup>
                         <Label>Nombre</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el Categoria" />
+                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el criterio" defaultValue={descripcion} />
                         {
                             this.state.invalidDetalle &&
                             <FormFeedback>Ingrese un nombre válido</FormFeedback>
                         }
                     </FormGroup>
                     <FormGroup>
-                        <Label for="crPadre">Criterio</Label>
+                        <Label for="crPadre">Criterio Padre</Label>
                         <Select
                             id="crPadre"
                             showSearch
                             style={{width:"100%"}}
-                            placeholder="Ingrese el criterio"
+                            placeholder="Ingrese el criterio padre"
                             optionFilterProp="children"
                             onChange={this.onChange}
                             bordered={true}
+                            value={criterioPadre || ""}
+                            disabled={true}
                             filterOption={(input, option) =>
                             option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
                             }
                         >
-                            {this.renderCategorias(this.props.criterios)}
+                            {this.renderCriterios(this.props.data)}
                         </Select>
                     </FormGroup>
                 </Form>
@@ -85,4 +101,4 @@ class NuevaCategoria extends Component {
     }
 }
 
-export default NuevaCategoria;
+export default EditarCriterio;

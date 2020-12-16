@@ -21,19 +21,19 @@ class Home extends Component {
         this.state = {
             vinculador: null,
             validador: null,
-            entJuridica: null
+            entJuridica: null,
+            criterios: null
         }
     }
 
     initHome = () => {
-        this.controller.initHome().then(({entidadJuridica, validacion, vinculacion}) => {
+        this.controller.initHome().then(({entidadJuridica, validacion, vinculacion, criteriosVinculacion}) => {
             this.setState({
                 vinculador: vinculacion,
                 validador: validacion,
-                entJuridica: entidadJuridica
+                entJuridica: entidadJuridica,
+                criterios: criteriosVinculacion
             })
-            console.log("validacion", validacion);
-            console.log("vinculacion", vinculacion)
         });
     }
 
@@ -45,6 +45,21 @@ class Home extends Component {
 
     async componentDidMount() {
         await this.initHome();
+    }
+
+    validar = async() => {
+        let validacion = await this.validadorService.validar(); 
+        this.setState({
+            validador: validacion
+        });
+    }
+
+    vincular = async(lista) => {
+        this.vinculadorService.vincular(lista).then(vinculacion => {
+            this.setState({
+                vinculador: vinculacion
+            })
+        })
     }
     
     editarEntidad = async (data) => {
@@ -65,10 +80,10 @@ class Home extends Component {
                 <EntidadJuridica data={this.state.entJuridica} edit={this.editarEntidad} />
                 <Row className="validaciones" style={{ marginBottom: "6em" }}>
                     <Col md="6">
-                        <ChartEgreso data={this.state.validador || null} />
+                        <ChartEgreso data={this.state.validador || null} validar={this.validar}/>
                     </Col>
                     <Col md="6">
-                        <ChartOperacion data={this.state.vinculador || null} />
+                        <ChartOperacion data={this.state.vinculador || null} criterios={this.state.criterios} vincular={this.vincular}/>
                     </Col>
                 </Row>
             </div>

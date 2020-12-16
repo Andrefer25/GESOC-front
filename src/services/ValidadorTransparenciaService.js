@@ -10,7 +10,18 @@ export default class ValidadorTransparenciaService {
 
     getEstadoValidacion = async() => {
         try {
-            let resp = await Axios.get(`${validadorUrl}/${this.entidadId}`);
+            let resp = await Axios.get(`${validadorUrl}/estado/${this.entidadId}`);
+            return resp.data;
+        }
+        catch(e) {
+            console.log(e)
+            return null;
+        }
+    }
+
+    validar = async() => {
+        try {
+            let resp = await Axios.get(`${validadorUrl}/ejecutar/${this.entidadId}`);
             return resp.data;
         }
         catch(e) {

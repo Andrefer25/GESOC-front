@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
 import { Dialog } from 'primereact/dialog';
 import { Select } from 'antd';
 import { Component } from 'react';
@@ -17,21 +17,30 @@ class NuevoCriterio extends Component {
     }
 
     onChange = (selectedCr) => {
-        this.setState({ selectedCr });
+        this.setState({ selectedCr: parseInt(selectedCr) });
     }
 
-    renderFooter = (
-        <div>
-            <Button color="primary">Crear</Button>
-        </div>
-    );
-
     onSubmit = () => {
-        let descripcion = parseInt(document.getElementById("descripcion").value) || "";
+        let descripcion = document.getElementById("descripcion").value   || "";
         this.setState({ invalidDetalle: false, invalidImporte: false });
+        let crPadre = this.state.selectedCr;
         if(validateInputText(descripcion)) {
-            if(this.state.selectedIndex === null)
-                this.agregarItem({ descripcion });
+            if(crPadre === null){
+                this.props.agregarItem({ 
+                    descripcion,
+                    "entidadjuridica": {
+                        "idEntidadJuridica": parseInt(localStorage.getItem("entJuridica"))
+                    }  
+                });
+            } else {
+                this.props.agregarItem({ 
+                    descripcion,
+                    "criterioPadre": crPadre,
+                    "entidadjuridica": {
+                        "idEntidadJuridica": parseInt(localStorage.getItem("entJuridica"))
+                    }  
+                });
+            }
         } else {
             this.setState({ invalidDetalle: true });
         }
@@ -43,13 +52,24 @@ class NuevoCriterio extends Component {
         ));
     }
 
-    render() {     
+    render() {   
+        
+        const renderFooter = (
+            <div>
+                <Button color="primary" onClick={this.onSubmit}>Crear</Button>
+            </div>
+        );
+
         return (
-            <Dialog header="Crear criterio"  visible={this.props.visible} style={{ width: '30vw' }} footer={this.renderFooter} onHide={() => this.props.onHide()}>
+            <Dialog header="Crear criterio"  visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
                 <Form>
                     <FormGroup>
                         <Label>Nombre</Label>
-                        <Input type="text" id="crNombre" placeholder="Ingresa un nombre para el criterio" />
+                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el criterio" />
+                        {
+                            this.state.invalidDetalle &&
+                            <FormFeedback>Ingrese un nombre válido</FormFeedback>
+                        }
                     </FormGroup>
                     <FormGroup>
                         <Label for="crPadre">Criterio Padre (Opcional)</Label>

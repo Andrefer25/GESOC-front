@@ -1,4 +1,5 @@
 import Axios from 'axios';
+import { parsearCriterios } from '../helpers/parser';
 import { criterioUrl } from './../constants/routes';
 
 export default class CriterioService {
@@ -10,7 +11,7 @@ export default class CriterioService {
     getListaCriterios = async () => {
         let criterios = await Axios.get(`${criterioUrl}/${this.entidadId}`);
         if (criterios.data.length > 0)
-            return criterios;
+            return parsearCriterios(criterios.data);
         else return null;
     }
 
@@ -26,9 +27,9 @@ export default class CriterioService {
         }
     }
 
-    updateCriterio = async(data) => {
+    updateCriterio = async(data, id) => {
         try {
-            let resp = await Axios.put(`${criterioUrl}/${this.entidadId}`, data);
+            let resp = await Axios.put(`${criterioUrl}/${this.entidadId}/${id}`, data);
             if(resp.data) {
                 return true;
             }

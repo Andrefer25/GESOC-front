@@ -18,6 +18,10 @@ export default class ChartOperacion extends Component {
         })
     }
 
+    vincular = async(lista) => {
+        await this.props.vincular(lista);
+    }
+
     chartData = () => {
         let {operacionesVinculadas, operacionesNoVinculadas} = this.props.data;
         return {
@@ -56,7 +60,7 @@ export default class ChartOperacion extends Component {
                         <Button className="botonSecundario" color="primary" onClick={this.onClickConfig}>Vincular</Button>
                         {
                             this.state.showConfig &&
-                            <VincularOperacion onHide={this.onClickConfig} visible={this.state.showConfig} />
+                            <VincularOperacion onHide={this.onClickConfig} visible={this.state.showConfig} criterios={this.props.criterios} onSubmit={this.vincular} />
                         }
                     </div>
                     :
