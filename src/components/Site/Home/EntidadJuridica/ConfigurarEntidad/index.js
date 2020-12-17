@@ -48,7 +48,6 @@ class ConfigurarEntidad extends Component {
     }
 
     saveConfig = async(data) => {
-        console.log(data);
         await this.service.updateConfiguracionEnt(data);
         this.props.onHide();
     }

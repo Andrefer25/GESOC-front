@@ -39,7 +39,6 @@ class CreadorCriterios extends Component {
 
     getCriterios = async () => {
         let criterios = await this.service.getListaCriterios();
-        console.log(criterios);
         this.setState({
             criterios,
             loading: false

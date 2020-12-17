@@ -47,7 +47,6 @@ export default class EntidadJuridicaService {
             return resp.data;
         }
         catch(e) {
-            console.log(e)
             return null;
         }
     }

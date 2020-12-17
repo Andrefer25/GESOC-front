@@ -2,11 +2,21 @@ import Axios from "axios";
 
 export const upload = async(file) => {
     let formData = new FormData();
-    console.log(file);
     formData.append(
         "archivoPrueba",
         file,
         file.name
     )
 
+    console.log(formData);
+
+    let resp = await Axios.post("https://www.filestackapi.com/api/store/S3?key=AsQrM2aJWTg60PhVHkJESz", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+            "body": formData,
+            "credentials": "same-origin"
+        }
+    });
+
+    console.log(resp);
 }

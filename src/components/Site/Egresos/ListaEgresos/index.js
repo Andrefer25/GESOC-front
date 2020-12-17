@@ -45,7 +45,6 @@ class ListaEgresos extends Component {
     getLista = async() => {
         this.setState({ loading: true });
         let listaEgresos = await this.service.getListaEgresos();
-        console.log(listaEgresos);
         this.setState({
             data: listaEgresos
         })
@@ -106,6 +105,18 @@ class ListaEgresos extends Component {
     onRowSelect = event => {
         this.setState({ showDialog: true, selectedData: event.data });
     }
+
+    subirDocumento = async(doc) => {
+        this.service.uploadDocument(doc).then(async response => {
+            if(response) {
+                this.showSuccess();
+            } else {
+                this.showError();
+            }  
+            this.handleDialog();
+            await this.getLista();
+        })
+    }
     
     render() {
         const header = (
@@ -140,7 +151,7 @@ class ListaEgresos extends Component {
                     </div>
                 </div>
                 { this.state.selectedData &&
-                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} onSubmit={this.editarIngreso} />
+                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} subirDocumento={this.subirDocumento} onSubmit={this.editarIngreso} />
                 }
                 {   
                     this.state.showNewEgreso &&

@@ -25,3 +25,4 @@ export const itemUrl = port+"/gesoc/item";
 export const proveedorUrl = port+"/gesoc/proveedor";
 export const bandejaMensajesUrl = port+"/gesoc/leerMensajes";
 export const criterioUrl = port+"/gesoc/criterios";
+export const uploadUrl = port+"/upload";

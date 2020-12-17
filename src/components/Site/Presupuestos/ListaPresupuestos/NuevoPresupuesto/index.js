@@ -34,7 +34,6 @@ export default class NuevoPresupuesto extends Component {
 
     getItems = async() => {
         let items = await this.itemService.getItems();
-        console.log(items)
         this.setState({
             items
         })

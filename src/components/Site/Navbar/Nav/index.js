@@ -23,7 +23,6 @@ class Navigation extends Component {
 
   getMessages = async () => {
     let messages = await this.service.getMessages();
-    console.log(messages);
     this.setState({ messages });
   }
 

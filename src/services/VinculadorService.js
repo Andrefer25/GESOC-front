@@ -34,7 +34,6 @@ export default class VinculadorService {
             return resp.data;
         }
         catch(e) {
-            console.log(e);
             return null;
         }
     }

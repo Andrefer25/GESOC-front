@@ -79,7 +79,6 @@ export default class NuevoEgreso extends Component {
 
     getPresupuestosElegidos = (presupuestos) => {
         let lista = presupuestos.filter(e => this.state.listaPresupuestos.indexOf(e.idPresupuesto) !== -1);
-        console.log(lista);
         return lista;
     }
 

@@ -37,13 +37,15 @@ const parsearFechaIngreso = data => {
 }
 
 export const parsearFechaMensaje = data => {
-    return data.map(e => {
-        if(e.fechaCreacion) {
-            let date = parsearFecha2(e.fechaCreacion)
-            e.fechaCreacion = date;
-        }
-        return e;
-    })
+    if(data && data.length > 0) {
+        return data.map(e => {
+            if(e.fechaCreacion) {
+                let date = parsearFecha2(e.fechaCreacion)
+                e.fechaCreacion = date;
+            }
+            return e;
+        })
+    } else return [];
 }
 
 export const parsearEgreso = data => {
@@ -83,7 +85,6 @@ export const parsearCriterios = data => {
 }
 
 export const parsearCategorias = (data, criterios) => {
-    console.log(data);
     return data.map(e => {
         e.criterioDetalle = getCriterio(e.criteriopresupuesto, criterios);
         return e;

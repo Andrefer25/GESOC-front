@@ -35,7 +35,6 @@ class PrimerPaso extends Component {
     }
 
     renderTabla = (data) => {
-        console.log(data);
         return data.map((e, index) => {
             let pres = this.getPresupuestoByID(e);
             return (

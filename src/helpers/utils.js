@@ -44,7 +44,6 @@ const nameToString = n => (
 export const getAttrName = obj => {
     let res = {};
     for(let e in obj) {
-        console.log(nameToString(e));
         res.push({ name: nameToString(e), prop: e });
     }
     return res;
@@ -56,6 +55,5 @@ export const getBuffer = data => {
     for (var i = 0; i < buffer.length; i++) {
         myBuffer.push(buffer[i]);
     }
-    console.log(buffer);
     return myBuffer;
 }

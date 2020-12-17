@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { egresosUrl } from './../constants/routes';
+import { egresosUrl, uploadUrl } from './../constants/routes';
 import { parsearEgreso } from './../helpers/parser';
 
 
@@ -47,6 +47,33 @@ export default class EgresoService {
     updateEgreso = async(data) => {
         try {
             let resp = await Axios.put(`${egresosUrl}/${this.entidadId}`, data);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
+    }
+
+    uploadDocument = async(file) => {
+        try {
+            let formData = new FormData();
+            let name = file.name.trim().split(".")[0];
+            formData.append(
+                name,
+                file,
+                name
+            )
+            let resp = await Axios.post(`${uploadUrl}/${this.entidadId}/${name}/pdf`, file, 
+            { 
+                mode: 'no-cors',
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    "Content-Type": "multipart/form-data"
+                },
+                credentials: 'same-origin', 
+            });
             if(resp.data) {
                 return true;
             }

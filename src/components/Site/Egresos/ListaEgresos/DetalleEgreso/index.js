@@ -17,7 +17,9 @@ export default class DetalleEgreso extends Component {
             invalidImporte: false,
             mediosPago: null,
             monedas: null,
-            presupuestos: null
+            presupuestos: null,
+            documentoSeleccionado: null,
+            uploadDisabled: true
         }
     }
 
@@ -96,10 +98,27 @@ export default class DetalleEgreso extends Component {
         }
     }
 
+    uploadDocument = () => {
+        let doc = this.state.documentoSeleccionado;
+        this.props.subirDocumento(doc);
+    }
+
+    onDocumentChange = (event) => {
+        this.setState({
+            documentoSeleccionado: event.target.files[0],
+            uploadDisabled: false
+        })
+    }
+
+    hideDetalle = () => {
+        this.setState({ uploadDisabled: true, documentoSeleccionado: null })
+        this.props.onHide();
+    }
+
     render() {
-        let { idEgreso, descripcion, numeroInstrumentoPago, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos } = this.props.data;
+        let { idEgreso, descripcion, numeroInstrumentoPago, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom } = this.props.data;
         return (
-            <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
+            <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={this.hideDetalle}>
                 <Form>
                     <Row form>
                         <Col md={6}>
@@ -124,6 +143,18 @@ export default class DetalleEgreso extends Component {
                                 <Label>Importe Total</Label>
                                 <Input type="number" id="importe" defaultValue={importe} disabled />
                             </FormGroup>
+                            {
+                                !docCom?
+                                <FormGroup>
+                                    <Label>Documento Comercial</Label>
+                                    <Input type="file" id="docCom" onChange={this.onDocumentChange} />
+                                </FormGroup>:
+                                <Button color="primary">Descargar documento</Button>
+                            }
+                            {
+                                !docCom &&
+                                <Button color="primary" disabled={this.state.uploadDisabled} onClick={this.uploadDocument}>Subir documento</Button>
+                            }
                         </Col>
                         <Col md={6}>
                             <FormGroup>

@@ -14,7 +14,6 @@ export default class ValidadorTransparenciaService {
             return resp.data;
         }
         catch(e) {
-            console.log(e)
             return null;
         }
     }
@@ -25,7 +24,6 @@ export default class ValidadorTransparenciaService {
             return resp.data;
         }
         catch(e) {
-            console.log(e)
             return null;
         }
     }
