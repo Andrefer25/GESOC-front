@@ -56,7 +56,7 @@ export default class EgresoService {
         }
     }
 
-    uploadDocument = async(file) => {
+    uploadDocument = async(file, id) => {
         try {
             let formData = new FormData();
             let name = file.name.trim().split(".")[0];
@@ -65,14 +65,13 @@ export default class EgresoService {
                 file,
                 name
             )
-            let resp = await Axios.post(`${uploadUrl}/${this.entidadId}/${name}/pdf`, file, 
+            let url = `${uploadUrl}/${name}/${id}/pdf`;
+            console.log(url);
+            let resp = await Axios.post(url, formData, 
             { 
-                mode: 'no-cors',
                 headers: {
-                    'Access-Control-Allow-Origin': '*',
                     "Content-Type": "multipart/form-data"
-                },
-                credentials: 'same-origin', 
+                } 
             });
             if(resp.data) {
                 return true;

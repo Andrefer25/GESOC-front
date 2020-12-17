@@ -106,8 +106,8 @@ class ListaEgresos extends Component {
         this.setState({ showDialog: true, selectedData: event.data });
     }
 
-    subirDocumento = async(doc) => {
-        this.service.uploadDocument(doc).then(async response => {
+    subirDocumento = async(doc, id) => {
+        this.service.uploadDocument(doc, parseInt(id)).then(async response => {
             if(response) {
                 this.showSuccess();
             } else {

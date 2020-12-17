@@ -100,7 +100,7 @@ export default class DetalleEgreso extends Component {
 
     uploadDocument = () => {
         let doc = this.state.documentoSeleccionado;
-        this.props.subirDocumento(doc);
+        this.props.subirDocumento(doc, this.props.data.idEgreso);
     }
 
     onDocumentChange = (event) => {
@@ -113,6 +113,10 @@ export default class DetalleEgreso extends Component {
     hideDetalle = () => {
         this.setState({ uploadDisabled: true, documentoSeleccionado: null })
         this.props.onHide();
+    }
+
+    openInNewTab(url) {
+        window.open(url, '_blank');
     }
 
     render() {
@@ -149,7 +153,7 @@ export default class DetalleEgreso extends Component {
                                     <Label>Documento Comercial</Label>
                                     <Input type="file" id="docCom" onChange={this.onDocumentChange} />
                                 </FormGroup>:
-                                <Button color="primary">Descargar documento</Button>
+                                <Button color="primary" href={"https://gesoctp.herokuapp.com/download/"+docCom} target="_blank">Descargar documento</Button>
                             }
                             {
                                 !docCom &&

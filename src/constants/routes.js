@@ -26,3 +26,4 @@ export const proveedorUrl = port+"/gesoc/proveedor";
 export const bandejaMensajesUrl = port+"/gesoc/leerMensajes";
 export const criterioUrl = port+"/gesoc/criterios";
 export const uploadUrl = port+"/upload";
+export const downloadUrl = port+"/download";
