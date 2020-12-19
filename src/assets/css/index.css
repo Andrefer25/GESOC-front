@@ -318,3 +318,7 @@ code {
   font-size: .7em;
   color: gray;
 }
+
+.p-datatable .p-datatable-tbody tr:hover {
+  cursor: pointer !important;
+}

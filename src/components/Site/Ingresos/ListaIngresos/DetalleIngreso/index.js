@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Dialog } from 'primereact/dialog';
-import { Col, Row, Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
+import { Form, FormGroup, Label, Input, FormFeedback } from 'reactstrap';
 import { validateInputNumber, validateInputText } from './../../../../../helpers/validator';
 import MediosDePagoService from './../../../../../services/MediosDePagoService';
 
@@ -21,8 +21,7 @@ export default class DetalleIngreso extends Component {
 
     renderFooter = () => (
         <div>
-            <Button color="primary" onClick={this.onSubmit}>Guardar</Button>
-            <Button color="danger" onClick={this.onDelete}>Borrar</Button>
+            {/* <Button color="primary" onClick={this.onSubmit}>Guardar</Button> */}
         </div>
     );
 
@@ -73,54 +72,40 @@ export default class DetalleIngreso extends Component {
     }
 
     render() {
-        let { idIngreso, descripcion, clienteId, importe, moneda } = this.props.data;
+        let { idIngreso, descripcion, importe, moneda } = this.props.data;
         return (
-            <Dialog header={`Detalles Ingreso ${idIngreso}`} visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
+            <Dialog header={`Detalles Ingreso ${idIngreso}`} visible={this.props.visible} style={{ width: '30vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
                 <Form>
-                    <Row form>
-                        <Col md={6}>
-                            <FormGroup>
-                                <Label>ID Cliente</Label>
-                                <Input type="number" id="clienteId" placeholder="Ingresa el ID" invalid={this.state.invalidID} defaultValue={clienteId} />
-                                {
-                                    this.state.invalidID &&
-                                    <FormFeedback>Ingrese un ID válido</FormFeedback>
-                                }
-                            </FormGroup>
+                    <FormGroup>
+                        <Label>Descripcion</Label>
+                        <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} defaultValue={descripcion} disabled />
+                        {
+                            this.state.invalidDescripcion &&
+                            <FormFeedback>Ingrese una descripción válida</FormFeedback>
+                        }
+                    </FormGroup>
+                    {
+                        this.state.monedas &&
+                        <FormGroup>
+                            <Label>Moneda</Label>
                             {
                                 this.state.monedas &&
-                                <FormGroup>
-                                    <Label>Moneda</Label>
+                                <Input type="select" name="select" id="moneda" defaultValue={moneda.idMoneda} disabled>
                                     {
-                                        this.state.monedas &&
-                                        <Input type="select" name="select" id="moneda" defaultValue={moneda.idMoneda}>
-                                            {
-                                                this.renderMoneda(this.state.monedas)
-                                            }
-                                        </Input>
+                                        this.renderMoneda(this.state.monedas)
                                     }
-                                </FormGroup>
+                                </Input>
                             }
-                        </Col>
-                        <Col md={6}>
-                            <FormGroup>
-                                <Label>Descripcion</Label>
-                                <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} defaultValue={descripcion} />
-                                {
-                                    this.state.invalidDescripcion &&
-                                    <FormFeedback>Ingrese una descripción válida</FormFeedback>
-                                }
-                            </FormGroup>
-                            <FormGroup>
-                                <Label>Importe</Label>
-                                <Input type="number" id="importe" placeholder="Ingresa el importe" invalid={this.state.invalidImporte} defaultValue={importe} />
-                                {
-                                    this.state.invalidImporte &&
-                                    <FormFeedback>Ingrese un importe válido</FormFeedback>
-                                }
-                            </FormGroup>
-                        </Col>
-                    </Row>
+                        </FormGroup>
+                    }
+                    <FormGroup>
+                        <Label>Importe</Label>
+                        <Input type="number" id="importe" placeholder="Ingresa el importe" invalid={this.state.invalidImporte} defaultValue={importe} disabled />
+                        {
+                            this.state.invalidImporte &&
+                            <FormFeedback>Ingrese un importe válido</FormFeedback>
+                        }
+                    </FormGroup>
                 </Form>
             </Dialog>
         )

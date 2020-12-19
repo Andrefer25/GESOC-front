@@ -62,7 +62,7 @@ class PrimerPaso extends Component {
             moneda: { idMoneda: parseInt(document.getElementById("moneda").value) },
             mediodepago: {idmediodepago: document.getElementById("medioPago").value },
             usuario: { idUsuario: 1 },
-            entidadjuridica: { idEntidadJuridica: 1 },
+            entidadjuridica: { idEntidadJuridica: localStorage.getItem("entJuridica") },
             presupuestoSeleccionado: this.props.lista[this.state.indexElegido].idPresupuesto
         }
 

@@ -4,6 +4,8 @@ import { Button as PrButton } from 'primereact/button';
 
 const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
 
+    const categoria = (entidadJuridica.categoriaentidad && entidadJuridica.categoriaentidad.descripcion)? entidadJuridica.categoriaentidad.descripcion : "CARGA LOS DATOS EN EL BACK PLIS";
+
     return (
         <Row>
             <Col md="7">
@@ -48,7 +50,7 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
             <Col md="3" className="colButtons">
                 <div className="categoriaEntidad">
                     <p>Categoria</p>
-                    <strong>{entidadJuridica.categoriaentidad.descripcion.toUpperCase()}</strong>
+                    <strong>{categoria.toUpperCase()}</strong>
                 </div>
             </Col>
         </Row>

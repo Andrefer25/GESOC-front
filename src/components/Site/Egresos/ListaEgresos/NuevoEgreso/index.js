@@ -52,7 +52,6 @@ export default class NuevoEgreso extends Component {
             { (this.state.activeIndex < this.items.length-1) &&
                 <Button color="primary" onClick={() => this.nextItem()} disabled={!this.state.isValid[this.state.activeIndex.toString()]}>Siguiente</Button>
             }
-            <Button color="danger" onClick={() => this.props.onHide()}>Cancelar</Button>
         </div>
     );
 

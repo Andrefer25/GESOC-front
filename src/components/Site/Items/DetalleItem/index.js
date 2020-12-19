@@ -52,7 +52,7 @@ class DetalleItem extends Component {
                 <Form>
                     <FormGroup>
                         <Label>Descripcion(nombre)</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa una descripcion" invalid={this.state.invalidDesc} defaultValue={descripcion} />
+                        <Input type="text" id="descripcion" placeholder="Ingresa una descripcion" invalid={this.state.invalidDesc} defaultValue={descripcion} disabled />
                         {
                             this.state.invalidDesc &&
                             <FormFeedback>Ingrese una descripcion válida</FormFeedback>
@@ -60,7 +60,7 @@ class DetalleItem extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label>Tipo</Label>
-                        <Input type="select" name="select" id="productoServicio" defaultValue={productoServicio}>
+                        <Input type="select" name="select" id="productoServicio" defaultValue={productoServicio} disabled>
                             <option value="Producto">Producto</option>
                             <option value="Servicio">Servicio</option>
                         </Input>

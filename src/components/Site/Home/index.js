@@ -48,17 +48,28 @@ class Home extends Component {
     }
 
     validar = async() => {
-        let validacion = await this.validadorService.validar(); 
-        this.setState({
-            validador: validacion
-        });
+        this.validadorService.validar().then(validacion => {
+            if(validacion) {
+                this.setState({
+                    validador: validacion
+                });
+                this.showSuccess("Validacion realizada correctamente");
+            } else {
+                this.showError("Se produjo un error en la validacion");
+            }
+        }) 
     }
 
     vincular = async(lista) => {
         this.vinculadorService.vincular(lista).then(vinculacion => {
-            this.setState({
-                vinculador: vinculacion
-            })
+            if(vinculacion) {
+                this.setState({
+                    vinculador: vinculacion
+                });
+                this.showSuccess("Vinculacion realizada correctamente");
+            } else {
+                this.showError("Se produjo un error en la vinculacion");
+            }
         })
     }
     

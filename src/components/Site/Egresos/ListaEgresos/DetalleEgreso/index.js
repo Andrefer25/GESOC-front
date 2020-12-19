@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { Dialog } from 'primereact/dialog';
 import { Col, Row, Form, FormGroup, Label, Input, Button, FormFeedback } from 'reactstrap';
-import { validateInputNumber, validateInputText } from './../../../../../helpers/validator';
+import { validateInputText } from './../../../../../helpers/validator';
 import MediosDePagoService from './../../../../../services/MediosDePagoService';
 import PresupuestoService from '../../../../../services/PresupuestoService';
+import UsuarioService from '../../../../../services/UserService';
+import { Select } from 'antd';
+import { Toast } from 'primereact/toast';
 
 export default class DetalleEgreso extends Component {
 
@@ -11,24 +14,39 @@ export default class DetalleEgreso extends Component {
         super();
         this.service = new MediosDePagoService();
         this.presupuestoService = new PresupuestoService();
+        this.usuarioService = new UsuarioService();
         this.state = {
-            invalidNumIns: false,
             invalidDescripcion: false,
             invalidImporte: false,
             mediosPago: null,
             monedas: null,
             presupuestos: null,
+            usuarios: null,
             documentoSeleccionado: null,
-            uploadDisabled: true
+            uploadDisabled: true,
+            revisoresDisabled: true,
+            selectedItems: [],
         }
     }
 
+    handleChange = selectedItems => {
+        console.log(selectedItems);
+        this.setState({ selectedItems, revisoresDisabled: !selectedItems.length>0 });
+    };
+
     renderFooter = () => (
         <div>
-            <Button color="primary" onClick={this.onSubmit}>Guardar</Button>
-            <Button color="danger" onClick={this.onDelete}>Borrar</Button>
+            {/* <Button color="primary" onClick={this.onSubmit}>Guardar</Button> */}
         </div>
     );
+
+    showSuccess = () => {
+        this.toast.show({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+    }
+
+    showError = () => {
+        this.toast.show({severity:'error', summary: 'Error Message', detail:'Message Content', life: 3000});
+    }
 
     renderMedioPago = (data) => {
         return data.map(e => (
@@ -48,6 +66,12 @@ export default class DetalleEgreso extends Component {
         ));
     }
 
+    renderUsuarios = (data) => {
+        return data.map(e => (
+            <Select.Option value={e.idUsuario} key={e.idUsuario}>{`${e.nombre} ${e.apellido} (${e.nombreUsuario})`}</Select.Option>
+        ))
+    }
+
     getPresupuestosElegidos = (presupuestos) => {
         let lista = this.state.presupuestos.filter(e => presupuestos.indexOf(e.idPresupuesto) !== -1);
         return lista;
@@ -55,15 +79,29 @@ export default class DetalleEgreso extends Component {
 
     componentDidMount = async () => {
         this.getMediosPago().then(async () => {
-            await this.getPresupuestos()
+           this.getPresupuestos().then(async () => {
+                this.getMonedas().then(async () => {
+                    await this.getUsuarios()
+                })
+           })
         });
     }
 
     getMediosPago = async () => {
         let mediosPago = await this.service.getMediosPago();
+
+        this.setState({ mediosPago });
+    }
+
+    getMonedas = async() => {
         let monedas = await this.service.getMonedas();
 
-        this.setState({ mediosPago, monedas });
+        this.setState({ monedas });
+    }
+
+    getUsuarios = async() => {
+        let usuarios = await this.usuarioService.getUsuarios();
+        this.setState({ usuarios });
     }
 
     getPresupuestos = async() => {
@@ -79,21 +117,17 @@ export default class DetalleEgreso extends Component {
     }
 
     onSubmit = async () => {
-        let numeroInstrumentoPago = document.getElementById("numeroInstrumentoPago").value || "";
         let descripcion = document.getElementById("descripcion").value || "";
         let idEgreso = parseInt(this.props.data.idEgreso);
         let mediodepago = {idmediodepago: parseInt(document.getElementById("medioPago").value)};
-        this.setState({ invalidInsPago: false, invalidDescripcion: false });
-        if(validateInputNumber(numeroInstrumentoPago) && validateInputText(descripcion)) {
+        this.setState({ invalidDescripcion: false });
+        if(validateInputText(descripcion)) {
             await this.props.onSubmit({
-                descripcion, numeroInstrumentoPago: parseInt(numeroInstrumentoPago), idEgreso, mediodepago, importe: this.props.data.importe
+                descripcion, idEgreso, mediodepago, importe: this.props.data.importe
             })
         } else {
             if(!validateInputText(descripcion)) {
                 this.setState({ invalidDescripcion: true });
-            }
-            if(!validateInputNumber(numeroInstrumentoPago)) {
-                this.setState({ invalidNumIns: true });
             }
         }
     }
@@ -119,21 +153,41 @@ export default class DetalleEgreso extends Component {
         window.open(url, '_blank');
     }
 
+    filterUsers(users) {
+        let selected = this.state.selectedItems;
+        return users.filter(e => !selected.includes(e.idUsuario));
+    }
+
+    agregarRevisor = async () => {
+        let selected = this.state.selectedItems;
+        console.log(selected);
+        let revisores = selected.map(e => ({idUsuario: e}));
+        let data = { revisores };
+        let idEgreso = this.props.data.idEgreso;
+        await this.setRevisores(data, idEgreso);
+    }
+
+    setRevisores = (data, id) => {
+        this.usuarioService.insertRevisores(data,id).then(response => {
+            if(response) {
+                this.showSuccess();
+            } else {
+                this.showError();
+            }  
+            this.props.revisores();
+        })
+    }
+
     render() {
-        let { idEgreso, descripcion, numeroInstrumentoPago, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom } = this.props.data;
+        let { idEgreso, descripcion, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom } = this.props.data;
+        let { selectedItems } = this.state;
+        
         return (
-            <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={this.hideDetalle}>
+            <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '60vw' }} footer={this.renderFooter()} onHide={this.hideDetalle}>
+                <Toast ref={(el) => this.toast = el} />
                 <Form>
                     <Row form>
                         <Col md={6}>
-                            <FormGroup>
-                                <Label>Número Instrumento de Pago</Label>
-                                <Input type="number" id="numeroInstrumentoPago" placeholder="Ingresa el número de instrumento" invalid={this.state.invalidNumIns} defaultValue={numeroInstrumentoPago} />
-                                {
-                                    this.state.invalidNumIns &&
-                                    <FormFeedback>Ingrese un número válido</FormFeedback>
-                                }
-                            </FormGroup>
                             {
                                 this.state.monedas &&
                                 <FormGroup>
@@ -163,7 +217,7 @@ export default class DetalleEgreso extends Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label>Descripcion</Label>
-                                <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} defaultValue={descripcion} />
+                                <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} defaultValue={descripcion} disabled />
                                 {
                                     this.state.invalidDescripcion &&
                                     <FormFeedback>Ingrese una descripción válida</FormFeedback>
@@ -173,7 +227,7 @@ export default class DetalleEgreso extends Component {
                                 this.state.mediosPago &&
                                 <FormGroup>
                                     <Label>Medio de Pago</Label>
-                                    <Input type="select" name="select" id="medioPago" defaultValue={mediodepago}>
+                                    <Input type="select" name="select" id="medioPago" defaultValue={mediodepago} disabled>
                                         {this.renderMedioPago(this.state.mediosPago)}
                                     </Input>
                                 </FormGroup>
@@ -186,6 +240,27 @@ export default class DetalleEgreso extends Component {
                                         {this.renderPresupuestos(this.getPresupuestosElegidos(presupuestos))}
                                     </Input>
                                 </FormGroup>
+                            }
+                            {
+                                this.state.usuarios &&
+                                <React.Fragment>
+                                    <FormGroup>
+                                        <Label>Revisores</Label>
+                                        {/* <Input type="select" name="select" id="usuarios" multiple>
+                                            {this.renderUsuarios(this.state.usuarios)}
+                                        </Input> */}
+                                        <Select
+                                            mode="multiple"
+                                            placeholder="Ingrese el nombre de usuario"
+                                            value={selectedItems}
+                                            onChange={this.handleChange}
+                                            style={{ width: '100%' }}
+                                        >
+                                            {this.renderUsuarios(this.state.usuarios)}
+                                        </Select>
+                                    </FormGroup>
+                                    <Button color="primary" disabled={this.state.revisoresDisabled} onClick={this.agregarRevisor}>Agregar revisores</Button>
+                                </React.Fragment>
                             }
                         </Col>
                     </Row>

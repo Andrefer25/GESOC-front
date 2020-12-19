@@ -26,7 +26,6 @@ export default class DetalleEgreso extends Component {
     renderFooter = () => (
         <div>
             <Button color="primary" onClick={this.onSubmit}>Guardar</Button>
-            <Button color="danger" onClick={this.onDelete}>Borrar</Button>
         </div>
     );
 
@@ -106,7 +105,7 @@ export default class DetalleEgreso extends Component {
                                 this.state.monedas &&
                                 <FormGroup>
                                     <Label>Moneda</Label>
-                                    <Input type="select" name="select" id="moneda" defaultValue={moneda}>
+                                    <Input type="select" name="select" id="moneda" defaultValue={moneda} disabled >
                                         {this.renderMoneda(this.state.monedas)}
                                     </Input>
                                 </FormGroup>
@@ -115,7 +114,7 @@ export default class DetalleEgreso extends Component {
                                 this.state.proveedores &&
                                 <FormGroup>
                                     <Label>Proveedor</Label>
-                                    <Input type="select" name="select" id="proveedor" defaultValue={proveedor}>
+                                    <Input type="select" name="select" id="proveedor" defaultValue={proveedor} disabled>
                                         {this.renderProveedores(this.state.proveedores)}
                                     </Input>
                                 </FormGroup>
@@ -124,7 +123,7 @@ export default class DetalleEgreso extends Component {
                         <Col md={6}>
                             <FormGroup>
                                 <Label>Descripcion</Label>
-                                <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} defaultValue={detalles} />
+                                <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} defaultValue={detalles} disabled />
                                 {
                                     this.state.invalidDescripcion &&
                                     <FormFeedback>Ingrese una descripción válida</FormFeedback>

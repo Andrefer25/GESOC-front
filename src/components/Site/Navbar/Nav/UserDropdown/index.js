@@ -28,9 +28,6 @@ const UserDropdown = () => {
             <DropdownMenu right>
               <DropdownItem>{userData.toUpperCase()}</DropdownItem>
               <DropdownItem divider/>
-              <DropdownItem>Ver perfil</DropdownItem>
-              <DropdownItem>Configuracion</DropdownItem>
-              <DropdownItem divider/>
               <DropdownItem onClick={logOut}>Cerrar Sesión</DropdownItem>
             </DropdownMenu>
         </Dropdown>

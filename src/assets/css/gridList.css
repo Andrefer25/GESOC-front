@@ -87,3 +87,7 @@
         margin-top: .5em;
     }
 }
+
+.datatable-filter-demo .p-datatable.p-datatable-customers .p-datatable-tbody > tr > td {
+    cursor: pointer;
+}
