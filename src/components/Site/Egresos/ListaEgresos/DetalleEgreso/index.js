@@ -146,7 +146,7 @@ export default class DetalleEgreso extends Component {
 
     uploadDocument = () => {
         let doc = this.state.documentoSeleccionado;
-        this.cambiarDocumento();
+        this.setState({ cambiarDoc: false });
         this.props.subirDocumento(doc, this.props.data.idEgreso);
     }
 
