@@ -31,7 +31,6 @@ export default class DetalleEgreso extends Component {
     }
 
     handleChange = selectedItems => {
-        console.log(selectedItems);
         this.setState({ selectedItems, revisoresDisabled: !selectedItems.length>0 });
     };
 
@@ -173,7 +172,6 @@ export default class DetalleEgreso extends Component {
 
     agregarRevisor = async () => {
         let selected = this.state.selectedItems;
-        console.log(selected);
         let revisores = selected.map(e => ({idUsuario: e}));
         let data = { revisores };
         let idEgreso = this.props.data.idEgreso;
@@ -183,7 +181,6 @@ export default class DetalleEgreso extends Component {
     setRevisores = (data, id) => {
         this.usuarioService.insertRevisores(data,id).then(response => {
             if(response) {
-                console.log(response);
                 this.showSuccess();
             } else {
                 this.showError();

@@ -16,7 +16,6 @@ class PrimerPaso extends Component {
     }
 
     handleChangeCategoria = selectedItems => {
-        console.log(selectedItems);
         this.setState({ selectedItems });
     };
 

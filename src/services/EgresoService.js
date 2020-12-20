@@ -66,7 +66,6 @@ export default class EgresoService {
                 name
             )
             let url = `${uploadEgresoUrl}/${name}/${id}/pdf`;
-            console.log(url);
             let resp = await Axios.post(url, formData, 
             { 
                 headers: {

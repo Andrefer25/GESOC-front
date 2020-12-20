@@ -8,7 +8,6 @@ export const upload = async(file) => {
         file.name
     )
 
-    console.log(formData);
 
     let resp = await Axios.post("https://www.filestackapi.com/api/store/S3?key=AsQrM2aJWTg60PhVHkJESz", formData, {
         headers: {
@@ -18,5 +17,4 @@ export const upload = async(file) => {
         }
     });
 
-    console.log(resp);
 }

@@ -55,7 +55,6 @@ export default class PresupuestoService {
                 name
             )
             let url = `${uploadPresupuestoUrl}/${name}/${id}/pdf`;
-            console.log(url);
             let resp = await Axios.post(url, formData, 
             { 
                 headers: {
