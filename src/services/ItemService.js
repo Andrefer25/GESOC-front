@@ -27,9 +27,9 @@ export default class ItemService {
         }
     }
 
-    updateItem = async(data) => {
+    updateItem = async(data, id) => {
         try {
-            let resp = await Axios.put(`${itemUrl}/${this.entidadId}`, data);
+            let resp = await Axios.put(`${itemUrl}/${this.entidadId}/${id}`, data);
             if(resp.data) {
                 return true;
             }

@@ -70,7 +70,7 @@ class EditarCriterio extends Component {
                 <Form>
                     <FormGroup>
                         <Label>Nombre</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el criterio" defaultValue={descripcion} />
+                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el criterio" defaultValue={descripcion} disabled />
                         {
                             this.state.invalidDetalle &&
                             <FormFeedback>Ingrese un nombre válido</FormFeedback>

@@ -56,11 +56,11 @@ class DetalleCategoria extends Component {
         );
 
         return (
-            <Dialog header={`Detalle criterio ${idCategoriaPresupuesto}`}  visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
+            <Dialog header={`Detalle categoria ${idCategoriaPresupuesto}`}  visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
                 <Form>
                     <FormGroup>
                         <Label>Nombre</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el criterio" defaultValue={descripcion} />
+                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el criterio" defaultValue={descripcion} disabled />
                         {
                             this.state.invalidDetalle &&
                             <FormFeedback>Ingrese un nombre válido</FormFeedback>

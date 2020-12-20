@@ -22,9 +22,8 @@ class DetalleItem extends Component {
             await this.props.onSubmit({
                 valorUnitario,
                 descripcion,
-                productoServicio,
-                idItem: this.props.idItem
-            })
+                productoServicio
+            }, this.props.data.idItem)
         } else {
             if(!validateInputNumber(valorUnitario)) {
                 this.setState({ invalidVal: true });

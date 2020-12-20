@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { presupuestoUrl } from '../constants/routes';
+import { presupuestoUrl, uploadPresupuestoUrl } from '../constants/routes';
 import { parsearPresupuesto } from '../helpers/parser';
 import EgresoService from './EgresoService';
 import MediosDePagoService from './MediosDePagoService';
@@ -36,6 +36,32 @@ export default class PresupuestoService {
     updatePresupuesto = async(data) => {
         try {
             let resp = await Axios.put(`${presupuestoUrl}/${this.entidadId}`, data);
+            if(resp.data) {
+                return true;
+            }
+        }
+        catch(e) {
+            return false;
+        }
+    }
+
+    uploadDocument = async(file, id) => {
+        try {
+            let formData = new FormData();
+            let name = file.name.trim().split(".")[0];
+            formData.append(
+                name,
+                file,
+                name
+            )
+            let url = `${uploadPresupuestoUrl}/${name}/${id}/pdf`;
+            console.log(url);
+            let resp = await Axios.post(url, formData, 
+            { 
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                } 
+            });
             if(resp.data) {
                 return true;
             }

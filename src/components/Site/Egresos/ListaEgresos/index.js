@@ -13,12 +13,14 @@ import { Toast } from 'primereact/toast';
 
 import './../../../../assets/css/gridList.css';
 import { Button } from "reactstrap";
+import CategoriaService from "../../../../services/CategoriaService";
 
 class ListaEgresos extends Component {
     constructor() {
         super();
 
         this.service = new EgresoService();
+        this.categoriaService = new CategoriaService();
         this.state = {
             data: null,
             loading: true,
@@ -27,6 +29,7 @@ class ListaEgresos extends Component {
             showDialog: false,
             selectedData: null,
             showNewEgreso: false,
+            categorias: null
         }
 
         this.statuses = [
@@ -51,9 +54,17 @@ class ListaEgresos extends Component {
         this.setState({ loading: false });
     }
 
-    componentDidMount = async () => {
-        await this.getLista();
-        this.setState({ loading: false });
+    getCategorias = async() => {
+        let categorias = await this.categoriaService.getCategorias();
+        this.setState({
+            categorias
+        })
+    }
+
+    componentDidMount = () => {
+        this.getLista().then(async () => {
+            await this.getCategorias();
+        });
     }
 
     crearEgreso = async(data) => {
@@ -65,7 +76,7 @@ class ListaEgresos extends Component {
             }  
             this.hideNuevoEgreso();
             await this.getLista();
-        })
+        });
     }
 
     editarIngreso = async(data) => {
@@ -155,12 +166,12 @@ class ListaEgresos extends Component {
                         <Toast ref={(el) => this.toast = el} />
                     </div>
                 </div>
-                { this.state.selectedData &&
-                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} subirDocumento={this.subirDocumento} onSubmit={this.editarIngreso} revisores={this.revisores} />
+                { (this.state.selectedData && this.state.categorias) &&
+                    <DetalleEgreso data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} subirDocumento={this.subirDocumento} onSubmit={this.editarIngreso} revisores={this.revisores} listaCategorias={this.state.categorias} />
                 }
                 {   
-                    this.state.showNewEgreso &&
-                    <NuevoEgreso visible={this.state.showNewEgreso} onHide={this.hideNuevoEgreso} crearEgreso={this.crearEgreso} />
+                    (this.state.showNewEgreso && this.state.categorias) &&
+                    <NuevoEgreso visible={this.state.showNewEgreso} onHide={this.hideNuevoEgreso} crearEgreso={this.crearEgreso} listaCategorias={this.state.categorias} />
                 }
             </div>
         )

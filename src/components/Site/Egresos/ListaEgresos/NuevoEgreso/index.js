@@ -88,7 +88,7 @@ export default class NuevoEgreso extends Component {
             case 0:
                 return <PrimerPaso index="0" updatePresupuestos={this.updatePresupuestos} lista={this.state.listaPresupuestos} presupuestos={this.state.presupuestos} />
             case 1:
-                return <SegundoPaso index="1" lista={this.getPresupuestosElegidos(this.state.presupuestos)} insertData={this.insertData} monedas={monedas} mediosPago={mediosPago}/>
+                return <SegundoPaso index="1" lista={this.getPresupuestosElegidos(this.state.presupuestos)} insertData={this.insertData} monedas={monedas} mediosPago={mediosPago} listaCategorias={this.props.listaCategorias} />
             default:
                 return <PrimerPaso />
         }

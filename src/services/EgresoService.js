@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { egresosUrl, uploadUrl } from './../constants/routes';
+import { egresosUrl, uploadEgresoUrl } from './../constants/routes';
 import { parsearEgreso } from './../helpers/parser';
 
 
@@ -65,7 +65,7 @@ export default class EgresoService {
                 file,
                 name
             )
-            let url = `${uploadUrl}/${name}/${id}/pdf`;
+            let url = `${uploadEgresoUrl}/${name}/${id}/pdf`;
             console.log(url);
             let resp = await Axios.post(url, formData, 
             { 

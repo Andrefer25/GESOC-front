@@ -109,7 +109,6 @@ class Proveedores extends Component {
                         selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                         header={header} emptyMessage={`No se encontraron proveedores.`} loading={this.state.loading}
                         globalFilter={this.state.globalFilter} paginator rows={10}>
-                            <Column field="idProveedor" header="ID" sortable></Column>
                             <Column field="nombre" header="Nombre" sortable></Column>
                             <Column field="cuit" header="CUIT" sortable></Column>
                         </DataTable>

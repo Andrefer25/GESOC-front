@@ -18,6 +18,13 @@ export default class CategoriaService {
         else return null;
     }
 
+    getCategorias = async () => {
+        let categorias = await Axios.get(`${categoriaUrl}/${this.entidadId}`);
+        if (categorias.data.length > 0)
+            return categorias.data;
+        else return null;
+    }
+
     createCategoria = async(data) => {
         try {
             let resp = await Axios.post(`${categoriaUrl}/${this.entidadId}`, data);

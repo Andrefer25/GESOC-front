@@ -78,6 +78,18 @@ class ListaPresupuestos extends Component {
         })
     }
 
+    subirDocumento = async(doc, id) => {
+        this.service.uploadDocument(doc, parseInt(id)).then(async response => {
+            if(response) {
+                this.showSuccess();
+            } else {
+                this.showError();
+            }  
+            this.handleDialog();
+            await this.getLista();
+        })
+    }
+
     handleDialog = () => {
         this.setState({ showDialog: false });
     }
@@ -136,7 +148,7 @@ class ListaPresupuestos extends Component {
                     </div>
                 </div>
                 { this.state.selectedData &&
-                    <DetallePresupuesto data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} onSubmit={this.editarIngreso} />
+                    <DetallePresupuesto data={this.state.selectedData} visible={this.state.showDialog} onHide={this.handleDialog} onSubmit={this.editarIngreso} subirDocumento={this.subirDocumento} />
                 }
                 {   
                     this.state.showNewPresupuesto &&

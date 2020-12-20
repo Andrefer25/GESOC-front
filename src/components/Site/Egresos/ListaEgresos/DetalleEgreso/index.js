@@ -26,12 +26,17 @@ export default class DetalleEgreso extends Component {
             uploadDisabled: true,
             revisoresDisabled: true,
             selectedItems: [],
+            cambiarDoc: false
         }
     }
 
     handleChange = selectedItems => {
         console.log(selectedItems);
         this.setState({ selectedItems, revisoresDisabled: !selectedItems.length>0 });
+    };
+
+    handleChangeCategorias = selectedItems => {
+        
     };
 
     renderFooter = () => (
@@ -60,6 +65,12 @@ export default class DetalleEgreso extends Component {
         ));
     }
 
+    renderCategorias = (data) => {
+        return data.map(e => (
+            <Select.Option value={e.idCategoriaPresupuesto} key={e.idCategoriaPresupuesto}>{`${e.descripcion}`}</Select.Option>
+        ));
+    }
+
     renderPresupuestos = (data) => {
         return data.map((e, index) => (
             <option value={index} key={index}>{`${e.detalles}`}</option>
@@ -85,6 +96,7 @@ export default class DetalleEgreso extends Component {
                 })
            })
         });
+        
     }
 
     getMediosPago = async () => {
@@ -134,6 +146,7 @@ export default class DetalleEgreso extends Component {
 
     uploadDocument = () => {
         let doc = this.state.documentoSeleccionado;
+        this.cambiarDocumento();
         this.props.subirDocumento(doc, this.props.data.idEgreso);
     }
 
@@ -145,7 +158,7 @@ export default class DetalleEgreso extends Component {
     }
 
     hideDetalle = () => {
-        this.setState({ uploadDisabled: true, documentoSeleccionado: null })
+        this.setState({ uploadDisabled: true, documentoSeleccionado: null, selectedItems: [] })
         this.props.onHide();
     }
 
@@ -170,18 +183,29 @@ export default class DetalleEgreso extends Component {
     setRevisores = (data, id) => {
         this.usuarioService.insertRevisores(data,id).then(response => {
             if(response) {
+                console.log(response);
                 this.showSuccess();
             } else {
                 this.showError();
             }  
+            this.setState({  selectedItems: [] })
             this.props.revisores();
         })
     }
 
+    cambiarDocumento = () => {
+        this.setState({ cambiarDoc: !this.state.cambiarDoc });
+    }
+
     render() {
-        let { idEgreso, descripcion, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom } = this.props.data;
-        let { selectedItems } = this.state;
-        
+        let { idEgreso, descripcion, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom, revisores, categorias } = this.props.data;
+        let { listaCategorias } = this.props;
+        let { selectedItems, cambiarDoc } = this.state;
+        let disabledRevisores = (revisores.length > 0);
+        if(revisores.length > 0) {
+            selectedItems = revisores;
+        }
+
         return (
             <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '60vw' }} footer={this.renderFooter()} onHide={this.hideDetalle}>
                 <Toast ref={(el) => this.toast = el} />
@@ -202,16 +226,47 @@ export default class DetalleEgreso extends Component {
                                 <Input type="number" id="importe" defaultValue={importe} disabled />
                             </FormGroup>
                             {
-                                !docCom?
+                                listaCategorias &&
                                 <FormGroup>
-                                    <Label>Documento Comercial</Label>
-                                    <Input type="file" id="docCom" onChange={this.onDocumentChange} />
-                                </FormGroup>:
-                                <Button color="primary" href={"https://gesoctp.herokuapp.com/download/"+docCom} target="_blank">Descargar documento</Button>
+                                    <Label>Categorias</Label>
+                                    <Select
+                                        mode="multiple"
+                                        placeholder="Ingresa las categorias"
+                                        value={categorias}
+                                        onChange={this.handleChangeCategoria}
+                                        style={{ width: '100%' }}
+                                        disabled
+                                    >
+                                        {this.renderCategorias(listaCategorias)}
+                                    </Select>
+                                </FormGroup>
                             }
                             {
                                 !docCom &&
-                                <Button color="primary" disabled={this.state.uploadDisabled} onClick={this.uploadDocument}>Subir documento</Button>
+                                <React.Fragment>
+                                    <FormGroup>
+                                        <Label>Documento Comercial</Label>
+                                        <Input type="file" id="docCom" onChange={this.onDocumentChange} />
+                                    </FormGroup>
+                                    <Button color="primary" disabled={this.state.uploadDisabled} onClick={this.uploadDocument}>Subir documento</Button>
+                                </React.Fragment>
+                            }
+                            {   docCom && !cambiarDoc &&
+                                <React.Fragment>
+                                    <Button color="primary" href={"https://gesoctp.herokuapp.com/download/"+docCom} target="_blank">Descargar documento</Button>
+                                    <Button color="danger" style={{marginLeft:".5em"}} onClick={this.cambiarDocumento}>Cambiar documento</Button>
+                                </React.Fragment>
+                            }
+                            {
+                                cambiarDoc &&
+                                <React.Fragment>
+                                    <FormGroup>
+                                        <Label>Documento Comercial</Label>
+                                        <Input type="file" id="docCom" onChange={this.onDocumentChange} />
+                                    </FormGroup>
+                                    <Button color="primary" disabled={this.state.uploadDisabled} onClick={this.uploadDocument}>Subir documento</Button>
+                                    <Button color="danger" style={{marginLeft:".5em"}} onClick={this.cambiarDocumento}>Cancelar</Button>
+                                </React.Fragment>
                             }
                         </Col>
                         <Col md={6}>
@@ -255,11 +310,15 @@ export default class DetalleEgreso extends Component {
                                             value={selectedItems}
                                             onChange={this.handleChange}
                                             style={{ width: '100%' }}
+                                            disabled={disabledRevisores}
                                         >
                                             {this.renderUsuarios(this.state.usuarios)}
                                         </Select>
                                     </FormGroup>
-                                    <Button color="primary" disabled={this.state.revisoresDisabled} onClick={this.agregarRevisor}>Agregar revisores</Button>
+                                    {
+                                        !disabledRevisores &&
+                                        <Button color="primary" disabled={this.state.revisoresDisabled} onClick={this.agregarRevisor}>Agregar revisores</Button>
+                                    }
                                 </React.Fragment>
                             }
                         </Col>

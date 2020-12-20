@@ -17,7 +17,8 @@ export default class UsuarioService {
 
     insertRevisores = async (data, id) => {
         try {
-            let resp = await Axios.put(`${revisorUrl}/${this.entidadId}/${id}`, data);
+            console.log(data);
+            let resp = await Axios.post(`${revisorUrl}/${this.entidadId}/${id}`, data);
             if (resp.data) {
                 return true;
             }

@@ -112,8 +112,8 @@ class CreadorCategorias extends Component {
                         header={header} emptyMessage={`No se encontraron categorias.`} loading={this.state.loading}
                         selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                         globalFilter={this.state.globalFilter} paginator rows={10}>
-                            <Column field="descripcion" header="Descripcion"></Column>
-                            <Column field="criterioDetalle" header="Criterio"></Column>
+                            <Column field="descripcion" header="Descripcion" sortable></Column>
+                            <Column field="criterioDetalle" header="Criterio" sortable></Column>
                         </DataTable>
                     </div>
                 {   

@@ -50,7 +50,7 @@ class DetalleItem extends Component {
                 <Form>
                     <FormGroup>
                         <Label>CUIT</Label>
-                        <Input type="text" id="cuit" placeholder="Ingrese el CUIT" invalid={this.state.invalidCuit} defaultValue={cuit}/>
+                        <Input type="text" id="cuit" placeholder="Ingrese el CUIT" invalid={this.state.invalidCuit} defaultValue={cuit} disabled />
                         {
                             this.state.invalidCuit &&
                             <FormFeedback>Ingrese un CUIT válido</FormFeedback>
@@ -58,7 +58,7 @@ class DetalleItem extends Component {
                     </FormGroup>
                     <FormGroup>
                         <Label>Nombre</Label>
-                        <Input type="text" id="nombre" placeholder="Ingresa el nombre" invalid={this.state.invalidNombre} defaultValue={nombre} />
+                        <Input type="text" id="nombre" placeholder="Ingresa el nombre" invalid={this.state.invalidNombre} defaultValue={nombre} disabled />
                         {
                             this.state.invalidNombre &&
                             <FormFeedback>Ingrese un nombre válido</FormFeedback>

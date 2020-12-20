@@ -10,7 +10,8 @@ class PrimerPaso extends Component {
         super();
         this.state = {
             listaPresupuesto: [],
-            presupuestoSel: null
+            presupuestoSel: null,
+            disabledAdd: true
         }
     }
 
@@ -79,7 +80,9 @@ class PrimerPaso extends Component {
     }
 
     onSelectItem = (presupuestoSel) => {
-        this.setState({ presupuestoSel })
+        if(presupuestoSel) {
+            this.setState({ presupuestoSel, disabledAdd: false });
+        }
     }
 
     render() {
@@ -108,7 +111,7 @@ class PrimerPaso extends Component {
                             </FormGroup>
                         </Col>
                         <Col md={6}>
-                            <Button style={{margin: "2em 0 0 1em"}} onClick={this.onSubmit} color="primary">Agregar</Button>
+                            <Button style={{margin: "2em 0 0 1em"}} onClick={this.onSubmit} disabled={this.state.disabledAdd} color="primary">Agregar</Button>
                         </Col>
                         <Col md={12}>
                             <Table size="sm" responsive>

@@ -18,10 +18,6 @@ class Login extends Component {
     }
   }
 
-  componentDidMount = async() => {
-    await this.test();
-  }
-
   onClickLogin = async() => {
     this.setState({ errorLogin: false });
     let user = document.getElementById("usuarioLogin").value || "";
@@ -34,17 +30,13 @@ class Login extends Component {
         localStorage.setItem('user', result.user);
         localStorage.setItem('role', result.role);
         localStorage.setItem('entJuridica', result.idEntidadJuridica);
+        localStorage.setItem('idUsuario', result.idUsuario);
         window.location.href = '/';
       } else {
         this.setState({ errorLogin: true, tipoError: "Datos incorrectos. Intente nuevamente" })
       }
       
     }
-  }
-
-  test = async () => {
-    let resp = await this.service.test();
-    console.log(resp);
   }
 
   render() {
@@ -76,10 +68,6 @@ class Login extends Component {
             </div>
           </Form>
           <br />
-          <div className="centrar">
-            <p className="pregunta">No tenes cuenta?</p>
-            <p className="registerLink"><Link to="/register">Registrate aca</Link></p>
-          </div>
         </div>
       </Container>
     );

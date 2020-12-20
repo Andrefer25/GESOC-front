@@ -47,7 +47,7 @@ class NuevoProveedor extends Component {
                 <Form>
                     <FormGroup>
                         <Label>CUIT</Label>
-                        <Input type="text" id="cuit" placeholder="Ingrese el CUIT" invalid={this.state.invalidCuit}/>
+                        <Input type="text" pattern="\d*" maxLength="11" id="cuit" placeholder="Ingrese el CUIT" invalid={this.state.invalidCuit}/>
                         {
                             this.state.invalidCuit &&
                             <FormFeedback>Ingrese un CUIT válido</FormFeedback>

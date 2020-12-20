@@ -27,11 +27,11 @@ class Items extends Component {
     }
 
     showSuccess() {
-        this.toast.show({severity:'success', summary: 'Success Message', detail:'Message Content', life: 3000});
+        this.toast.show({severity:'success', summary: 'Success', detail:'Realizado con exito', life: 3000});
     }
 
     showError() {
-        this.toast.show({severity:'error', summary: 'Error Message', detail:'Message Content', life: 3000});
+        this.toast.show({severity:'error', summary: 'Error', detail:'Hubo un problema', life: 3000});
     }
 
     getListaItems = async() => {
@@ -58,8 +58,8 @@ class Items extends Component {
         })
     }
 
-    editarItem = async(data) => {
-        this.service.updateItem(data).then(async resultado => {
+    editarItem = async(data, id) => {
+        this.service.updateItem(data, id).then(async resultado => {
             if(resultado) {
                 this.showSuccess();
             } else {

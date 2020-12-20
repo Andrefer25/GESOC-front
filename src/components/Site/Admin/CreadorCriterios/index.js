@@ -107,8 +107,8 @@ class CreadorCriterios extends Component {
                         header={header} emptyMessage={`No se encontraron criterios.`} loading={this.state.loading}
                         selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                         globalFilter={this.state.globalFilter} paginator rows={10}>
-                            <Column field="descripcion" header="Nombre"></Column>
-                            <Column field="criterioPadre" header="Criterio Padre"></Column>
+                            <Column field="descripcion" header="Nombre" sortable></Column>
+                            <Column field="criterioPadre" header="Criterio Padre" sortable></Column>
                         </DataTable>
                     </div>
                 {   

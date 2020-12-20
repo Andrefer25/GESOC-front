@@ -19,13 +19,14 @@ export default class DetalleEgreso extends Component {
             invalidImporte: false,
             monedas: null,
             egresos: null,
-            proveedores: null
+            proveedores: null,
+            cambiarDoc: false
         }
     }
 
     renderFooter = () => (
         <div>
-            <Button color="primary" onClick={this.onSubmit}>Guardar</Button>
+            {/* <Button color="primary" onClick={this.onSubmit}>Guardar</Button> */}
         </div>
     );
 
@@ -94,10 +95,29 @@ export default class DetalleEgreso extends Component {
         }
     }
 
+    cambiarDocumento = () => {
+        this.setState({ cambiarDoc: !this.state.cambiarDoc });
+    }
+
+    uploadDocument = () => {
+        let doc = this.state.documentoSeleccionado;
+        this.cambiarDocumento();
+        this.props.subirDocumento(doc, this.props.data.idPresupuesto);
+    }
+
+    onDocumentChange = (event) => {
+        this.setState({
+            documentoSeleccionado: event.target.files[0],
+            uploadDisabled: false
+        })
+    }
+
     render() {
-        let { idPresupuesto, detalles, importe, moneda, proveedor } = this.props.data;
+        let { idPresupuesto, detalles, importe, moneda, proveedor, docCom } = this.props.data;
+        let { cambiarDoc } = this.state;
+
         return (
-            <Dialog header={`Detalles Presupuesto ${idPresupuesto}`} visible={this.props.visible} style={{ width: '50vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
+            <Dialog header={`Detalles Presupuesto ${idPresupuesto}`} visible={this.props.visible} style={{ width: '60vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
                 <Form>
                     <Row form>
                         <Col md={6}>
@@ -118,6 +138,33 @@ export default class DetalleEgreso extends Component {
                                         {this.renderProveedores(this.state.proveedores)}
                                     </Input>
                                 </FormGroup>
+                            }
+                            {
+                                !docCom &&
+                                <React.Fragment>
+                                    <FormGroup>
+                                        <Label>Documento Comercial</Label>
+                                        <Input type="file" id="docCom" onChange={this.onDocumentChange} />
+                                    </FormGroup>
+                                    <Button color="primary" disabled={this.state.uploadDisabled} onClick={this.uploadDocument}>Subir documento</Button>
+                                </React.Fragment>
+                            }
+                            {   docCom && !cambiarDoc &&
+                                <React.Fragment>
+                                    <Button color="primary" href={"https://gesoctp.herokuapp.com/download/"+docCom} target="_blank">Descargar documento</Button>
+                                    <Button color="danger" style={{marginLeft:".5em"}} onClick={this.cambiarDocumento}>Cambiar documento</Button>
+                                </React.Fragment>
+                            }
+                            {
+                                cambiarDoc &&
+                                <React.Fragment>
+                                    <FormGroup>
+                                        <Label>Documento Comercial</Label>
+                                        <Input type="file" id="docCom" onChange={this.onDocumentChange} />
+                                    </FormGroup>
+                                    <Button color="primary" disabled={this.state.uploadDisabled} onClick={this.uploadDocument}>Subir documento</Button>
+                                    <Button color="danger" style={{marginLeft:".5em"}} onClick={this.cambiarDocumento}>Cancelar</Button>
+                                </React.Fragment>
                             }
                         </Col>
                         <Col md={6}>
