@@ -14,14 +14,27 @@ export default class PresupuestoService {
     }
 
     getListaPresupuestos = async () => {
-        let presupuestos = await Axios.get(`${presupuestoUrl}/${this.entidadId}`);
-        let monedas = await this.monedas.getMonedas();
-        if (presupuestos.data.length > 0)
-            return parsearPresupuesto(presupuestos.data, monedas);
+        const data = await new Promise((resolve, reject) => {
+            const result = {};
+            Axios.get(`${presupuestoUrl}/${this.entidadId}`).then(presupuestos => {
+                result.presupuestos = presupuestos.data;
+                return result;
+            }).then(result => {
+                this.monedas.getMonedas().then(monedas => {
+                    result.monedas = monedas;
+                    resolve(result);
+                })
+            }).catch(e => {
+                reject(e);
+            })
+        });
+        if (data.presupuestos.length > 0)
+            return parsearPresupuesto(data.presupuestos, data.monedas);
         else return null;
     }
 
     createPresupuesto = async(data) => {
+        console.log(data);
         try {
             let resp = await Axios.post(`${presupuestoUrl}/${this.entidadId}`, data);
             if(resp.data) {
