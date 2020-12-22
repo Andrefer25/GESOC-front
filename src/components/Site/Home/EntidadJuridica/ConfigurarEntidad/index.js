@@ -65,7 +65,7 @@ class ConfigurarEntidad extends Component {
 
     render() {
         return (
-            <Dialog header="Configuracion de Entidad Juridica" visible={this.props.visible} style={{ width: '30vw' }} footer={this.renderFooter} onHide={() => this.props.onHide()}>
+            <Dialog header="Configuración de Entidad Jurídica" visible={this.props.visible} style={{ width: '30vw' }} footer={this.renderFooter} onHide={() => this.props.onHide()}>
                 {
                     this.state.data &&
                     <Form>

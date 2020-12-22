@@ -9,7 +9,7 @@ export const idIngresoTemplate = rowData => (
 
 export const descripcionTemplate = rowData => (
     <React.Fragment>
-        <span className="p-column-title">Descripcion</span>
+        <span className="p-column-title">Descripción</span>
         {rowData.descripcion}
     </React.Fragment>
 );

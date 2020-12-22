@@ -91,7 +91,7 @@ class VincularOperacion extends Component {
                         <Row form>
                             <Col md={4}>
                                 <FormGroup>
-                                    <Label>Criterio de Vinculacion</Label>
+                                    <Label>Criterio de Vinculación</Label>
                                     <Input type="select" id="criterioVinculacion" placeholder="Ingresa el valor">
                                         {this.renderCriterios(this.props.criterios)}
                                     </Input>

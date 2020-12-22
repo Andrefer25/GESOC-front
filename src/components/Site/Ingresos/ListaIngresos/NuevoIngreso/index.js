@@ -67,8 +67,8 @@ export default class NuevoIngreso extends Component {
             <Dialog header="Nuevo Ingreso" visible={this.props.visible} style={{ width: '30vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
                 <Form>
                     <FormGroup>
-                        <Label>Descripcion</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} />
+                        <Label>Descripción</Label>
+                        <Input type="text" id="descripcion" placeholder="Ingresa la descripción" invalid={this.state.invalidDescripcion} />
                         {
                             this.state.invalidDescripcion &&
                             <FormFeedback>Ingrese una descripción válida</FormFeedback>

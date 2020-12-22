@@ -48,11 +48,11 @@ class NuevoItem extends Component {
             <Dialog header="Nuevo Item"  visible={visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => onHide()}>
                 <Form>
                     <FormGroup>
-                        <Label>Descripcion(nombre)</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa una descripcion" invalid={this.state.invalidDesc} />
+                        <Label>Descripción(nombre)</Label>
+                        <Input type="text" id="descripcion" placeholder="Ingresa una descripción" invalid={this.state.invalidDesc} />
                         {
                             this.state.invalidDesc &&
-                            <FormFeedback>Ingrese una descripcion válida</FormFeedback>
+                            <FormFeedback>Ingrese una descripción válida</FormFeedback>
                         }
                     </FormGroup>
                     <FormGroup>
@@ -67,7 +67,7 @@ class NuevoItem extends Component {
                         <Input type="text" id="valorUnitario" placeholder="Ingrese un valor unitario" invalid={this.state.invalidVal} />
                         {
                             this.state.invalidVal &&
-                            <FormFeedback>Ingrese un numero válido</FormFeedback>
+                            <FormFeedback>Ingrese un número válido</FormFeedback>
                         }
                     </FormGroup>
                 </Form>

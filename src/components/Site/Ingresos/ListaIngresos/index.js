@@ -138,10 +138,10 @@ class ListaIngresos extends Component {
                         <DataTable ref={(el) => this.dt = el} value={this.state.data} paginator rows={10}
                             header={header} className="p-datatable-customers" selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                             emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
-                            <Column field="idIngreso" header="Numero operacion" body={Columna.idIngresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" sortable />
+                            <Column field="idIngreso" header="Número operación" body={Columna.idIngresoTemplate} filter filterPlaceholder="Filtrar por ID" filterMatchMode="contains" sortable />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" sortable />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} sortable />
-                            <Column field="descripcion" header="Descripcion" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por descripcion" filterMatchMode="contains" sortable />
+                            <Column field="descripcion" header="Descripción" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por descripción" filterMatchMode="contains" sortable />
                             <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} sortable />
                         </DataTable>
                     </div>

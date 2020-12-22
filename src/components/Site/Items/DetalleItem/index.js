@@ -50,11 +50,11 @@ class DetalleItem extends Component {
             <Dialog header={`Detalles Item ${idItem}`}  visible={visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => onHide()}>
                 <Form>
                     <FormGroup>
-                        <Label>Descripcion(nombre)</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa una descripcion" invalid={this.state.invalidDesc} defaultValue={descripcion} disabled />
+                        <Label>Descripción(nombre)</Label>
+                        <Input type="text" id="descripcion" placeholder="Ingresa una descripción" invalid={this.state.invalidDesc} defaultValue={descripcion} disabled />
                         {
                             this.state.invalidDesc &&
-                            <FormFeedback>Ingrese una descripcion válida</FormFeedback>
+                            <FormFeedback>Ingrese una descripción válida</FormFeedback>
                         }
                     </FormGroup>
                     <FormGroup>
@@ -65,7 +65,7 @@ class DetalleItem extends Component {
                         </Input>
                     </FormGroup>
                     <FormGroup>
-                        <Label>Descripcion</Label>
+                        <Label>Descripción</Label>
                         <Input type="text" id="valorUnitario" placeholder="Ingrese un valor unitario" invalid={this.state.invalidVal} defaultValue={valorUnitario}/>
                         {
                             this.state.invalidVal &&

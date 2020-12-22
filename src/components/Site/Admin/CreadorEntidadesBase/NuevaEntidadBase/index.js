@@ -54,8 +54,8 @@ class NuevaEntidadBase extends Component {
                         }
                     </FormGroup>
                     <FormGroup>
-                        <Label>Descripcion</Label>
-                        <Input type="text" id="ebDescripcion" placeholder="Ingresa una descripcion" invalid={this.state.invalidDesc} />
+                        <Label>Descripción</Label>
+                        <Input type="text" id="ebDescripcion" placeholder="Ingresa una descripción" invalid={this.state.invalidDesc} />
                         {
                             this.state.invalidDesc &&
                             <FormFeedback>Ingrese una descripción válida</FormFeedback>

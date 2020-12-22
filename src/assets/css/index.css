@@ -93,7 +93,7 @@ code {
 }
 
 .box {
-  background-color: #faf0b6;
+  background: linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
   padding: 1em;
   height: 92.5vh;
   max-height: 92.5vh;

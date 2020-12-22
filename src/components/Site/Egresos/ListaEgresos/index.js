@@ -157,8 +157,8 @@ class ListaEgresos extends Component {
                         <DataTable ref={(el) => this.dt = el} value={this.state.data} paginator rows={10}
                             header={header} className="p-datatable-customers" selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
                             emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
-                            <Column field="idEgreso" header="Numero de operacion" body={this.numeroInstrumentoTemplate} filter filterPlaceholder="Filtrar por numero" filterMatchMode="contains" sortable />
-                            <Column field="descripcion" header="Descripcion" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por detalle" filterMatchMode="contains" sortable />
+                            <Column field="idEgreso" header="Numero de operación" body={this.numeroInstrumentoTemplate} filter filterPlaceholder="Filtrar por número" filterMatchMode="contains" sortable />
+                            <Column field="descripcion" header="Descripción" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por detalle" filterMatchMode="contains" sortable />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} sortable />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" sortable />
                             <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} sortable />

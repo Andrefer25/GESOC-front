@@ -84,7 +84,7 @@ export default class NuevoPresupuesto extends Component {
                     <Row form>
                         <Col md={6}>
                             <FormGroup>
-                                <Label>Descripcion</Label>
+                                <Label>Descripción</Label>
                                 <Input type="text" id="descripcion" placeholder="Ingresa la descripcion" invalid={this.state.invalidDescripcion} />
                                 {
                                     this.state.invalidDescripcion &&

@@ -18,7 +18,7 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
                         </Col>
                     </FormGroup>
                     <FormGroup row className="entidadDataElement">
-                        <Label sm={4}><h5>Direccion: </h5></Label>
+                        <Label sm={4}><h5>Dirección: </h5></Label>
                         <Col sm={8} className="entidadDataValue">
                             <h5>{"Av. 9 de Julio 2049"}</h5>
                         </Col>
@@ -49,7 +49,7 @@ const InfoEntidad = ({entidadJuridica, onClickConfig, onClickEditar}) => {
             </Col>
             <Col md="3" className="colButtons">
                 <div className="categoriaEntidad">
-                    <p>Categoria</p>
+                    <p>Categoría</p>
                     <strong>{categoria.toUpperCase()}</strong>
                 </div>
             </Col>

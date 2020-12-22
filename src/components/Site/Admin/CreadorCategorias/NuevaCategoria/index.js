@@ -56,7 +56,7 @@ class NuevaCategoria extends Component {
                 <Form>
                     <FormGroup>
                         <Label>Nombre</Label>
-                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el Categoria" />
+                        <Input type="text" id="descripcion" placeholder="Ingresa un nombre para el Categoría" />
                         {
                             this.state.invalidDetalle &&
                             <FormFeedback>Ingrese un nombre válido</FormFeedback>

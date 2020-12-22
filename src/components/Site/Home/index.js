@@ -53,9 +53,9 @@ class Home extends Component {
                 this.setState({
                     validador: validacion
                 });
-                this.showSuccess("Validacion realizada correctamente");
+                this.showSuccess("Validación realizada correctamente");
             } else {
-                this.showError("Se produjo un error en la validacion");
+                this.showError("Se produjo un error en la validación");
             }
         }) 
     }
@@ -66,9 +66,9 @@ class Home extends Component {
                 this.setState({
                     vinculador: vinculacion
                 });
-                this.showSuccess("Vinculacion realizada correctamente");
+                this.showSuccess("Vinculación realizada correctamente");
             } else {
-                this.showError("Se produjo un error en la vinculacion");
+                this.showError("Se produjo un error en la vinculación");
             }
         })
     }
@@ -78,7 +78,7 @@ class Home extends Component {
             if(resultado) {
                 this.showSuccess("Entidad editada correctamente");
             } else {
-                this.showError("Se produjo un error editando la entidad juridica");
+                this.showError("Se produjo un error editando la entidad jurídica");
             }
             await this.getInfoEntidadJuridica();
         });

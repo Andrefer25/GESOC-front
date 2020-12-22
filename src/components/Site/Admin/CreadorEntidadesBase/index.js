@@ -85,7 +85,7 @@ class CreadorEntidadesBase extends Component {
                         header={header} emptyMessage={`No se encontraron entidades base.`} loading={this.state.loading}
                         globalFilter={this.state.globalFilter} paginator rows={10}>
                             <Column field="nombreFicticio" header="Nombre"></Column>
-                            <Column field="descripcion" header="Descripcion"></Column>
+                            <Column field="descripcion" header="Descripción"></Column>
                         </DataTable>
                     </div>
                 {   
