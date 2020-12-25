@@ -34,7 +34,6 @@ class Login extends Component {
       } else {
         this.setState({ errorLogin: true, tipoError: "Datos incorrectos. Intente nuevamente" })
       }
-      
     }
   }
 

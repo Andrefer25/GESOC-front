@@ -72,9 +72,10 @@ class PrimerPaso extends Component {
             moneda: { idMoneda: parseInt(document.getElementById("moneda").value) },
             proveedor: { idProveedor: parseInt(document.getElementById("proveedor").value) },
             importe: document.getElementById("importe").value,
-            items: this.props.items
+            items: this.props.items,
+            entidadJuridica: { idEntidadJuridica: parseInt(localStorage.getItem("entJuridica")) }
         }
-
+        console.log(presupuesto);
         this.props.insertData(presupuesto);
     }
 
