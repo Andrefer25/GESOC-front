@@ -250,7 +250,7 @@ export default class DetalleEgreso extends Component {
                             }
                             {   docCom && !cambiarDoc &&
                                 <React.Fragment>
-                                    <Button color="primary" href={"https://gesoctp.herokuapp.com/download/"+docCom} target="_blank">Descargar documento</Button>
+                                    <Button color="primary" href={"http://localhost:9000/download/"+docCom} target="_blank">Descargar documento</Button>
                                     <Button color="danger" style={{marginLeft:".5em"}} onClick={this.cambiarDocumento}>Cambiar documento</Button>
                                 </React.Fragment>
                             }
