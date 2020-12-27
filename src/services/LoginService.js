@@ -13,11 +13,6 @@ class LoginService {
         return null;
     }
 
-    test = async () => {
-        let response = await Axios.get("https://cors-anywhere.herokuapp.com/https://gesoctp.herokuapp.com/gesoc/categoriaEntidad/1");
-        return response;
-    }
-
 }
 
 export default LoginService;

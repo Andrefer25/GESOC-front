@@ -20,7 +20,7 @@ class Navigation extends Component {
   componentDidMount = async () => {
     setTimeout(async() => {
       await this.getMessages();
-    }, 10000)
+    }, 5000)
   }
 
   getMessages = async () => {

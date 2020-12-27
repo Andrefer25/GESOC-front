@@ -70,8 +70,10 @@ export default class NuevoPresupuesto extends Component {
             detalles: data.detalles,
             proveedor: data.proveedor,
             moneda: data.moneda,
-            items: data.items
+            items: data.items,
+            entidadJuridica: { idEntidadJuridica: parseInt(localStorage.getItem("entJuridica")) }
         }
+        console.log(presupuestoData);
         this.props.crearPresupuesto(presupuestoData);
     }
 

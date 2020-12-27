@@ -14,6 +14,7 @@ export default class ChartEgreso extends Component {
 
     onClickValidar = async () => {
         await this.props.validar();
+        window.location.href = '/';
     }
 
     chartData = () => {
