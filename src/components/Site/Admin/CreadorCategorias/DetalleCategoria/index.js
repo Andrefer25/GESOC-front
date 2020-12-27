@@ -67,7 +67,7 @@ class DetalleCategoria extends Component {
                         }
                     </FormGroup>
                     <FormGroup>
-                        <Label for="crPadre">Criterio Padre</Label>
+                        <Label for="crPadre">Criterio</Label>
                         <Select
                             id="crPadre"
                             showSearch

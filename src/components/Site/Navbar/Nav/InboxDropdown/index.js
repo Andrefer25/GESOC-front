@@ -12,7 +12,8 @@ class InboxDropdown extends Component {
     }
   }
 
-  showBandejaMensaje = () => {
+  showBandejaMensaje = async() => {
+    await this.props.marcarLeidos();
     this.setState({ showBandeja: !this.state.showBandeja, cantMensajes: 0 })
   }
 

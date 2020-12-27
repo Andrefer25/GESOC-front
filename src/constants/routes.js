@@ -24,6 +24,7 @@ export const presupuestoUrl = port+"/gesoc/presupuesto";
 export const itemUrl = port+"/gesoc/item";
 export const proveedorUrl = port+"/gesoc/proveedor";
 export const bandejaMensajesUrl = port+"/gesoc/leerMensajes";
+export const marcarLeidoUrl = port+"/gesoc/marcarLeidos";
 export const criterioUrl = port+"/gesoc/criterios";
 export const uploadEgresoUrl = port+"/uploadEgreso";
 export const uploadPresupuestoUrl = port+"/uploadPresupuesto";

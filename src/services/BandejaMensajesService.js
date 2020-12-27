@@ -1,5 +1,5 @@
 import Axios from 'axios';
-import { bandejaMensajesUrl } from '../constants/routes';
+import { bandejaMensajesUrl, marcarLeidoUrl } from '../constants/routes';
 import { parsearFechaMensaje } from './../helpers/parser';
 
 export default class BandejaMensajesService {
@@ -15,6 +15,16 @@ export default class BandejaMensajesService {
             return {cantidadMensajesNuevos: messages.data.cantidadMensajesNuevos,
             mensajes: parsearFechaMensaje(messages.data.mensajes)} 
         else return null;
+    }
+
+    marcarLeidos = async () => {
+        try {
+            let result = await Axios.post(`${marcarLeidoUrl}/${this.userId}`);
+            return result;
+        } catch(e){
+            console.error(e);
+            return false;
+        }
     }
 
 }

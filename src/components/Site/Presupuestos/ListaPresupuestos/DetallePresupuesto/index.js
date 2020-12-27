@@ -101,7 +101,6 @@ export default class DetalleEgreso extends Component {
 
     uploadDocument = () => {
         let doc = this.state.documentoSeleccionado;
-        this.cambiarDocumento();
         this.props.subirDocumento(doc, this.props.data.idPresupuesto);
     }
 
@@ -112,12 +111,17 @@ export default class DetalleEgreso extends Component {
         })
     }
 
+    closeDetalle = () => {
+        this.setState({ cambiarDoc: false, uploadDisabled: true });
+        this.props.onHide();
+    }
+
     render() {
         let { idPresupuesto, detalles, importe, moneda, proveedor, docCom } = this.props.data;
         let { cambiarDoc } = this.state;
 
         return (
-            <Dialog header={`Detalles Presupuesto ${idPresupuesto}`} visible={this.props.visible} style={{ width: '60vw' }} footer={this.renderFooter()} onHide={() => this.props.onHide()}>
+            <Dialog header={`Detalles Presupuesto ${idPresupuesto}`} visible={this.props.visible} style={{ width: '60vw' }} footer={this.renderFooter()} onHide={() => this.closeDetalle()}>
                 <Form>
                     <Row form>
                         <Col md={6}>

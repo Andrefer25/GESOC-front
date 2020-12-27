@@ -28,6 +28,10 @@ class Navigation extends Component {
     this.setState({ messages });
   }
 
+  marcarLeidos = async () => {
+    await this.service.marcarLeidos();
+  }
+
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" className="gesocNav" variant="dark">
@@ -40,7 +44,7 @@ class Navigation extends Component {
           </Nav>
           <Nav>
             { this.state.messages?
-              <InboxDropdown messages={this.state.messages} /> :
+              <InboxDropdown messages={this.state.messages} marcarLeidos={this.marcarLeidos} /> :
               <span className="p-overlay-badge p-mr-5" style={{ marginRight:"1em" }}>
                 <Button type="button" badge="1" icon="pi pi-envelope" className="colorButton p-button-rounded p-button-info p-button-outlined" badgeClassName="p-badge-danger"/>
               </span>

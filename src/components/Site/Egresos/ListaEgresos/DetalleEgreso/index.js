@@ -82,6 +82,12 @@ export default class DetalleEgreso extends Component {
         ))
     }
 
+    renderCriterios = (data) => {
+        return data.map(e => (
+            <Select.Option value={e.idCriterioPresupuesto} key={e.idCriterioPresupuesto}>{`${e.nombreCriterioPresupuesto}`}</Select.Option>
+        ))
+    }
+
     getPresupuestosElegidos = (presupuestos) => {
         let lista = this.state.presupuestos.filter(e => presupuestos.indexOf(e.idPresupuesto) !== -1);
         return lista;
@@ -195,13 +201,14 @@ export default class DetalleEgreso extends Component {
     }
 
     render() {
-        let { idEgreso, descripcion, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom, revisores, categorias } = this.props.data;
+        let { idEgreso, descripcion, importe, moneda, mediodepago, presupuestoSeleccionado, presupuestos, docCom, revisores, categorias, criterios } = this.props.data;
         let { listaCategorias } = this.props;
         let { selectedItems, cambiarDoc } = this.state;
         let disabledRevisores = (revisores.length > 0);
         if(revisores.length > 0) {
             selectedItems = revisores;
         }
+        let selectedCriterios = criterios.map(e => e.idCriterioPresupuesto);
 
         return (
             <Dialog header={`Detalles Egreso ${idEgreso}`} visible={this.props.visible} style={{ width: '60vw' }} footer={this.renderFooter()} onHide={this.hideDetalle}>
@@ -250,8 +257,8 @@ export default class DetalleEgreso extends Component {
                             }
                             {   docCom && !cambiarDoc &&
                                 <React.Fragment>
-                                    <Button color="primary" href={"http://localhost:9000/download/"+docCom} target="_blank">Descargar documento</Button>
-                                    <Button color="danger" style={{marginLeft:".5em"}} onClick={this.cambiarDocumento}>Cambiar documento</Button>
+                                    <Button color="primary" href={"http://localhost:9000/download/"+docCom} target="_blank" style={{marginTop:"1em"}}>Descargar documento</Button>
+                                    <Button color="danger" style={{marginLeft:".5em", marginTop:"1em"}} onClick={this.cambiarDocumento}>Cambiar documento</Button>
                                 </React.Fragment>
                             }
                             {
@@ -298,9 +305,6 @@ export default class DetalleEgreso extends Component {
                                 <React.Fragment>
                                     <FormGroup>
                                         <Label>Revisores</Label>
-                                        {/* <Input type="select" name="select" id="usuarios" multiple>
-                                            {this.renderUsuarios(this.state.usuarios)}
-                                        </Input> */}
                                         <Select
                                             mode="multiple"
                                             placeholder="Ingrese el nombre de usuario"
@@ -320,6 +324,23 @@ export default class DetalleEgreso extends Component {
                             }
                         </Col>
                     </Row>
+                    {
+                        criterios &&
+                        <React.Fragment>
+                            <FormGroup style={{marginTop:"0em"}}>
+                                <Label>Criterios</Label>
+                                <Select
+                                    mode="multiple"
+                                    value={selectedCriterios}
+                                    onChange={this.handleChange}
+                                    style={{ width: '100%' }}
+                                    disabled={true}
+                                >
+                                    {this.renderCriterios(criterios)}
+                                </Select>
+                            </FormGroup>
+                        </React.Fragment>
+                    }
                 </Form>
             </Dialog>
         )
