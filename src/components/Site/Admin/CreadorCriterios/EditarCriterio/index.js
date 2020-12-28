@@ -61,7 +61,7 @@ class EditarCriterio extends Component {
 
         const renderFooter = (
             <div>
-                <Button color="primary" onClick={this.onSubmit}>Actualizar</Button>
+                
             </div>
         );
 
