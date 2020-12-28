@@ -11,7 +11,7 @@ export default class EgresoService {
 
     getListaEgresos = async () => {
         let egresos = await Axios.get(`${egresosUrl}/${this.entidadId}`);
-        if (egresos.data.length > 0)
+        if (egresos.data.length > 0) 
             return parsearEgreso(egresos.data);
         else return null;
     }

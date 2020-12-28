@@ -13,7 +13,8 @@ class InboxDropdown extends Component {
   }
 
   showBandejaMensaje = async() => {
-    await this.props.marcarLeidos();
+    if(this.state.cantMensajes > 0)
+      await this.props.marcarLeidos();
     this.setState({ showBandeja: !this.state.showBandeja, cantMensajes: 0 })
   }
 

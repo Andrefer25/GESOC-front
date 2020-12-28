@@ -34,7 +34,6 @@ export default class PresupuestoService {
     }
 
     createPresupuesto = async(data) => {
-        console.log(data);
         try {
             let resp = await Axios.post(`${presupuestoUrl}/${this.entidadId}`, data);
             if(resp.data) {

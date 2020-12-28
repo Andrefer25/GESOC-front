@@ -49,7 +49,22 @@ export const parsearFechaMensaje = data => {
 }
 
 export const parsearEgreso = data => {
-    return parsearValidacion(parsearFechaEgreso(data));
+    return parsearCriteriosEgreso(parsearValidacion(parsearFechaEgreso(data)));
+}
+
+export const parsearCriteriosEgreso = data => {
+    if(data && data.length > 0) {
+        return data.map(e => {
+            if(e.criterios.length>0) {
+                let criterios = "";
+                e.criterios.forEach(c => {
+                    criterios += `${c.nombreCriterioPresupuesto} `;
+                });
+                e.nombreCriterios = criterios;
+            }
+            return e;
+        })
+    } else return [];
 }
 
 export const parsearPresupuesto = (data, monedas) => {

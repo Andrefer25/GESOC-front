@@ -10,17 +10,19 @@ import { Calendar } from 'primereact/calendar';
 import { es } from './../../../../helpers/spanishCalendar';
 import { MdAddCircle } from 'react-icons/md';
 import { Toast } from 'primereact/toast';
-
-import './../../../../assets/css/gridList.css';
 import { Button } from "reactstrap";
 import CategoriaService from "../../../../services/CategoriaService";
+import './../../../../assets/css/gridList.css';
+import { Select } from 'antd';
+import CriterioService from "../../../../services/CriterioService";
+const { Option } = Select;
 
 class ListaEgresos extends Component {
     constructor() {
         super();
-
         this.service = new EgresoService();
         this.categoriaService = new CategoriaService();
+        this.criterioService = new CriterioService();
         this.state = {
             data: null,
             loading: true,
@@ -29,7 +31,9 @@ class ListaEgresos extends Component {
             showDialog: false,
             selectedData: null,
             showNewEgreso: false,
-            categorias: null
+            categorias: null,
+            criterios: null,
+            globalFilter: null
         }
 
         this.statuses = [
@@ -61,10 +65,30 @@ class ListaEgresos extends Component {
         })
     }
 
+    getCriterios = async() => {
+        let criterios = await this.criterioService.getListaCriterios();
+        this.setState({
+            criterios
+        })
+    }
+
     componentDidMount = () => {
         this.getLista().then(async () => {
-            await this.getCategorias();
+            this.getCriterios().then(async () => {
+                await this.getCategorias();
+            })
         });
+    }
+
+    renderItems = (data) => {
+        let options = [];
+        options.push(<Option value={""} key={"a"}></Option>);
+        if(data.length > 0) {
+            data.forEach(e => (
+                options.push(<Option value={`${e.descripcion}`} key={e.idcriteriopresupuesto}>{`${e.descripcion}`}</Option>)
+            ));
+        }
+        return options;
     }
 
     crearEgreso = async(data) => {
@@ -140,8 +164,26 @@ class ListaEgresos extends Component {
                 <h1>
                     {this.props.nameList}
                 </h1>
+                <span className="p-input-icon-left" style={{ marginLeft: "24em"}}>
+                    {
+                        this.state.criterios && this.state.criterios.length>0 &&
+                        <Select
+                            id="idItem"
+                            showSearch
+                            style={{width:"240px"}}
+                            placeholder="Búsqueda por criterio"
+                            optionFilterProp="children"
+                            onChange={(value) => this.setState({ globalFilter: value })}
+                            bordered={true}
+                        >
+                            {
+                                this.renderItems(this.state.criterios)
+                            }
+                        </Select>
+                    }
+                </span>
                 <span className="p-input-icon-left">
-                    <Button className="colorButton" onClick={this.showNuevoEgreso}><MdAddCircle className="buttonIcon" /> Nuevo Egreso</Button>
+                    <Button className="colorButton" onClick={this.showNuevoEgreso}><MdAddCircle className="buttonIcon" />Nuevo Egreso</Button>
                 </span>
             </div>
         );
@@ -156,8 +198,9 @@ class ListaEgresos extends Component {
                     <div className="card">
                         <DataTable ref={(el) => this.dt = el} value={this.state.data} paginator rows={10}
                             header={header} className="p-datatable-customers" selectionMode="single" dataKey="id" onRowSelect={this.onRowSelect}
-                            emptyMessage={`No se encontraron ${this.props.nameList}.`} loading={this.state.loading}>
+                            emptyMessage={`No se encontraron ${this.props.nameList}.`} globalFilter={this.state.globalFilter} loading={this.state.loading}>
                             <Column field="idEgreso" header="Numero de operación" body={this.numeroInstrumentoTemplate} filter filterPlaceholder="Filtrar por número" filterMatchMode="contains" sortable />
+                            <Column field="nombreCriterios" header="Criterios" style={{display:"none"}} body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por detalle" filterMatchMode="contains" sortable />
                             <Column field="descripcion" header="Descripción" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por detalle" filterMatchMode="contains" sortable />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} sortable />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" sortable />

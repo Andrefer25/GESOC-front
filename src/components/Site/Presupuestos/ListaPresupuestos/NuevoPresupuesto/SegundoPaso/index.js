@@ -75,7 +75,6 @@ class PrimerPaso extends Component {
             items: this.props.items,
             entidadJuridica: { idEntidadJuridica: parseInt(localStorage.getItem("entJuridica")) }
         }
-        console.log(presupuesto);
         this.props.insertData(presupuesto);
     }
 
