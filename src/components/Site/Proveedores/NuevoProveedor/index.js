@@ -21,7 +21,7 @@ class NuevoProveedor extends Component {
             await this.props.onSubmit({
                 cuit,
                 nombre,
-                entidadJuridica: parseInt(localStorage.getItem("entJuridica"))
+                entidadJuridica: { idEntidadJuridica: parseInt(localStorage.getItem("entJuridica")) }
             })
         } else {
             if(!validateInputNumber(cuit)) {
