@@ -35,7 +35,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "gesoc": "npm i && npm run build && node server/server.js",
-    "deploy-gesoc": "node server/server.js"
+    "gesoc-server": "node server/server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
