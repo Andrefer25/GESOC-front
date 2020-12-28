@@ -20,7 +20,8 @@ class NuevoProveedor extends Component {
         if(validateInputNumber(cuit) && validateInputText(nombre)) {
             await this.props.onSubmit({
                 cuit,
-                nombre
+                nombre,
+                entidadJuridica: parseInt(localStorage.getItem("entJuridica"))
             })
         } else {
             if(!validateInputNumber(cuit)) {
