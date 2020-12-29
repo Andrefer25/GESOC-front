@@ -85,9 +85,10 @@ export const parsearIngreso = data => {
 const getCriterio = (index, lista) => {
     let crPadre = "";
     lista.forEach(e => {
-        if(e.idcriteriopresupuesto === index)
+        if(e.idcriteriopresupuesto === index){
             crPadre = e.descripcion;
-            return;
+        }
+        return;
     })
     return crPadre;
 }

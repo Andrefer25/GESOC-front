@@ -46,8 +46,8 @@ class DetalleCategoria extends Component {
     }
 
     render() {   
-        
-        let { idCategoriaPresupuesto, descripcion, criterioDetalle } = this.props.dataInfo;
+        let criterioDetalle = this.props.dataInfo.criterioDetalle.split(", ");
+        let { idCategoriaPresupuesto, descripcion } = this.props.dataInfo;
 
         const renderFooter = (
             <div>
@@ -70,6 +70,7 @@ class DetalleCategoria extends Component {
                         <Label for="crPadre">Criterio</Label>
                         <Select
                             id="crPadre"
+                            mode="multiple"
                             showSearch
                             style={{width:"100%"}}
                             placeholder="Ingrese el criterio padre"

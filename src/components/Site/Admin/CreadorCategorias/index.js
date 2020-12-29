@@ -11,6 +11,7 @@ import './../../../../assets/css/gridList.css';
 import CategoriaService from '../../../../services/CategoriaService';
 import CriterioService from '../../../../services/CriterioService';
 import DetalleCategoria from './DetalleCategoria';
+import { parsearCriterios } from '../../../../helpers/parser';
 
 class CreadorCategorias extends Component {
 
@@ -42,6 +43,16 @@ class CreadorCategorias extends Component {
 
     getCategorias = async () => {
         this.service.getListaCategorias().then(({categorias, criterios}) => {
+            categorias.forEach(categoria => {
+                categoria.criterioDetalle = categoria.criterios.map(numCriterio => {
+                    let criterio = criterios.find(criterio => criterio.idcriteriopresupuesto == numCriterio)
+                        if(criterio != null){
+                            return criterio.descripcion
+                        }
+                        return " "
+                    
+                }).join(", ");
+            })
             this.setState({
                 categorias,
                 criterios,

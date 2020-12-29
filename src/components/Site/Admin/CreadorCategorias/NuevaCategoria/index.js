@@ -11,26 +11,29 @@ class NuevaCategoria extends Component {
     constructor() {
         super();
         this.state = {
-            selectedCr: null,
+            selectedCr: [],
             invalidDetalle: false
         }
     }
 
     onChange = (selectedCr) => {
-        this.setState({ selectedCr: parseInt(selectedCr) });
+        console.log(selectedCr);
+        this.setState({ selectedCr: selectedCr.map(num => parseInt(num))});
     }
 
     onSubmit = () => {
-        let descripcion = document.getElementById("descripcion").value   || "";
+        let descripcion = document.getElementById("descripcion").value || "";
         this.setState({ invalidDetalle: false, invalidImporte: false });
         let crPadre = this.state.selectedCr;
-        if(validateInputText(descripcion)) {
-            this.props.agregarCategoria({ 
+        if (validateInputText(descripcion)) {
+            this.props.agregarCategoria({
                 descripcion,
                 "entidadjuridica": {
                     "idEntidadJuridica": parseInt(localStorage.getItem("entJuridica"))
                 },
-                "criteriopresupuesto": {"idcriteriopresupuesto": crPadre}
+                criterios: this.state.selectedCr.map(categoria => {
+                    return{"idcriteriopresupuesto": categoria};
+                })
             });
         } else {
             this.setState({ invalidDetalle: true });
@@ -43,8 +46,8 @@ class NuevaCategoria extends Component {
         ));
     }
 
-    render() {   
-        
+    render() {
+
         const renderFooter = (
             <div>
                 <Button color="primary" onClick={this.onSubmit}>Crear</Button>
@@ -52,7 +55,7 @@ class NuevaCategoria extends Component {
         );
 
         return (
-            <Dialog header="Crear Categoria"  visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
+            <Dialog header="Crear Categoria" visible={this.props.visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => this.props.onHide()}>
                 <Form>
                     <FormGroup>
                         <Label>Nombre</Label>
@@ -65,16 +68,15 @@ class NuevaCategoria extends Component {
                     <FormGroup>
                         <Label for="crPadre">Criterio</Label>
                         <Select
-                            id="crPadre"
-                            showSearch
-                            style={{width:"100%"}}
-                            placeholder="Ingrese el criterio"
-                            optionFilterProp="children"
+                            mode="multiple"
+                            placeholder="Ingresa las categorias"
+                            value={this.state.selectedItems}
                             onChange={this.onChange}
+                            style={{ width: '100%' }}
+                            optionFilterProp="children"
                             bordered={true}
-                            filterOption={(input, option) =>
-                            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-                            }
+                            filterOption={(input, option) => 
+                            option.children.toLowercase().indexOf(input.toLowercase()) >= 0}
                         >
                             {this.renderCategorias(this.props.criterios)}
                         </Select>

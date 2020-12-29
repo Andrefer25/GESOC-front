@@ -4,8 +4,8 @@ import ExtendedInbox from './ExtendedInbox';
 
 class InboxDropdown extends Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       showBandeja: false,
       cantMensajes: 0
@@ -13,9 +13,9 @@ class InboxDropdown extends Component {
   }
 
   showBandejaMensaje = async() => {
-    if(this.state.cantMensajes > 0)
-      await this.props.marcarLeidos();
+    //if(this.state.cantMensajes > 0)
     this.setState({ showBandeja: !this.state.showBandeja, cantMensajes: 0 })
+    await this.props.marcarLeidos();
   }
 
   componentDidMount = () => {
