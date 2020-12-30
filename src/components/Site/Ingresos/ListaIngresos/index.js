@@ -142,7 +142,6 @@ class ListaIngresos extends Component {
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" sortable />
                             <Column field="fechaEgreso" header="Fecha" body={Columna.dateBodyTemplate} filter filterElement={dateFilter} filterFunction={Columna.filterDate} sortable />
                             <Column field="descripcion" header="Descripción" body={Columna.descripcionTemplate} filter filterPlaceholder="Filtrar por descripción" filterMatchMode="contains" sortable />
-                            <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} sortable />
                         </DataTable>
                     </div>
                     <Toast ref={(el) => this.toast = el} />
