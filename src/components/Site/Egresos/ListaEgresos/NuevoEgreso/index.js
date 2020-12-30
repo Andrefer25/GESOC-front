@@ -33,7 +33,7 @@ export default class NuevoEgreso extends Component {
     }
 
     getPresupuestos = async() => {
-        let presupuestos = await this.presupuestoService.getListaPresupuestos();
+        let presupuestos = await this.presupuestoService.getFilteredPresupuestos();
 
         this.setState({ presupuestos });
     }
