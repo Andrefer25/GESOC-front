@@ -38,15 +38,9 @@ class DetalleItem extends Component {
         let {visible, onHide} = this.props;
 
         let { idProveedor, nombre, cuit } = this.props.data;
-    
-        const renderFooter = (
-            <div>
-                <Button color="primary" onClick={this.onSubmit}>Guardar</Button>
-            </div>
-        );
-    
+
         return (
-            <Dialog header={`Detalles Proveedor ${idProveedor}`}  visible={visible} style={{ width: '30vw' }} footer={renderFooter} onHide={() => onHide()}>
+            <Dialog header={`Detalles Proveedor ${idProveedor}`}  visible={visible} style={{ width: '30vw' }} onHide={() => onHide()}>
                 <Form>
                     <FormGroup>
                         <Label>CUIT</Label>
