@@ -36,8 +36,8 @@ export const statusItemTemplate = option => (
 
 export const dateBodyTemplate = rowData =>  (
     <React.Fragment>
-        <span className="p-column-title">Fecha Egreso</span>
-        <span>{rowData.fechaEgreso}</span>
+        <span className="p-column-title">Fecha Ingreso</span>
+        <span>{rowData.fechaIngreso}</span>
     </React.Fragment>
 );
 
