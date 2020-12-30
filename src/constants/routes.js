@@ -31,3 +31,4 @@ export const uploadPresupuestoUrl = port+"/uploadPresupuesto";
 export const downloadUrl = port+"/download";
 export const usuarioUrl = port+"/gesoc/usuario";
 export const revisorUrl = port+"/gesoc/revisoresEgreso";
+export const egresoFilterUrl = port+"/gesoc/presupuestoFiltrado";
