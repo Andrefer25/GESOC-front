@@ -142,7 +142,6 @@ class ListaPresupuestos extends Component {
                             <Column field="moneda" header="Moneda" body={Columna.monedaTemplate} sortable />
                             <Column field="importe" header="Importe" body={Columna.importeTemplate} filter filterPlaceholder="Filtrar por importe" filterMatchMode="contains" sortable />
                             <Column field="egresoAsignado" header="Egreso Asignado" body={this.idEgresoTemplate} filter filterPlaceholder="Filtrar por número" filterMatchMode="contains" sortable />
-                            <Column field="validado" header="Estado" body={Columna.statusBodyTemplate} filter filterElement={statusFilter} sortable />
                         </DataTable>
                         <Toast ref={(el) => this.toast = el} />
                     </div>
